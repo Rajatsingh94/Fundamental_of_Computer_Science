@@ -1,0 +1,24 @@
+new_session: yes
+
+rmd_files: [
+  "index.rmd",
+  "1-Panormicview.Rmd",
+
+  "2-object_oriented_Problm_Solving.Rmd",
+  "3-Csharp_Basics.Rmd",
+  "4-Control_Structure.Rmd",
+  "5-.NET_Framework.Rmd",
+  "6-Object_oriented.Rmd",
+  "7-Classes.Rmd",
+  "8-Class_Inheritance.Rmd",
+
+  "9-Arrays.Rmd",
+  "10-Strings.Rmd",
+  "11-Input_output.Rmd",
+  "12-Interface.Rmd",
+  "13-Algorithm_Problem_Solving.Rmd",
+  "14-Advanced_Csharp_Constructs.Rmd",
+  "15-Data_Rep.Rmd",
+  "16-Computer_organization.Rmd",
+
+]

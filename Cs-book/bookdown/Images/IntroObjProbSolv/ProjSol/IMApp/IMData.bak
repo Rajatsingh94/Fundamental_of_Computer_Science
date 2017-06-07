@@ -1,0 +1,1554 @@
+<?xml version="1.0" standalone="yes"?>
+<InvMgmtAppData>
+  <xs:schema id="InvMgmtAppData" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="InvMgmtAppData" msdata:IsDataSet="true">
+      <xs:complexType>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element name="Person">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Id" type="xs:string" />
+                <xs:element name="IdType" type="xs:string" minOccurs="0" />
+                <xs:element name="Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Address" type="xs:string" minOccurs="0" />
+                <xs:element name="MaritalStatus" type="xs:string" minOccurs="0" />
+                <xs:element name="LoginId" type="xs:string" minOccurs="0" />
+                <xs:element name="Password" type="xs:string" minOccurs="0" />
+                <xs:element name="ClntType" type="xs:string" minOccurs="0" />
+                <xs:element name="ClntAnnualIncome" type="xs:int" minOccurs="0" />
+                <xs:element name="ClntNumChildren" type="xs:unsignedByte" minOccurs="0" />
+                <xs:element name="ClntBirthDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="ClntStatus" type="xs:string" minOccurs="0" />
+                <xs:element name="MgrLicID" type="xs:string" minOccurs="0" />
+                <xs:element name="MgrLicType" type="xs:string" minOccurs="0" />
+                <xs:element name="MgrLicState" type="xs:string" minOccurs="0" />
+                <xs:element name="MgrLicExpDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="MgrSalary" type="xs:int" minOccurs="0" />
+                <xs:element name="MgrHireDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="MgrEndDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Role" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Account">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ActID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="10000" msdata:AutoIncrementStep="10" type="xs:int" />
+                <xs:element name="ActName" type="xs:string" minOccurs="0" />
+                <xs:element name="ActType" type="xs:string" minOccurs="0" />
+                <xs:element name="ActMarginInd" type="xs:boolean" minOccurs="0" />
+                <xs:element name="ActInvObj" type="xs:string" minOccurs="0" />
+                <xs:element name="ActRestrict" type="xs:string" minOccurs="0" />
+                <xs:element name="LotOptionInd" type="xs:boolean" minOccurs="0" />
+                <xs:element name="LotDispMethod" type="xs:string" minOccurs="0" />
+                <xs:element name="ActStatus" type="xs:string" minOccurs="0" />
+                <xs:element name="ActOpenDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="ActEndDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="ActSrvcLvl" type="xs:string" minOccurs="0" />
+                <xs:element name="ActBalance" type="xs:float" minOccurs="0" />
+                <xs:element name="ActGrpID" type="xs:int" minOccurs="0" />
+                <xs:element name="ClientID" type="xs:string" minOccurs="0" />
+                <xs:element name="InvMgrID" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="ActGroup">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ActGrpID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="10000" msdata:AutoIncrementStep="10" type="xs:int" />
+                <xs:element name="ActGrpName" type="xs:string" minOccurs="0" />
+                <xs:element name="ActGrpPurpose" type="xs:string" minOccurs="0" />
+                <xs:element name="ActGrpDesc" type="xs:string" minOccurs="0" />
+                <xs:element name="ActGrpStartDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="ActGrpEndDate" type="xs:dateTime" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Transaction">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="TrnID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="10000" msdata:AutoIncrementStep="10" type="xs:int" />
+                <xs:element name="TrnType" type="xs:string" minOccurs="0" />
+                <xs:element name="TrnDesc" type="xs:string" minOccurs="0" />
+                <xs:element name="TrnDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="TrnQuantity" type="xs:float" minOccurs="0" />
+                <xs:element name="TrnUnitPrice" type="xs:float" minOccurs="0" />
+                <xs:element name="TrnCostBasis" type="xs:float" minOccurs="0" />
+                <xs:element name="ActID" type="xs:int" minOccurs="0" />
+                <xs:element name="InstrID" type="xs:string" minOccurs="0" />
+                <xs:element name="InvMgrID" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Lot">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="LotID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="10000" msdata:AutoIncrementStep="10" type="xs:int" />
+                <xs:element name="LotNo" type="xs:unsignedShort" minOccurs="0" />
+                <xs:element name="LotAcqDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="LotAcqCode" type="xs:string" minOccurs="0" />
+                <xs:element name="LotCostBasis" type="xs:float" minOccurs="0" />
+                <xs:element name="PosID" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Position">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="PosID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="10000" msdata:AutoIncrementStep="10" type="xs:int" />
+                <xs:element name="PosQuantity" type="xs:unsignedShort" minOccurs="0" />
+                <xs:element name="PosCostBasis" type="xs:float" minOccurs="0" />
+                <xs:element name="PosCostBasisMethod" type="xs:string" minOccurs="0" />
+                <xs:element name="PosEncInd" type="xs:boolean" minOccurs="0" />
+                <xs:element name="PosEncReason" type="xs:string" minOccurs="0" />
+                <xs:element name="ActID" type="xs:int" minOccurs="0" />
+                <xs:element name="InstrID" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="FinInstrument">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="InstrID" type="xs:string" />
+                <xs:element name="InstrIdType" type="xs:string" minOccurs="0" />
+                <xs:element name="InstrName" type="xs:string" minOccurs="0" />
+                <xs:element name="InstrDesc" type="xs:string" minOccurs="0" />
+                <xs:element name="InstrIssueDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="InstrUnitSize" type="xs:unsignedShort" minOccurs="0" />
+                <xs:element name="InstrUnitOfMeasure" type="xs:string" minOccurs="0" />
+                <xs:element name="InstrPriceQuoteMethod" type="xs:string" minOccurs="0" />
+                <xs:element name="InstrPriceMultiplier" type="xs:float" minOccurs="0" />
+                <xs:element name="InstrForm" type="xs:string" minOccurs="0" />
+                <xs:element name="InstrDenomCurrCode" type="xs:string" minOccurs="0" />
+                <xs:element name="InstrTradActStatus" type="xs:string" minOccurs="0" />
+                <xs:element name="InstrRating" type="xs:string" minOccurs="0" />
+                <xs:element name="InstrRatingInst" type="xs:string" minOccurs="0" />
+                <xs:element name="InstrRatingDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="StkType" type="xs:string" minOccurs="0" />
+                <xs:element name="StkDivInd" type="xs:boolean" minOccurs="0" />
+                <xs:element name="MatDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="CpnRate" type="xs:float" minOccurs="0" />
+                <xs:element name="CpnType" type="xs:string" minOccurs="0" />
+                <xs:element name="ZeroCpnInd" type="xs:boolean" minOccurs="0" />
+                <xs:element name="CpnMonthDay" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="DfltStatus" type="xs:string" minOccurs="0" />
+                <xs:element name="DfltDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="MuniPurpose" type="xs:string" minOccurs="0" />
+                <xs:element name="CollaAmount" type="xs:float" minOccurs="0" />
+                <xs:element name="CollaTerms" type="xs:string" minOccurs="0" />
+                <xs:element name="CollaRevFreq" type="xs:string" minOccurs="0" />
+                <xs:element name="CollaNextRevDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="CollaPrevRevDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="GovtBondStatus" type="xs:string" minOccurs="0" />
+                <xs:element name="Type" type="xs:string" minOccurs="0" />
+                <xs:element name="IsrID" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Price">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="PrcID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="10000" msdata:AutoIncrementStep="10" type="xs:int" />
+                <xs:element name="PrcSource" type="xs:string" minOccurs="0" />
+                <xs:element name="PrcUnitPrice" type="xs:float" minOccurs="0" />
+                <xs:element name="PrcDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="PrcType" type="xs:string" minOccurs="0" />
+                <xs:element name="PrcQuoteMethod" type="xs:string" minOccurs="0" />
+                <xs:element name="PrcPricingMultiplier" type="xs:float" minOccurs="0" />
+                <xs:element name="InstrID" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Issuer">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="IsrID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="10000" msdata:AutoIncrementStep="10" type="xs:int" />
+                <xs:element name="IsrName" type="xs:string" minOccurs="0" />
+                <xs:element name="IsrDesc" type="xs:string" minOccurs="0" />
+                <xs:element name="IsrType" type="xs:string" minOccurs="0" />
+                <xs:element name="IsrStateOfDomicile" type="xs:string" minOccurs="0" />
+                <xs:element name="IsrAddress" type="xs:string" minOccurs="0" />
+                <xs:element name="IsrRating" type="xs:string" minOccurs="0" />
+                <xs:element name="IsrRatingInst" type="xs:string" minOccurs="0" />
+                <xs:element name="IsrRatingDate" type="xs:dateTime" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1">
+        <xs:selector xpath=".//Person" />
+        <xs:field xpath="Id" />
+      </xs:unique>
+      <xs:unique name="Account_Constraint1" msdata:ConstraintName="Constraint1">
+        <xs:selector xpath=".//Account" />
+        <xs:field xpath="ActID" />
+      </xs:unique>
+      <xs:unique name="ActGroup_Constraint1" msdata:ConstraintName="Constraint1">
+        <xs:selector xpath=".//ActGroup" />
+        <xs:field xpath="ActGrpID" />
+      </xs:unique>
+      <xs:unique name="Transaction_Constraint1" msdata:ConstraintName="Constraint1">
+        <xs:selector xpath=".//Transaction" />
+        <xs:field xpath="TrnID" />
+      </xs:unique>
+      <xs:unique name="Lot_Constraint1" msdata:ConstraintName="Constraint1">
+        <xs:selector xpath=".//Lot" />
+        <xs:field xpath="LotID" />
+      </xs:unique>
+      <xs:unique name="Position_Constraint1" msdata:ConstraintName="Constraint1">
+        <xs:selector xpath=".//Position" />
+        <xs:field xpath="PosID" />
+      </xs:unique>
+      <xs:unique name="FinInstrument_Constraint1" msdata:ConstraintName="Constraint1">
+        <xs:selector xpath=".//FinInstrument" />
+        <xs:field xpath="InstrID" />
+      </xs:unique>
+      <xs:unique name="Price_Constraint1" msdata:ConstraintName="Constraint1">
+        <xs:selector xpath=".//Price" />
+        <xs:field xpath="PrcID" />
+      </xs:unique>
+      <xs:unique name="Issuer_Constraint1" msdata:ConstraintName="Constraint1">
+        <xs:selector xpath=".//Issuer" />
+        <xs:field xpath="IsrID" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+  <Person>
+    <Id>123-99-1234</Id>
+    <IdType>SSN</IdType>
+    <Name>John Doe</Name>
+    <Address>950 Highway Street, Plainsboro, NJ 08536</Address>
+    <MaritalStatus>Single</MaritalStatus>
+    <LoginId>admin</LoginId>
+    <Password>admin</Password>
+    <Role>Admin</Role>
+  </Person>
+  <Person>
+    <Id>123-45-6789</Id>
+    <IdType>SSN</IdType>
+    <Name>John Maxwell</Name>
+    <Address>3418 Ravens Crest Dr., Plainsboro, NJ 08540</Address>
+    <MaritalStatus>Single</MaritalStatus>
+    <LoginId>jmaxwell</LoginId>
+    <Password>jmaxwell</Password>
+    <MgrLicID>12345</MgrLicID>
+    <MgrLicType>Equities</MgrLicType>
+    <MgrLicState>NewJersey</MgrLicState>
+    <MgrLicExpDate>2003-02-13T00:00:00.0000000-05:00</MgrLicExpDate>
+    <MgrSalary>85000</MgrSalary>
+    <MgrHireDate>2002-12-18T00:00:00.0000000-05:00</MgrHireDate>
+    <Role>InvMgr</Role>
+  </Person>
+  <Person>
+    <Id>123-33-1245</Id>
+    <IdType>TaxId</IdType>
+    <Name>Janet Hamilton</Name>
+    <Address>1234 Fuller Dr., Ann Arbor, MI 49550</Address>
+    <MaritalStatus>Single</MaritalStatus>
+    <LoginId>jhamilton</LoginId>
+    <Password>jhamilton</Password>
+    <MgrLicID>9876541</MgrLicID>
+    <MgrLicType>FixedIncome</MgrLicType>
+    <MgrLicState>Michigan</MgrLicState>
+    <MgrLicExpDate>2002-12-18T00:00:00.0000000-05:00</MgrLicExpDate>
+    <MgrSalary>80000</MgrSalary>
+    <MgrHireDate>2002-12-18T00:00:00.0000000-05:00</MgrHireDate>
+    <Role>InvMgr</Role>
+  </Person>
+  <Person>
+    <Id>111-22-3333</Id>
+    <IdType>SSN</IdType>
+    <Name>John Smith</Name>
+    <Address>3402 Ravens Crest Dr., Plainsboro, NJ 08536</Address>
+    <MaritalStatus>Married</MaritalStatus>
+    <LoginId>jsmith</LoginId>
+    <Password>jsmith</Password>
+    <ClntType>Retail</ClntType>
+    <ClntAnnualIncome>80000</ClntAnnualIncome>
+    <ClntNumChildren>1</ClntNumChildren>
+    <ClntBirthDate>1962-12-25T00:00:00.0000000-05:00</ClntBirthDate>
+    <ClntStatus>Active</ClntStatus>
+    <Role>Client</Role>
+  </Person>
+  <Person>
+    <Id>123-45-1111</Id>
+    <IdType>SSN</IdType>
+    <Name>Arnold Morris</Name>
+    <Address>7 Evans Circle, Cranbury, NJ 08555</Address>
+    <MaritalStatus>Single</MaritalStatus>
+    <LoginId>amorris</LoginId>
+    <Password>amorris</Password>
+    <ClntType>Retail</ClntType>
+    <ClntAnnualIncome>55000</ClntAnnualIncome>
+    <ClntNumChildren>0</ClntNumChildren>
+    <ClntBirthDate>1970-09-11T15:52:10.0000000-04:00</ClntBirthDate>
+    <ClntStatus>Active</ClntStatus>
+    <Role>Client</Role>
+  </Person>
+  <Person>
+    <Id>123-45-2222</Id>
+    <IdType>SSN</IdType>
+    <Name>Barbara Berger</Name>
+    <Address>Benjamin Franklin Dr., Monroe, VA 22102</Address>
+    <MaritalStatus>Married</MaritalStatus>
+    <LoginId>bberger</LoginId>
+    <Password>bberger</Password>
+    <ClntType>Retail</ClntType>
+    <ClntAnnualIncome>65000</ClntAnnualIncome>
+    <ClntNumChildren>1</ClntNumChildren>
+    <ClntBirthDate>1975-01-11T15:56:17.0000000-05:00</ClntBirthDate>
+    <ClntStatus>Active</ClntStatus>
+    <Role>Client</Role>
+  </Person>
+  <Person>
+    <Id>123-45-3333</Id>
+    <IdType>SSN</IdType>
+    <Name>Sandra Goul</Name>
+    <Address>83 Bennington Dr., East Windsor, NJ 08642</Address>
+    <MaritalStatus>Single</MaritalStatus>
+    <LoginId>sgoul</LoginId>
+    <Password>sgoul</Password>
+    <ClntType>Retail</ClntType>
+    <ClntAnnualIncome>80000</ClntAnnualIncome>
+    <ClntNumChildren>0</ClntNumChildren>
+    <ClntBirthDate>1970-01-11T15:59:43.0000000-05:00</ClntBirthDate>
+    <ClntStatus>Active</ClntStatus>
+    <Role>Client</Role>
+  </Person>
+  <Person>
+    <Id>123-55-1111</Id>
+    <IdType>SSN</IdType>
+    <Name>David Brower</Name>
+    <Address>216 Dorchester Dr., West Windsor, NJ 08346</Address>
+    <MaritalStatus>Single</MaritalStatus>
+    <LoginId>dbrower</LoginId>
+    <Password>dbrower</Password>
+    <ClntType>Retail</ClntType>
+    <ClntAnnualIncome>75000</ClntAnnualIncome>
+    <ClntNumChildren>0</ClntNumChildren>
+    <ClntBirthDate>1970-02-15T16:59:25.0000000-05:00</ClntBirthDate>
+    <ClntStatus>Active</ClntStatus>
+    <Role>Client</Role>
+  </Person>
+  <Person>
+    <Id>123-55-2222</Id>
+    <IdType>SSN</IdType>
+    <Name>James Cheng</Name>
+    <Address>110 Pine Hill Road</Address>
+    <MaritalStatus>Married</MaritalStatus>
+    <LoginId>jcheng</LoginId>
+    <Password>jcheng</Password>
+    <ClntType>Retail</ClntType>
+    <ClntAnnualIncome>65000</ClntAnnualIncome>
+    <ClntNumChildren>2</ClntNumChildren>
+    <ClntBirthDate>1965-01-20T17:03:53.0000000-05:00</ClntBirthDate>
+    <ClntStatus>Active</ClntStatus>
+    <Role>Client</Role>
+  </Person>
+  <Person>
+    <Id>123-55-3333</Id>
+    <IdType>SSN</IdType>
+    <Name>Susan Fabula</Name>
+    <Address>213 Hampshire Dr., Hampton, WV 12387</Address>
+    <MaritalStatus>Single</MaritalStatus>
+    <LoginId>sfabula</LoginId>
+    <Password>sfabula</Password>
+    <ClntType>Retail</ClntType>
+    <ClntAnnualIncome>72000</ClntAnnualIncome>
+    <ClntNumChildren>0</ClntNumChildren>
+    <ClntBirthDate>1980-02-11T17:07:48.0000000-05:00</ClntBirthDate>
+    <ClntStatus>Active</ClntStatus>
+    <Role>Client</Role>
+  </Person>
+  <Person>
+    <Id>123-55-4444</Id>
+    <IdType>SSN</IdType>
+    <Name>Jeremy Howard</Name>
+    <Address>363 Morrison Ave., Plainfield, NJ 08560</Address>
+    <MaritalStatus>Married</MaritalStatus>
+    <LoginId>jhoward</LoginId>
+    <Password>jhoward</Password>
+    <ClntType>Retail</ClntType>
+    <ClntAnnualIncome>90000</ClntAnnualIncome>
+    <ClntNumChildren>2</ClntNumChildren>
+    <ClntBirthDate>1965-04-14T17:10:00.0000000-04:00</ClntBirthDate>
+    <ClntStatus>Active</ClntStatus>
+    <Role>Client</Role>
+  </Person>
+  <Person>
+    <Id>123-55-5555</Id>
+    <IdType>SSN</IdType>
+    <Name>Elizabeth Mansfield</Name>
+    <Address>135 Parker Road, McLean, VA 22102</Address>
+    <MaritalStatus>Single</MaritalStatus>
+    <LoginId>emansfield</LoginId>
+    <Password>emansfield</Password>
+    <ClntType>Retail</ClntType>
+    <ClntAnnualIncome>82000</ClntAnnualIncome>
+    <ClntNumChildren>0</ClntNumChildren>
+    <ClntBirthDate>1968-04-15T17:49:09.0000000-04:00</ClntBirthDate>
+    <ClntStatus>Active</ClntStatus>
+    <Role>Client</Role>
+  </Person>
+  <Person>
+    <Id>123-55-6666</Id>
+    <IdType>SSN</IdType>
+    <Name>Frank Rogers</Name>
+    <Address>1607 Pheasant Hollow Dr., Edison, NJ 08537</Address>
+    <MaritalStatus>Married</MaritalStatus>
+    <LoginId>frogers</LoginId>
+    <Password>frogers</Password>
+    <ClntType>Retail</ClntType>
+    <ClntAnnualIncome>95000</ClntAnnualIncome>
+    <ClntNumChildren>3</ClntNumChildren>
+    <ClntBirthDate>1962-05-26T17:51:28.0000000-04:00</ClntBirthDate>
+    <ClntStatus>Active</ClntStatus>
+    <Role>Client</Role>
+  </Person>
+  <Account>
+    <ActID>10000</ActID>
+    <ActName>401K Account</ActName>
+    <ActType>K401</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>IncomeAndGrowth</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>false</LotOptionInd>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T16:16:33.6681250-05:00</ActOpenDate>
+    <ActSrvcLvl>Nominal</ActSrvcLvl>
+    <ActBalance>7475</ActBalance>
+    <ActGrpID>10000</ActGrpID>
+    <ClientID>111-22-3333</ClientID>
+    <InvMgrID>123-33-1245</InvMgrID>
+  </Account>
+  <Account>
+    <ActID>10010</ActID>
+    <ActName>Money Market Account</ActName>
+    <ActType>MoneyMarket</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>CapitalPreservation</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>false</LotOptionInd>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T16:19:21.6368750-05:00</ActOpenDate>
+    <ActSrvcLvl>Nominal</ActSrvcLvl>
+    <ActBalance>7500</ActBalance>
+    <ActGrpID>10010</ActGrpID>
+    <ClientID>111-22-3333</ClientID>
+    <InvMgrID>123-33-1245</InvMgrID>
+  </Account>
+  <Account>
+    <ActID>10020</ActID>
+    <ActName>Investment Account</ActName>
+    <ActType>Investment</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>Growth</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>false</LotOptionInd>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T16:22:19.9025000-05:00</ActOpenDate>
+    <ActSrvcLvl>Silver</ActSrvcLvl>
+    <ActBalance>10000</ActBalance>
+    <ActGrpID>10020</ActGrpID>
+    <ClientID>123-45-1111</ClientID>
+    <InvMgrID>123-33-1245</InvMgrID>
+  </Account>
+  <Account>
+    <ActID>10030</ActID>
+    <ActName>IRA Account</ActName>
+    <ActType>IRA</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>CapitalPreservation</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>false</LotOptionInd>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T16:23:20.0431250-05:00</ActOpenDate>
+    <ActSrvcLvl>Nominal</ActSrvcLvl>
+    <ActBalance>15000</ActBalance>
+    <ActGrpID>10010</ActGrpID>
+    <ClientID>123-45-1111</ClientID>
+    <InvMgrID>123-33-1245</InvMgrID>
+  </Account>
+  <Account>
+    <ActID>10040</ActID>
+    <ActName>401K Account</ActName>
+    <ActType>K401</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>Growth</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>false</LotOptionInd>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T16:44:05.1993750-05:00</ActOpenDate>
+    <ActSrvcLvl>Nominal</ActSrvcLvl>
+    <ActBalance>12000</ActBalance>
+    <ActGrpID>10030</ActGrpID>
+    <ClientID>123-45-2222</ClientID>
+    <InvMgrID>123-33-1245</InvMgrID>
+  </Account>
+  <Account>
+    <ActID>10050</ActID>
+    <ActName>Investment Account</ActName>
+    <ActType>Investment</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>Growth</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>true</LotOptionInd>
+    <LotDispMethod>AverageCost</LotDispMethod>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T16:46:23.8400000-05:00</ActOpenDate>
+    <ActSrvcLvl>Nominal</ActSrvcLvl>
+    <ActBalance>5000</ActBalance>
+    <ActGrpID>10030</ActGrpID>
+    <ClientID>123-45-2222</ClientID>
+    <InvMgrID>123-33-1245</InvMgrID>
+  </Account>
+  <Account>
+    <ActID>10060</ActID>
+    <ActName>Money Market Account</ActName>
+    <ActType>MoneyMarket</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>CapitalPreservation</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>false</LotOptionInd>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T16:47:19.6993750-05:00</ActOpenDate>
+    <ActSrvcLvl>Nominal</ActSrvcLvl>
+    <ActBalance>7500</ActBalance>
+    <ActGrpID>10020</ActGrpID>
+    <ClientID>123-45-3333</ClientID>
+    <InvMgrID>123-33-1245</InvMgrID>
+  </Account>
+  <Account>
+    <ActID>10070</ActID>
+    <ActName>401K Account</ActName>
+    <ActType>K401</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>IncomeAndGrowth</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>false</LotOptionInd>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T16:48:19.4025000-05:00</ActOpenDate>
+    <ActSrvcLvl>Nominal</ActSrvcLvl>
+    <ActBalance>5500</ActBalance>
+    <ActGrpID>10010</ActGrpID>
+    <ClientID>123-45-3333</ClientID>
+    <InvMgrID>123-33-1245</InvMgrID>
+  </Account>
+  <Account>
+    <ActID>10080</ActID>
+    <ActName>401K Account</ActName>
+    <ActType>K401</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>IncomeAndGrowth</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>false</LotOptionInd>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T19:30:58.2306250-05:00</ActOpenDate>
+    <ActSrvcLvl>Nominal</ActSrvcLvl>
+    <ActBalance>5000</ActBalance>
+    <ActGrpID>10000</ActGrpID>
+    <ClientID>123-55-1111</ClientID>
+    <InvMgrID>123-45-6789</InvMgrID>
+  </Account>
+  <Account>
+    <ActID>10090</ActID>
+    <ActName>401K Account</ActName>
+    <ActType>K401</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>Growth</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>false</LotOptionInd>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T19:33:16.4337500-05:00</ActOpenDate>
+    <ActSrvcLvl>Nominal</ActSrvcLvl>
+    <ActBalance>7500</ActBalance>
+    <ActGrpID>10000</ActGrpID>
+    <ClientID>123-55-2222</ClientID>
+    <InvMgrID>123-45-6789</InvMgrID>
+  </Account>
+  <Account>
+    <ActID>10100</ActID>
+    <ActName>Money Market Account</ActName>
+    <ActType>MoneyMarket</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>CapitalPreservation</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>false</LotOptionInd>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T19:34:25.8400000-05:00</ActOpenDate>
+    <ActSrvcLvl>Silver</ActSrvcLvl>
+    <ActBalance>10000</ActBalance>
+    <ActGrpID>10010</ActGrpID>
+    <ClientID>123-55-2222</ClientID>
+    <InvMgrID>123-45-6789</InvMgrID>
+  </Account>
+  <Account>
+    <ActID>10110</ActID>
+    <ActName>Money Market Account</ActName>
+    <ActType>MoneyMarket</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>CapitalPreservation</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>false</LotOptionInd>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T19:35:46.7462500-05:00</ActOpenDate>
+    <ActSrvcLvl>Nominal</ActSrvcLvl>
+    <ActBalance>5000</ActBalance>
+    <ActGrpID>10020</ActGrpID>
+    <ClientID>123-55-3333</ClientID>
+    <InvMgrID>123-45-6789</InvMgrID>
+  </Account>
+  <Account>
+    <ActID>10120</ActID>
+    <ActName>Investment Account</ActName>
+    <ActType>Investment</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>Growth</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>false</LotOptionInd>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T19:37:00.8712500-05:00</ActOpenDate>
+    <ActSrvcLvl>Nominal</ActSrvcLvl>
+    <ActBalance>15000</ActBalance>
+    <ActGrpID>10000</ActGrpID>
+    <ClientID>123-55-3333</ClientID>
+    <InvMgrID>123-45-6789</InvMgrID>
+  </Account>
+  <Account>
+    <ActID>10130</ActID>
+    <ActName>IRA Account</ActName>
+    <ActType>IRA</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>IncomeAndGrowth</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>false</LotOptionInd>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T19:38:03.3868750-05:00</ActOpenDate>
+    <ActSrvcLvl>Silver</ActSrvcLvl>
+    <ActBalance>20000</ActBalance>
+    <ActGrpID>10030</ActGrpID>
+    <ClientID>123-55-4444</ClientID>
+    <InvMgrID>123-45-6789</InvMgrID>
+  </Account>
+  <Account>
+    <ActID>10140</ActID>
+    <ActName>401K Account</ActName>
+    <ActType>K401</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>Growth</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>false</LotOptionInd>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T19:39:08.8243750-05:00</ActOpenDate>
+    <ActSrvcLvl>Nominal</ActSrvcLvl>
+    <ActBalance>5750</ActBalance>
+    <ActGrpID>10010</ActGrpID>
+    <ClientID>123-55-4444</ClientID>
+    <InvMgrID>123-45-6789</InvMgrID>
+  </Account>
+  <Account>
+    <ActID>10150</ActID>
+    <ActName>Money Market Account</ActName>
+    <ActType>MoneyMarket</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>CapitalPreservation</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>false</LotOptionInd>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T19:40:26.8243750-05:00</ActOpenDate>
+    <ActSrvcLvl>Nominal</ActSrvcLvl>
+    <ActBalance>15000</ActBalance>
+    <ActGrpID>10000</ActGrpID>
+    <ClientID>123-55-5555</ClientID>
+    <InvMgrID>123-45-6789</InvMgrID>
+  </Account>
+  <Account>
+    <ActID>10160</ActID>
+    <ActName>IRA Account</ActName>
+    <ActType>IRA</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>Income</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>false</LotOptionInd>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T19:41:35.1212500-05:00</ActOpenDate>
+    <ActSrvcLvl>Nominal</ActSrvcLvl>
+    <ActBalance>12000</ActBalance>
+    <ActGrpID>10020</ActGrpID>
+    <ClientID>123-55-5555</ClientID>
+    <InvMgrID>123-45-6789</InvMgrID>
+  </Account>
+  <Account>
+    <ActID>10170</ActID>
+    <ActName>401K Account</ActName>
+    <ActType>K401</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>IncomeAndGrowth</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>false</LotOptionInd>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T19:42:43.9962500-05:00</ActOpenDate>
+    <ActSrvcLvl>Nominal</ActSrvcLvl>
+    <ActBalance>6000</ActBalance>
+    <ActGrpID>10030</ActGrpID>
+    <ClientID>123-55-6666</ClientID>
+    <InvMgrID>123-45-6789</InvMgrID>
+  </Account>
+  <Account>
+    <ActID>10180</ActID>
+    <ActName>Investment Account</ActName>
+    <ActType>Investment</ActType>
+    <ActMarginInd>false</ActMarginInd>
+    <ActInvObj>Growth</ActInvObj>
+    <ActRestrict>None</ActRestrict>
+    <LotOptionInd>false</LotOptionInd>
+    <ActStatus>Active</ActStatus>
+    <ActOpenDate>2003-01-11T19:44:40.7462500-05:00</ActOpenDate>
+    <ActSrvcLvl>Nominal</ActSrvcLvl>
+    <ActBalance>8000</ActBalance>
+    <ActGrpID>10010</ActGrpID>
+    <ClientID>123-55-6666</ClientID>
+    <InvMgrID>123-45-6789</InvMgrID>
+  </Account>
+  <ActGroup>
+    <ActGrpID>10000</ActGrpID>
+    <ActGrpName>Act Grp One</ActGrpName>
+    <ActGrpPurpose>Group One Purpose</ActGrpPurpose>
+    <ActGrpDesc>Group One Description</ActGrpDesc>
+    <ActGrpStartDate>2003-01-11T15:17:29.7462500-05:00</ActGrpStartDate>
+  </ActGroup>
+  <ActGroup>
+    <ActGrpID>10010</ActGrpID>
+    <ActGrpName>Act Grp Two</ActGrpName>
+    <ActGrpPurpose>Group Two Purpose</ActGrpPurpose>
+    <ActGrpDesc>Group Two Description</ActGrpDesc>
+    <ActGrpStartDate>2003-01-11T15:18:48.9181250-05:00</ActGrpStartDate>
+  </ActGroup>
+  <ActGroup>
+    <ActGrpID>10020</ActGrpID>
+    <ActGrpName>Act Grp Three</ActGrpName>
+    <ActGrpPurpose>Group Three Purpose</ActGrpPurpose>
+    <ActGrpDesc>Group Three Description</ActGrpDesc>
+    <ActGrpStartDate>2003-01-11T15:19:39.0431250-05:00</ActGrpStartDate>
+  </ActGroup>
+  <ActGroup>
+    <ActGrpID>10030</ActGrpID>
+    <ActGrpName>Act Grp Four</ActGrpName>
+    <ActGrpPurpose>Group Four Purpose</ActGrpPurpose>
+    <ActGrpDesc>Group Four Description</ActGrpDesc>
+    <ActGrpStartDate>2003-01-11T15:20:10.6056250-05:00</ActGrpStartDate>
+  </ActGroup>
+  <Transaction>
+    <TrnID>10000</TrnID>
+    <TrnType>Buy</TrnType>
+    <TrnDesc>Buy MSFT - 100 @12.5 per unit.</TrnDesc>
+    <TrnDate>2003-01-23T21:11:43.7843750-05:00</TrnDate>
+    <TrnQuantity>100</TrnQuantity>
+    <TrnUnitPrice>12.5</TrnUnitPrice>
+    <TrnCostBasis>1250</TrnCostBasis>
+    <ActID>10000</ActID>
+    <InstrID>MSFT</InstrID>
+    <InvMgrID>123-33-1245</InvMgrID>
+  </Transaction>
+  <Transaction>
+    <TrnID>10010</TrnID>
+    <TrnType>Buy</TrnType>
+    <TrnDesc>Buy LU - 100 @2.5 per unit.</TrnDesc>
+    <TrnDate>2003-01-23T21:12:03.6437500-05:00</TrnDate>
+    <TrnQuantity>100</TrnQuantity>
+    <TrnUnitPrice>2.5</TrnUnitPrice>
+    <TrnCostBasis>250</TrnCostBasis>
+    <ActID>10000</ActID>
+    <InstrID>LU</InstrID>
+    <InvMgrID>123-33-1245</InvMgrID>
+  </Transaction>
+  <Transaction>
+    <TrnID>10020</TrnID>
+    <TrnType>Buy</TrnType>
+    <TrnDesc>Buy TXN - 100 @8.75 per unit.</TrnDesc>
+    <TrnDate>2003-01-23T21:12:18.0656250-05:00</TrnDate>
+    <TrnQuantity>100</TrnQuantity>
+    <TrnUnitPrice>8.75</TrnUnitPrice>
+    <TrnCostBasis>875</TrnCostBasis>
+    <ActID>10000</ActID>
+    <InstrID>TXN</InstrID>
+    <InvMgrID>123-33-1245</InvMgrID>
+  </Transaction>
+  <Transaction>
+    <TrnID>10030</TrnID>
+    <TrnType>AddCash</TrnType>
+    <TrnDesc>Add Cash - $300</TrnDesc>
+    <TrnDate>2003-01-24T11:14:08.6686250-05:00</TrnDate>
+    <TrnQuantity>300</TrnQuantity>
+    <ActID>10000</ActID>
+    <InvMgrID>123-33-1245</InvMgrID>
+  </Transaction>
+  <Transaction>
+    <TrnID>10040</TrnID>
+    <TrnType>Buy</TrnType>
+    <TrnDesc>Buy GE - 100 @7 per unit.</TrnDesc>
+    <TrnDate>2003-01-24T14:25:50.0695000-05:00</TrnDate>
+    <TrnQuantity>100</TrnQuantity>
+    <TrnUnitPrice>7</TrnUnitPrice>
+    <TrnCostBasis>700</TrnCostBasis>
+    <ActID>10000</ActID>
+    <InstrID>GE</InstrID>
+    <InvMgrID>123-33-1245</InvMgrID>
+  </Transaction>
+  <Transaction>
+    <TrnID>10050</TrnID>
+    <TrnType>Sell</TrnType>
+    <TrnDesc>Sell LU - 100 @3.5 per unit.</TrnDesc>
+    <TrnDate>2003-01-24T16:43:42.6621250-05:00</TrnDate>
+    <TrnQuantity>100</TrnQuantity>
+    <TrnUnitPrice>3.5</TrnUnitPrice>
+    <TrnCostBasis>250</TrnCostBasis>
+    <ActID>10000</ActID>
+    <InstrID>LU</InstrID>
+    <InvMgrID>123-33-1245</InvMgrID>
+  </Transaction>
+  <Transaction>
+    <TrnID>10060</TrnID>
+    <TrnType>WithdrawCash</TrnType>
+    <TrnDesc>Withdraw Cash - $100</TrnDesc>
+    <TrnDate>2003-01-24T16:49:04.3652500-05:00</TrnDate>
+    <TrnQuantity>100</TrnQuantity>
+    <ActID>10000</ActID>
+    <InvMgrID>123-33-1245</InvMgrID>
+  </Transaction>
+  <Position>
+    <PosID>10000</PosID>
+    <PosQuantity>100</PosQuantity>
+    <PosCostBasis>1250</PosCostBasis>
+    <PosCostBasisMethod>Average Cost</PosCostBasisMethod>
+    <PosEncInd>false</PosEncInd>
+    <PosEncReason />
+    <ActID>10000</ActID>
+    <InstrID>MSFT</InstrID>
+  </Position>
+  <Position>
+    <PosID>10020</PosID>
+    <PosQuantity>100</PosQuantity>
+    <PosCostBasis>875</PosCostBasis>
+    <PosCostBasisMethod>Average Cost</PosCostBasisMethod>
+    <PosEncInd>false</PosEncInd>
+    <PosEncReason />
+    <ActID>10000</ActID>
+    <InstrID>TXN</InstrID>
+  </Position>
+  <Position>
+    <PosID>10030</PosID>
+    <PosQuantity>100</PosQuantity>
+    <PosCostBasis>700</PosCostBasis>
+    <PosCostBasisMethod>Average Cost</PosCostBasisMethod>
+    <PosEncInd>false</PosEncInd>
+    <PosEncReason />
+    <ActID>10000</ActID>
+    <InstrID>GE</InstrID>
+  </Position>
+  <FinInstrument>
+    <InstrID>MSFT</InstrID>
+    <InstrIdType>Ticker</InstrIdType>
+    <InstrName>Microsoft Common Stock</InstrName>
+    <InstrDesc>Common Stock of Microsoft Corporation</InstrDesc>
+    <InstrIssueDate>2003-01-11T20:40:51.2917500-05:00</InstrIssueDate>
+    <InstrUnitSize>1</InstrUnitSize>
+    <InstrUnitOfMeasure>stocks</InstrUnitOfMeasure>
+    <InstrPriceQuoteMethod>DiscountRate</InstrPriceQuoteMethod>
+    <InstrPriceMultiplier>1</InstrPriceMultiplier>
+    <InstrForm>BookEntry</InstrForm>
+    <InstrDenomCurrCode>USD</InstrDenomCurrCode>
+    <InstrTradActStatus>Active</InstrTradActStatus>
+    <InstrRating>StrongBuy</InstrRating>
+    <InstrRatingInst>SandP</InstrRatingInst>
+    <InstrRatingDate>2003-01-11T20:40:51.2917500-05:00</InstrRatingDate>
+    <StkType>Common</StkType>
+    <StkDivInd>false</StkDivInd>
+    <Type>Stock</Type>
+    <IsrID>10050</IsrID>
+  </FinInstrument>
+  <FinInstrument>
+    <InstrID>LU</InstrID>
+    <InstrIdType>Ticker</InstrIdType>
+    <InstrName>Lucent Common Stock</InstrName>
+    <InstrDesc>Common Stock of Lucent Corporation</InstrDesc>
+    <InstrIssueDate>2003-01-11T20:42:44.6511250-05:00</InstrIssueDate>
+    <InstrUnitSize>1</InstrUnitSize>
+    <InstrUnitOfMeasure>stocks</InstrUnitOfMeasure>
+    <InstrPriceQuoteMethod>DiscountRate</InstrPriceQuoteMethod>
+    <InstrPriceMultiplier>1</InstrPriceMultiplier>
+    <InstrForm>BookEntry</InstrForm>
+    <InstrDenomCurrCode>USD</InstrDenomCurrCode>
+    <InstrTradActStatus>Active</InstrTradActStatus>
+    <InstrRating>Hold</InstrRating>
+    <InstrRatingInst>SandP</InstrRatingInst>
+    <InstrRatingDate>2003-01-11T20:42:44.6511250-05:00</InstrRatingDate>
+    <StkType>Common</StkType>
+    <StkDivInd>false</StkDivInd>
+    <Type>Stock</Type>
+    <IsrID>10060</IsrID>
+  </FinInstrument>
+  <FinInstrument>
+    <InstrID>TXN</InstrID>
+    <InstrIdType>Ticker</InstrIdType>
+    <InstrName>TI Common Stock</InstrName>
+    <InstrDesc>Common stock of Texas Instruments</InstrDesc>
+    <InstrIssueDate>2003-01-11T20:45:13.1823750-05:00</InstrIssueDate>
+    <InstrUnitSize>1</InstrUnitSize>
+    <InstrUnitOfMeasure>stocks</InstrUnitOfMeasure>
+    <InstrPriceQuoteMethod>DiscountRate</InstrPriceQuoteMethod>
+    <InstrPriceMultiplier>1</InstrPriceMultiplier>
+    <InstrForm>BookEntry</InstrForm>
+    <InstrDenomCurrCode>USD</InstrDenomCurrCode>
+    <InstrTradActStatus>Active</InstrTradActStatus>
+    <InstrRating>Buy</InstrRating>
+    <InstrRatingInst>SandP</InstrRatingInst>
+    <InstrRatingDate>2003-01-11T20:45:13.1823750-05:00</InstrRatingDate>
+    <StkType>Common</StkType>
+    <StkDivInd>false</StkDivInd>
+    <Type>Stock</Type>
+    <IsrID>10070</IsrID>
+  </FinInstrument>
+  <FinInstrument>
+    <InstrID>GE</InstrID>
+    <InstrIdType>Ticker</InstrIdType>
+    <InstrName>GE Common Stock</InstrName>
+    <InstrDesc>Common stock of General Electric</InstrDesc>
+    <InstrIssueDate>2003-01-11T20:46:58.9323750-05:00</InstrIssueDate>
+    <InstrUnitSize>1</InstrUnitSize>
+    <InstrUnitOfMeasure>stocks</InstrUnitOfMeasure>
+    <InstrPriceQuoteMethod>DiscountRate</InstrPriceQuoteMethod>
+    <InstrPriceMultiplier>1</InstrPriceMultiplier>
+    <InstrForm>BookEntry</InstrForm>
+    <InstrDenomCurrCode>USD</InstrDenomCurrCode>
+    <InstrTradActStatus>Active</InstrTradActStatus>
+    <InstrRating>Buy</InstrRating>
+    <InstrRatingInst>SandP</InstrRatingInst>
+    <InstrRatingDate>2003-01-11T20:46:58.9323750-05:00</InstrRatingDate>
+    <StkType>Common</StkType>
+    <StkDivInd>true</StkDivInd>
+    <Type>Stock</Type>
+    <IsrID>10080</IsrID>
+  </FinInstrument>
+  <FinInstrument>
+    <InstrID>PFE</InstrID>
+    <InstrIdType>Ticker</InstrIdType>
+    <InstrName>Pfizer Common Stock</InstrName>
+    <InstrDesc>Common stock of Pfizer Corporation</InstrDesc>
+    <InstrIssueDate>2003-01-11T20:48:06.5261250-05:00</InstrIssueDate>
+    <InstrUnitSize>1</InstrUnitSize>
+    <InstrUnitOfMeasure>stocks</InstrUnitOfMeasure>
+    <InstrPriceQuoteMethod>DiscountRate</InstrPriceQuoteMethod>
+    <InstrPriceMultiplier>1</InstrPriceMultiplier>
+    <InstrForm>BookEntry</InstrForm>
+    <InstrDenomCurrCode>USD</InstrDenomCurrCode>
+    <InstrTradActStatus>Active</InstrTradActStatus>
+    <InstrRating>Buy</InstrRating>
+    <InstrRatingInst>Moodys</InstrRatingInst>
+    <InstrRatingDate>2003-01-11T20:48:06.5261250-05:00</InstrRatingDate>
+    <StkType>Common</StkType>
+    <StkDivInd>true</StkDivInd>
+    <Type>Stock</Type>
+    <IsrID>10090</IsrID>
+  </FinInstrument>
+  <FinInstrument>
+    <InstrID>DELL</InstrID>
+    <InstrIdType>Ticker</InstrIdType>
+    <InstrName>Dell Common Stock</InstrName>
+    <InstrDesc>Common stock of DELL Corporation</InstrDesc>
+    <InstrIssueDate>2003-01-11T20:49:42.5886250-05:00</InstrIssueDate>
+    <InstrUnitSize>1</InstrUnitSize>
+    <InstrUnitOfMeasure>stocks</InstrUnitOfMeasure>
+    <InstrPriceQuoteMethod>DiscountRate</InstrPriceQuoteMethod>
+    <InstrPriceMultiplier>1</InstrPriceMultiplier>
+    <InstrForm>BookEntry</InstrForm>
+    <InstrDenomCurrCode>USD</InstrDenomCurrCode>
+    <InstrTradActStatus>Active</InstrTradActStatus>
+    <InstrRating>Buy</InstrRating>
+    <InstrRatingInst>SandP</InstrRatingInst>
+    <InstrRatingDate>2003-01-11T20:49:42.5886250-05:00</InstrRatingDate>
+    <StkType>Common</StkType>
+    <StkDivInd>false</StkDivInd>
+    <Type>Stock</Type>
+    <IsrID>10020</IsrID>
+  </FinInstrument>
+  <FinInstrument>
+    <InstrID>IBM</InstrID>
+    <InstrIdType>Ticker</InstrIdType>
+    <InstrName>IBM Common Stock</InstrName>
+    <InstrDesc>Common stock of IBM</InstrDesc>
+    <InstrIssueDate>2003-01-11T20:51:06.1667500-05:00</InstrIssueDate>
+    <InstrUnitSize>1</InstrUnitSize>
+    <InstrUnitOfMeasure>stocks</InstrUnitOfMeasure>
+    <InstrPriceQuoteMethod>DiscountRate</InstrPriceQuoteMethod>
+    <InstrPriceMultiplier>1</InstrPriceMultiplier>
+    <InstrForm>BookEntry</InstrForm>
+    <InstrDenomCurrCode>USD</InstrDenomCurrCode>
+    <InstrTradActStatus>Active</InstrTradActStatus>
+    <InstrRating>StrongBuy</InstrRating>
+    <InstrRatingInst>SandP</InstrRatingInst>
+    <InstrRatingDate>2003-01-11T20:51:06.1667500-05:00</InstrRatingDate>
+    <StkType>Common</StkType>
+    <StkDivInd>true</StkDivInd>
+    <Type>Stock</Type>
+    <IsrID>10100</IsrID>
+  </FinInstrument>
+  <FinInstrument>
+    <InstrID>MOT</InstrID>
+    <InstrIdType>Ticker</InstrIdType>
+    <InstrName>Motorola Common Stock</InstrName>
+    <InstrDesc>Common stock of Motorola</InstrDesc>
+    <InstrIssueDate>2003-01-11T20:53:07.6042500-05:00</InstrIssueDate>
+    <InstrUnitSize>1</InstrUnitSize>
+    <InstrUnitOfMeasure>stocks</InstrUnitOfMeasure>
+    <InstrPriceQuoteMethod>DiscountRate</InstrPriceQuoteMethod>
+    <InstrPriceMultiplier>1</InstrPriceMultiplier>
+    <InstrForm>BookEntry</InstrForm>
+    <InstrDenomCurrCode>USD</InstrDenomCurrCode>
+    <InstrTradActStatus>Active</InstrTradActStatus>
+    <InstrRating>Hold</InstrRating>
+    <InstrRatingInst>SandP</InstrRatingInst>
+    <InstrRatingDate>2003-01-11T20:53:07.6042500-05:00</InstrRatingDate>
+    <StkType>Common</StkType>
+    <StkDivInd>false</StkDivInd>
+    <Type>Stock</Type>
+    <IsrID>10110</IsrID>
+  </FinInstrument>
+  <FinInstrument>
+    <InstrID>WMT</InstrID>
+    <InstrIdType>Ticker</InstrIdType>
+    <InstrName>Wal-Mart Common Stock</InstrName>
+    <InstrDesc>Common stock of Wal-Mart</InstrDesc>
+    <InstrIssueDate>2003-01-11T20:54:18.1198750-05:00</InstrIssueDate>
+    <InstrUnitSize>1</InstrUnitSize>
+    <InstrUnitOfMeasure>stocks</InstrUnitOfMeasure>
+    <InstrPriceQuoteMethod>DiscountRate</InstrPriceQuoteMethod>
+    <InstrPriceMultiplier>1</InstrPriceMultiplier>
+    <InstrForm>BookEntry</InstrForm>
+    <InstrDenomCurrCode>USD</InstrDenomCurrCode>
+    <InstrTradActStatus>Active</InstrTradActStatus>
+    <InstrRating>StrongBuy</InstrRating>
+    <InstrRatingInst>SandP</InstrRatingInst>
+    <InstrRatingDate>2003-01-11T20:54:18.1198750-05:00</InstrRatingDate>
+    <StkType>Common</StkType>
+    <StkDivInd>true</StkDivInd>
+    <Type>Stock</Type>
+    <IsrID>10120</IsrID>
+  </FinInstrument>
+  <FinInstrument>
+    <InstrID>CSCO</InstrID>
+    <InstrIdType>Ticker</InstrIdType>
+    <InstrName>Cisco Common Stock</InstrName>
+    <InstrDesc>Common stock of Cisco</InstrDesc>
+    <InstrIssueDate>2003-01-11T21:02:10.6667500-05:00</InstrIssueDate>
+    <InstrUnitSize>1</InstrUnitSize>
+    <InstrUnitOfMeasure>stocks</InstrUnitOfMeasure>
+    <InstrPriceQuoteMethod>DiscountRate</InstrPriceQuoteMethod>
+    <InstrPriceMultiplier>1</InstrPriceMultiplier>
+    <InstrForm>BookEntry</InstrForm>
+    <InstrDenomCurrCode>USD</InstrDenomCurrCode>
+    <InstrTradActStatus>Active</InstrTradActStatus>
+    <InstrRating>Buy</InstrRating>
+    <InstrRatingInst>SandP</InstrRatingInst>
+    <InstrRatingDate>2003-01-11T21:02:10.6667500-05:00</InstrRatingDate>
+    <StkType>Common</StkType>
+    <StkDivInd>true</StkDivInd>
+    <Type>Stock</Type>
+    <IsrID>10130</IsrID>
+  </FinInstrument>
+  <FinInstrument>
+    <InstrID>INTC</InstrID>
+    <InstrIdType>Ticker</InstrIdType>
+    <InstrName>Intel Common Stock</InstrName>
+    <InstrDesc>Common stock of Intel Corporation</InstrDesc>
+    <InstrIssueDate>2003-01-11T21:03:30.4948750-05:00</InstrIssueDate>
+    <InstrUnitSize>1</InstrUnitSize>
+    <InstrUnitOfMeasure>stocks</InstrUnitOfMeasure>
+    <InstrPriceQuoteMethod>DiscountRate</InstrPriceQuoteMethod>
+    <InstrPriceMultiplier>1</InstrPriceMultiplier>
+    <InstrForm>BookEntry</InstrForm>
+    <InstrDenomCurrCode>USD</InstrDenomCurrCode>
+    <InstrTradActStatus>Active</InstrTradActStatus>
+    <InstrRating>Buy</InstrRating>
+    <InstrRatingInst>SandP</InstrRatingInst>
+    <InstrRatingDate>2003-01-11T21:03:30.4948750-05:00</InstrRatingDate>
+    <StkType>Common</StkType>
+    <StkDivInd>true</StkDivInd>
+    <Type>Stock</Type>
+    <IsrID>10140</IsrID>
+  </FinInstrument>
+  <Price>
+    <PrcID>10000</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>4</PrcUnitPrice>
+    <PrcDate>2003-01-11T21:28:52.7448750-05:00</PrcDate>
+    <PrcType>Close</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>CSCO</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10010</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>6</PrcUnitPrice>
+    <PrcDate>2003-01-11T21:31:33.0417500-05:00</PrcDate>
+    <PrcType>Close</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>DELL</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10020</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>8</PrcUnitPrice>
+    <PrcDate>2003-01-11T21:31:53.1667500-05:00</PrcDate>
+    <PrcType>Close</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>GE</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10030</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>10</PrcUnitPrice>
+    <PrcDate>2003-01-11T21:32:19.1511250-05:00</PrcDate>
+    <PrcType>Close</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>IBM</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10040</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>12.5</PrcUnitPrice>
+    <PrcDate>2003-01-11T21:32:45.4011250-05:00</PrcDate>
+    <PrcType>Close</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>INTC</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10050</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>2.5</PrcUnitPrice>
+    <PrcDate>2003-01-11T21:33:09.0417500-05:00</PrcDate>
+    <PrcType>Close</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>LU</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10060</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>12.5</PrcUnitPrice>
+    <PrcDate>2003-01-11T21:33:36.6198750-05:00</PrcDate>
+    <PrcType>Close</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>MSFT</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10070</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>8.5</PrcUnitPrice>
+    <PrcDate>2003-01-11T21:34:00.9011250-05:00</PrcDate>
+    <PrcType>Close</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>MOT</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10080</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>14.25</PrcUnitPrice>
+    <PrcDate>2003-01-11T21:34:31.7292500-05:00</PrcDate>
+    <PrcType>Close</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>PFE</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10090</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>8.75</PrcUnitPrice>
+    <PrcDate>2003-01-11T21:35:00.8073750-05:00</PrcDate>
+    <PrcType>Close</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>TXN</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10100</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>15.15</PrcUnitPrice>
+    <PrcDate>2003-01-11T21:35:30.6667500-05:00</PrcDate>
+    <PrcType>Close</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>WMT</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10110</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>11.5</PrcUnitPrice>
+    <PrcDate>2003-01-23T21:25:06.9250000-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>MSFT</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10120</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>1.5</PrcUnitPrice>
+    <PrcDate>2003-01-23T21:25:06.9406250-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>LU</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10130</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>7.75</PrcUnitPrice>
+    <PrcDate>2003-01-23T21:25:06.9562500-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>TXN</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10140</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>7</PrcUnitPrice>
+    <PrcDate>2003-01-23T21:25:06.9875000-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>GE</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10150</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>16.25</PrcUnitPrice>
+    <PrcDate>2003-01-23T21:25:06.9875000-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>PFE</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10160</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>5</PrcUnitPrice>
+    <PrcDate>2003-01-23T21:25:07.0031250-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>DELL</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10170</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>9</PrcUnitPrice>
+    <PrcDate>2003-01-23T21:25:07.0343750-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>IBM</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10180</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>7.5</PrcUnitPrice>
+    <PrcDate>2003-01-23T21:25:07.0500000-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>MOT</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10190</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>14.15</PrcUnitPrice>
+    <PrcDate>2003-01-23T21:25:07.0656250-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>WMT</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10200</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>6</PrcUnitPrice>
+    <PrcDate>2003-01-23T21:25:07.0812500-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>CSCO</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10210</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>11.5</PrcUnitPrice>
+    <PrcDate>2003-01-23T21:25:07.0968750-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>INTC</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10220</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>10.5</PrcUnitPrice>
+    <PrcDate>2003-01-24T15:42:04.2413750-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>MSFT</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10230</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>3.5</PrcUnitPrice>
+    <PrcDate>2003-01-24T15:42:04.2570000-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>LU</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10240</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>6.75</PrcUnitPrice>
+    <PrcDate>2003-01-24T15:42:04.2726250-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>TXN</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10250</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>6</PrcUnitPrice>
+    <PrcDate>2003-01-24T15:42:04.3038750-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>GE</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10260</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>15.25</PrcUnitPrice>
+    <PrcDate>2003-01-24T15:42:04.3195000-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>PFE</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10270</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>7</PrcUnitPrice>
+    <PrcDate>2003-01-24T15:42:04.3351250-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>DELL</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10280</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>11</PrcUnitPrice>
+    <PrcDate>2003-01-24T15:42:04.3507500-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>IBM</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10290</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>9.5</PrcUnitPrice>
+    <PrcDate>2003-01-24T15:42:04.3663750-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>MOT</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10300</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>13.15</PrcUnitPrice>
+    <PrcDate>2003-01-24T15:42:04.3820000-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>WMT</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10310</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>5</PrcUnitPrice>
+    <PrcDate>2003-01-24T15:42:04.3976250-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>CSCO</InstrID>
+  </Price>
+  <Price>
+    <PrcID>10320</PrcID>
+    <PrcSource>Bloomberg</PrcSource>
+    <PrcUnitPrice>13.5</PrcUnitPrice>
+    <PrcDate>2003-01-24T15:42:04.4132500-05:00</PrcDate>
+    <PrcType>Open</PrcType>
+    <PrcQuoteMethod>DiscountRate</PrcQuoteMethod>
+    <PrcPricingMultiplier>1</PrcPricingMultiplier>
+    <InstrID>INTC</InstrID>
+  </Price>
+  <Issuer>
+    <IsrID>10020</IsrID>
+    <IsrName>Dell</IsrName>
+    <IsrDesc>Dell Computers</IsrDesc>
+    <IsrType>Corporation</IsrType>
+    <IsrStateOfDomicile>Texas</IsrStateOfDomicile>
+    <IsrAddress>1250 Texas Ave.</IsrAddress>
+    <IsrRating>AAA</IsrRating>
+    <IsrRatingInst>Moodys</IsrRatingInst>
+    <IsrRatingDate>2002-08-07T00:00:00.0000000-04:00</IsrRatingDate>
+  </Issuer>
+  <Issuer>
+    <IsrID>10030</IsrID>
+    <IsrName>USA</IsrName>
+    <IsrDesc>United States Government</IsrDesc>
+    <IsrType>Government</IsrType>
+    <IsrStateOfDomicile>Washington</IsrStateOfDomicile>
+    <IsrAddress>123 Washington DC</IsrAddress>
+    <IsrRating>AAA</IsrRating>
+    <IsrRatingInst>SandP</IsrRatingInst>
+    <IsrRatingDate>2001-10-25T00:00:00.0000000-04:00</IsrRatingDate>
+  </Issuer>
+  <Issuer>
+    <IsrID>10040</IsrID>
+    <IsrName>Plainsboro</IsrName>
+    <IsrDesc>Plainsboro Township</IsrDesc>
+    <IsrType>Municipality</IsrType>
+    <IsrStateOfDomicile>NewJersey</IsrStateOfDomicile>
+    <IsrAddress>12345 Plainsboro Way, Plainsboro, NJ 08536</IsrAddress>
+    <IsrRating>AA</IsrRating>
+    <IsrRatingInst>SandP</IsrRatingInst>
+    <IsrRatingDate>2002-06-12T00:00:00.0000000-04:00</IsrRatingDate>
+  </Issuer>
+  <Issuer>
+    <IsrID>10050</IsrID>
+    <IsrName>Microsoft</IsrName>
+    <IsrDesc>Microsoft Corporation</IsrDesc>
+    <IsrType>Corporation</IsrType>
+    <IsrStateOfDomicile>Delaware</IsrStateOfDomicile>
+    <IsrAddress>12345 Microsoft Ave.</IsrAddress>
+    <IsrRating>AAA</IsrRating>
+    <IsrRatingInst>SandP</IsrRatingInst>
+    <IsrRatingDate>2003-01-11T11:10:02.8568750-05:00</IsrRatingDate>
+  </Issuer>
+  <Issuer>
+    <IsrID>10060</IsrID>
+    <IsrName>Lucent</IsrName>
+    <IsrDesc>Lucent Corporation</IsrDesc>
+    <IsrType>Corporation</IsrType>
+    <IsrStateOfDomicile>Delaware</IsrStateOfDomicile>
+    <IsrAddress>12345 Lucent Ave.</IsrAddress>
+    <IsrRating>BBB</IsrRating>
+    <IsrRatingInst>SandP</IsrRatingInst>
+    <IsrRatingDate>2003-01-11T11:11:34.2631250-05:00</IsrRatingDate>
+  </Issuer>
+  <Issuer>
+    <IsrID>10070</IsrID>
+    <IsrName>Texas Instruments</IsrName>
+    <IsrDesc>Texas Instruments Corp.</IsrDesc>
+    <IsrType>Corporation</IsrType>
+    <IsrStateOfDomicile>Delaware</IsrStateOfDomicile>
+    <IsrAddress>12345 Texas Instruments Ave.</IsrAddress>
+    <IsrRating>A</IsrRating>
+    <IsrRatingInst>SandP</IsrRatingInst>
+    <IsrRatingDate>2003-01-11T11:12:32.3725000-05:00</IsrRatingDate>
+  </Issuer>
+  <Issuer>
+    <IsrID>10080</IsrID>
+    <IsrName>General Electric</IsrName>
+    <IsrDesc>General Electric</IsrDesc>
+    <IsrType>Corporation</IsrType>
+    <IsrStateOfDomicile>Delaware</IsrStateOfDomicile>
+    <IsrAddress>12345 General Electric Dr.</IsrAddress>
+    <IsrRating>AA</IsrRating>
+    <IsrRatingInst>SandP</IsrRatingInst>
+    <IsrRatingDate>2003-01-11T11:13:42.2006250-05:00</IsrRatingDate>
+  </Issuer>
+  <Issuer>
+    <IsrID>10090</IsrID>
+    <IsrName>Pfizer</IsrName>
+    <IsrDesc>Pfizer Corporation</IsrDesc>
+    <IsrType>Corporation</IsrType>
+    <IsrStateOfDomicile>Delaware</IsrStateOfDomicile>
+    <IsrAddress>12345 Pfizer Way</IsrAddress>
+    <IsrRating>AA</IsrRating>
+    <IsrRatingInst>SandP</IsrRatingInst>
+    <IsrRatingDate>2003-01-11T11:14:35.7787500-05:00</IsrRatingDate>
+  </Issuer>
+  <Issuer>
+    <IsrID>10100</IsrID>
+    <IsrName>IBM</IsrName>
+    <IsrDesc>International Business Machines</IsrDesc>
+    <IsrType>Corporation</IsrType>
+    <IsrStateOfDomicile>Delaware</IsrStateOfDomicile>
+    <IsrAddress>12345 IBM Way</IsrAddress>
+    <IsrRating>AAA</IsrRating>
+    <IsrRatingInst>SandP</IsrRatingInst>
+    <IsrRatingDate>2003-01-11T11:15:24.9975000-05:00</IsrRatingDate>
+  </Issuer>
+  <Issuer>
+    <IsrID>10110</IsrID>
+    <IsrName>Motorola</IsrName>
+    <IsrDesc>Motorola Corporation</IsrDesc>
+    <IsrType>Corporation</IsrType>
+    <IsrStateOfDomicile>Delaware</IsrStateOfDomicile>
+    <IsrAddress>12345 Motorola Way</IsrAddress>
+    <IsrRating>BBB</IsrRating>
+    <IsrRatingInst>SandP</IsrRatingInst>
+    <IsrRatingDate>2003-01-11T11:16:02.6068750-05:00</IsrRatingDate>
+  </Issuer>
+  <Issuer>
+    <IsrID>10120</IsrID>
+    <IsrName>Wal-Mart</IsrName>
+    <IsrDesc>Wal-Mart</IsrDesc>
+    <IsrType>Corporation</IsrType>
+    <IsrStateOfDomicile>Delaware</IsrStateOfDomicile>
+    <IsrAddress>12345 We Sell For Less Dr.</IsrAddress>
+    <IsrRating>AA</IsrRating>
+    <IsrRatingInst>SandP</IsrRatingInst>
+    <IsrRatingDate>2003-01-11T11:16:39.7006250-05:00</IsrRatingDate>
+  </Issuer>
+  <Issuer>
+    <IsrID>10130</IsrID>
+    <IsrName>Cisco</IsrName>
+    <IsrDesc>Cisco Corporation</IsrDesc>
+    <IsrType>Corporation</IsrType>
+    <IsrStateOfDomicile>Delaware</IsrStateOfDomicile>
+    <IsrAddress>12345 Cisco Way, Willmington, DE 89765</IsrAddress>
+    <IsrRating>A</IsrRating>
+    <IsrRatingInst>SandP</IsrRatingInst>
+    <IsrRatingDate>2003-01-11T20:59:20.6980000-05:00</IsrRatingDate>
+  </Issuer>
+  <Issuer>
+    <IsrID>10140</IsrID>
+    <IsrName>Intel</IsrName>
+    <IsrDesc>Intel Corporation</IsrDesc>
+    <IsrType>Corporation</IsrType>
+    <IsrStateOfDomicile>Delaware</IsrStateOfDomicile>
+    <IsrAddress>12345 Intel Drive, Dover, DE 76895</IsrAddress>
+    <IsrRating>BBB</IsrRating>
+    <IsrRatingInst>SandP</IsrRatingInst>
+    <IsrRatingDate>2003-01-11T21:00:26.6355000-05:00</IsrRatingDate>
+  </Issuer>
+</InvMgmtAppData>
