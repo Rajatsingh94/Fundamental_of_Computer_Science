@@ -4,4 +4,7 @@ bookdown::gitbook:
       collapse: section
       before: |
         <li><strong><a href="./">Fundamental of Computer Science</a></strong></li>
-    
+      edit:
+      link: 
+      text: 
+    sharing:

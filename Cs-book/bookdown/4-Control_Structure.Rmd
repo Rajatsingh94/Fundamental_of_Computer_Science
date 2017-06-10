@@ -3,49 +3,2503 @@ title: "Control Structure"
 output: html_document
 ---
 
-# Control Structures
+# Control Structures {#CS}
+So far the programming we have done is based on a control
+structure known as *sequence* --- program execution control
+moves to the next statement after completing the execution of the
+current statement. By placing a list of statements physically next
+to each other, sequence control insures that they are executed in
+their physical order. Sequence is one of the three fundamental
+control structures, the other two being *selection* and
+*iteration*. Selection control structure enables
+conditional execution of a *statement block* --- a list of
+one or more statements. Using iteration, a statement block can
+repeatedly be executed as long as a certain condition holds true.
+These control structures are called fundamental in that they form
+the minimal set to express a general computation.
 
-## Concept Map
 
-## Preview of Arrays
+We need a preliminary introduction to arrays to facilitate
+exposition of the control structures. Enumerations are also
+introduced in this chapter. *Enumerations* provide a
+convenient means to refer to numeric values using symbolic names.
+Debugging strategies --- guidelines and practices for fixing the
+errors discovered in the program --- are also explained in this
+chapter. Therefore, objectives for this chapter are to:
 
-## Enumerations
+    - Provide a preliminary introductions to arrays.
+    - Introduce enumerations.
+    - Introduce the fundamental control structures — sequence, selection, and iteration —
+      and their variants.
+    - Illustrate debugging strategies.
 
-## Sequence
+## Preview of Arrays {#PreIntroArrays}
+Suppose we want to represent the market close price of a financial
+instrument trading on the New York Stock Exchange for a period of
+ten days. One approach is to declare ten variables
+--- price1, price2, $\cdots$, price10. This is not a satisfactory
+solution for a few reasons. First, it results in proliferation of
+variable names and makes the program difficult to comprehend. This
+also requires that we know exactly the number of prices in
+advance. What if we encounter the need for additional prices
+during the program execution time? One way to circumvent this
+issue is to anticipate the maximum number of prices for any
+instrument and use that many variables. A downside to this
+approach is that the C\# compiler sets aside memory for the
+maximum number of prices, irrespective of how many of them are
+actually used. Certainly, we are not optimizing on the memory
+usage. Array concept is an elegant solution to this problem.
 
-## Selection
 
-### if
+An array is a symbolic name for a block of contiguous memory
+locations. A list of *homogeneous* values (i.e., same data
+type) are stored in the memory block, one per location. The values
+can be of any C\# intrinsic data types including integers, floats,
+strings, structures, enumeration, and objects. The values are
+referred to as the array elements. They are referenced by numeric
+values, known as *indexes*. If price is an array of ten
+elements as shown in Figure \@ref(fig:ArrayExample), the notation
+price[0] refers to the first element, price[1] refers to the
+second element, and so on. The integer value embedded between the
+square brackets is the index. Note that the index starts at 0. The
+array shown in Figure \@ref(fig:ArrayExample) is called
+one-dimensional (1D) array. We can have arrays with multiple
+dimensions. A two-dimensional (2D) array (named finInstrPrice) is
+shown in Figure \@ref(fig:ArrayExample2). It stores prices of three
+financial instruments for a period of ten days. Elements of a 2D
+array are referenced by two indices --- one to refer to the row
+number and the other to refer to the column number. For example,
+the notation finInstrPrice[0,3] refers to the price of the
+financial instrument 1 on day 4.
+
+The index offers a powerful means to step through and process the
+array elements by simply incrementing the index value. The index
+value itself can be an expression, provided the evaluation of the
+expression results in a value which is compatible with the integer
+data type.
+
+Declaring, creating, and initializing arrays of different element
+types and dimensions are exemplified in Arrays1.cs program shown
+in Listing \@ref(Arrays1Prog). Line 9 declares, creates, and
+initializes an array named intArray. *int*[\,] at the
+beginning of line 9 specifies that the variable being declared is
+an integer array of one dimension. The expression, *new
+int*[\,]\{10, 20, 30, 40, 50\*, creates five integers (10, 20, 30,
+40, 50) and assigns them as intArray element values. The value 10
+is stored at index 0 (i.e., intArray[0]), 20 is stored at index 1
+(i.e., intArray[1]), and so on. The term *rank* is used to
+denote the number of dimensions associated with the array.
+*Dimension length* is the valid range of indices. For
+intArray, dimension length is 5 and the valid indices for the
+dimension are 0 through 4. Referencing an array element at an
+index outside the valid range results in an error condition known
+as *out of bounds exception*.
+
+```{r ArrayExample, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="An one-dimensional array"}
+knitr::include_graphics("./Images/ControlStructs/Illus/ArrayExample.png")
+```
+
+```{r ArrayExample2, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="A two-dimensional array"}
+knitr::include_graphics("./Images/ControlStructs/Illus/ArrayExample2.png")
+```
+
+Line 11 declares and creates a one-dimensional (1D) array of four
+elements, whose element type is *long*. Since no
+initialization list is specified, the array elements are
+initialized with the default value, which is 0 for the
+*long* data type. Line 13 *declares* a 1D array,
+prices1, whose element type is *float*. Line 15
+*creates* the array, prices1, by allocating the needed memory
+and initializing the array with three *float* constants.
+Line 19 is a shorthand for lines 15 and 17. Line 21 declares,
+creates, and initializes a 1D string array of four elements. In
+contrast, line 23 declares and creates a string array of four
+elements, and lines 25 -- 26 initializes its elements at indices 2
+and 3.
+
+Line 28 declares, creates, and initializes a two-dimensional (2D)
+array named intTwoD. The notation [ , ] indicates that the array
+is a 2D one. Likewise, the notation [ , , ] indicates a 3D array.
+The dimension lengths of intTwoD are implicitly specified by the
+initialization list. The number of elements in the outermost
+nesting (i.e., \{\{11, 12, 13\}, \{21, 22, 23\}\}, 2 elements)
+determines the length of the leftmost (i.e., the first) dimension;
+the number of elements in the innermost nesting (i.e., \{11, 12,
+13\}, 3 elements) determines the length of the last dimension (in
+ our case, the second dimension). Therefore, intTwoD has two rows
+and three columns. The row indices range from 0 through 1 whereas,
+the column indices range from 0 through 2. The notation
+intTwoD[0,2] refers to the third column element of the first row.
+On the other hand, intTwoD[2,1] generates out of bounds exception
+since intTwoD doesn't have a third row. When dealing with the
+array indices, it should be remembered that the indices start at 0
+and not at 1. The results of running the Arrays1.cs program are
+shown in Figure \@ref(fig:Arrays1Out). You should verify that the
+values printed by the lines 30 -- 32 are correct.
+
+It should be noted that the rank and the length of each dimension
+of the array is established at the time of its creation; these
+values remain in tact for the entire duration of its lifespan.
+Arrays are explored in greater depth in Chapter \@ref(Arrays).
+In the meantime, we need to be aware that all arrays are derived
+from the System.Array class. Therefore, all arrays come with
+*Rank* and *Length* properties, and the
+*GetLength()* method, among others. Rank returns the number
+of dimensions of an array. For example, stdClass.Rank and
+intTwoD.Rank return 1 and 2, respectively. Length returns the
+length of the array dimension. For arrays whose dimension is more
+than 1, Length returns the number of elements in all the
+dimensions. For example, prices2.Length and intTwoD.Length return
+3 and 6, respectively. GetLength() method returns the length of
+the dimension for a given dimension. For example,
+intTwoD.GetLength(0) returns 2 --- the number of elements in the
+first dimension. Again, we should remember that dimension numbers,
+like the indices, are zero-based. You should explore the use of
+Rank, Length, and GetLength() in the chapter project
+P \@ref(Arrays1Exer).
+
+
+## Enumerations {#PreIntroEnums}
+Often it is convenient to work with symbolic names rather than
+numeric values. For example, consider the classification of
+college students: Freshman, Sophomore, Junior, and Senior.
+However, for savings in storage space we desire the underlying
+representation for storing these values be numeric. One numeric
+representation is: Freshman = 0, Sophomore = 1, Junior = 2, and
+Senior = 3. C\# supports this need via a type known as
+*enumeration*.
+
+Consider the Enums1.cs program shown in Listing \@ref(Enums1).
+Lines 4 -- 10 define an enumeration called StudentType. It has
+four members for classifying students. By default, 0 is associated
+with the first member, 1 with the second member, and so on.
+However, one can assign any numeric value for the underlying
+representation of the members as in:
+
+enum StudentType: ushort
+
+{
+
+Freshman = 100,
+
+Sophomore = 101,
+
+Junior = 105,
+
+Senior = 110
+
+}
+
+Note that the numeric values are neither required to form a
+sequence nor appear in increasing or decreasing order. Also, the
+keyword *ushort* after StudentType (i.e., the enumeration
+name) designates the data type for storing the numeric values as
+unsigned short, overriding the default integer data type.
+
+Continuing our discussion of Enums1.cs, a class named EnumClass is
+defined in lines 11 -- 42. In addition to the Main(), the class
+has a static method named Greeting(), which takes a parameter of
+enum StudentType. Essentially the whole method is just a
+*switch* statement (discussed in
+Section \@ref(SwitchSelection). If the method parameter
+(stdType) value is equal to StudentType.Freshman, the message
+*You are just out of high school* is printed. The messages
+in lines 21, 24, and 27 correspond to the other values the
+parameter can assume: StudentType.Sophomore, StudentType.Junior,
+and StudentType.Senior.
+
+Line 33 creates a StudentType *enum*, $st1$, and
+initializes it with the value StudentType.Freshman. Line 34 calls
+the Greeting() with $st1$ as the argument. Greeting() prints the
+message of the line 18 as response. Lines 35, 37, and 39 reassign
+to $st1$ other members of StudentType. The Greeting() method is
+called for each reassignment. The results of running the Enums1.cs
+are shown in Figure \@ref(fig:Enums1Out).
+
+Enumerations are implicitly derived from the System.Enum class,
+which defines several methods including GetType (given an
+enumeration instance, returns its type), GetTypeCode (given an
+enumeration instance, returns its underlying numeric datatype),
+GetNames (a static method, returns the members of an enumeration
+in an array of strings), and IsDefined (a static method, returns a
+boolean indicating whether a constant with a specified value
+exists in a specified enumeration). With reference to the
+Enums1.cs program, st1.GetType() returns Enums1.StudentType;
+st1.GetTypeCode() returns *Int32*;
+Enum.GetNames(typeof(StudentType)) returns Freshman, Sophomore,
+Junior, and Senior in an array of strings; Enum.IsDefined(typeof
+(StudentType), ``Freshman``) returns *true*.
+
+```{r Enums1Out, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="Enums1.cs program run results"}
+knitr::include_graphics("./Images/ControlStructs/Illus/Enums1Out.png")
+```
+
+
+## Sequence {#Sequence}
+Consider the following code snippet:
+
+    - Console.WriteLine("Enter another (int) number");
+    - num2 = Int32.Parse(Console.ReadLine());
+    - Console.WriteLine();
+    - result = myCalc.Add(num1, num2);
+    - Console.WriteLine("{0} + {1} is: {2}", num1, num2, result);
+    
+*Sequence* control structure insures that the order in
+which the statements are executed is the order in which they are
+physically placed in the program. Therefore, the statements are
+executed in the order: 1, 2, 3, 4, 5. Consider the execution of
+statement 2. To effect its execution, the program execution
+control is first transferred to the entry point of the code
+corresponding to the method Console.ReadLine(). Upon completing
+its execution, the control is transferred to the entry point of
+the code corresponding to the method Int32.Parse(). When the
+method execution is completed, the value returned by it is
+assigned to *num2*, and the control finally returns to
+statement 3. The point to recognize here is that the control may
+be moved around depending upon the type of the statement being
+executed. However, if we look at the program at the highest level,
+it is a sequence of statements.
+
+
+## Selection {#Selection}
+*Selection* enables conditional execution of one or more
+statements. We use the term *statement block* to refer to one
+or more statements. A simple or compound boolean expression is
+associated with the selection control structure. If the boolean
+expression evaluates to *true*, the associated statement
+block is executed. There are two forms of the selection control
+structure: *if* statement and *switch* statement.
+
+
+
+### if {#if}
+In its simplest form, the *if* statement has the following
+format:
+
+*if* boolExpr
+
+ \  \ stmtBlock
+
+If boolExpr evaluates to the value *true*, the stmtBlock is
+executed, and the control moves to the statement following the
+*if* statement (i.e., the statement after the stmtBlock).
+If boolExpr evaluates to *false*, the stmtBlock is skipped
+and the control is transferred to the statement following the
+*if* statement (see Figure \@ref(fig:ControlStructs)(a)).
+Notice the single entry and exit points for the control structure.
+This is true for the other control structures as well.
+
+Businesses typically accord special treatment for important
+customers. In case of financial services companies, important
+customers are those that pay large sum of money in the form of
+commissions and fees. The following *if* statement tags
+such customers as platinum customers:
+
+ *if* (totalCommisionAndFees $>$ 500000)
+  \   \   custType = “Platinum";
+  
 
 ### if/else
+Another form of the *if* statement, named ``if /else``, is shown below:
+
+*if* boolExpr
+
+\ \ stmtBlock$_1$ 
+
+\ \ *else*
+
+\ \ stmtBlock$_2$ 
+
+If  boolExpr$_1$ evaluates to *true*, stmtBlock$_1$ is
+executed and the control moves to the statement following the
+*if*/*else* statement (i.e., the one after
+stmtBlock$_2$). Otherwise (i.e., when boolExpr$_1$ evaluates to
+*false*), stmtBlock$_2$ is executed, and the control is
+transferred to the statement following the
+*if*/*else* statement. The important thing to notice
+here is that the execution of stmtBlock$_1$ and stmtBlock$_2$ is
+mutually exclusive --- if stmtBlock$_1$ gets executed,
+stmtBlock$_2$ is skipped and vice versa (see
+Figure \@ref(fig:ControlStructs)(b)).
+
+Consider the platinum customer example of Section \@ref(if).
+Assume that we want to extend the customer categorization into two
+classes: platinum (if total commissions and fees is more than
+\$500000) and gold (everybody else is gold). The following
+*if/else* statement accomplishes the task:
+
+*if* (totalCommisionAndFees $>$ 500000) 
+
+\   \ custType = "Platinum" 
+
+\   \ *else* 
+
+\   \ custType = "Gold";
+
 
 ### if/else if
+The general form of the *if* statement, known as *if /else* if, is shown below.
+
+*if* boolExpr$_1$
+
+\   \ stmtBlock$_1$ 
+
+\   \ else *if* boolExpr$_2$
+
+\   \ stmtBlock$_2$
+
+\   \ $\vdots$ 
+
+\   \ *else if* boolExpr$_n$ 
+
+\   \ stmtBlock$_n$ 
+
+\   \ [*else* 
+
+\   \ stmtBlock$_{\mbox{default}}$]
+
+It is a generalization of the *if*/*else*. First,
+boolExpr$_1$ is evaluated. If it evaluates to *true*,
+stmtBlock$_1$ is executed, and control moves to the statement
+following the *if* statement skipping the rest of the
+*if* statement. If boolExpr$_1$ evaluates to
+*false*, boolExpr$_2$ is evaluated. If boolExpr$_2$
+evaluates to *true*, stmtBlock$_2$ is executed and the
+control moves to the next statement (i.e., the statement following
+the *if* statement) by skipping the rest of the *if*
+statement. This is process is repeated with other boolExpr. If
+none of the boolExpr evaluates to *true*,
+stmtBlock$_{\mbox{default}}$ is executed unconditionally. Note
+that last *else* and the associated
+stmtBlock$_{\mbox{default**$ are optional (indicated by the [ and
+]). If they are absent, it is possible that none of the stmtBlocks
+gets executed. Further, note that only one the stmtBlock gets
+executed, if at all --- stmtBlocks are mutually exclusive (see
+Figure \@ref(fig:ControlStructs)(c)).
+
+Assume that we want to have more granularity in the categorization
+of customers of example of Section \ref(ifelse): platinum (
+total commissions and fees is more than \$500000), gold (total
+commissions and fees is more than \$250000, but less than
+\$500000), and silver (those that are not platinum and gold). The
+following code snippet does the job:
+
+*if* (totalCommisionAndFees $>$ 500000) 
+
+\   \ custType = "Platinum" 
+
+\   \ *else if* (totalCommisionAndFees $>$ 250000) 
+
+\   \ custType = "Gold" 
+
+\   \ *else* 
+
+\   \ custType = "Silver";
+
+
+How an *if* statement works is exemplified in
+IfElseStmt1.cs program shown in Listing \@ref(IfElseStmt1). The
+IfElseStmt1 class has two methods: LetterGrade() and Main(). Given
+a score (type integer), LetterGrade() returns a character
+corresponding to the score. Assume that the method parameter
+($myScore$) received a value of 13. First, the boolean expression
+on line 9, $myScore$ $>=$ 90, is evaluated. It evaluates to
+*false* since  $13
+>= 90$ is *false*. As the next boolean expressions on
+line 10 also evaluates to *false*, the next one on line 12
+is evaluated. Since this also evaluates to *false*, the
+next one on line 14 is evaluated, which also evaluates to
+*false*. Since there are no more boolean expressions, the
+control moves to line 17. This is the default case and the method
+return the letter `F.`
+
+```{r ControlStructs, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="Variants of the selection control structure"}
+knitr::include_graphics("./Images/ControlStructs/Illus/ControlStructs.png")
+```
+
+For the next trace through the LetterGrade() method, assume
+$myScore$ value of 90. The first boolean expression on line 8
+evaluates to *true* (since $90 >= 90$), control enters
+corresponding statement block (line 9), returns  'A' and control
+moves back to the caller of the LetterGrade(), which is the
+Main().
+
+Now consider the Main() method. WriteLine statements on lines 23
+-- 26 print prompts to the console. The essence of the Main() is
+in the *while* loop (lines 27 -- 32). We explain how the loop
+works in Section \@ref(WhileLoop). It repeatedly reads a string
+from the console and ascertains whether or not it is a null string
+(line 27), converts into an integer (line 29), calls LetterGrade()
+and prints the value returned to the console (line 30). The loop
+terminates when the user presses the *enter* key. You
+should experiment with different values for score and verify the
+results. Console output produced by the program for input values
+90, 75, 13, -250, and 1000 is shown in
+Figure \@ref(fig:IfElseStmt1Out).
+
+Program development is not complete until the program is tested
+for functional correctness. Testing a small piece of code like our
+IfElseStmt1.cs is called *unit testing* *Unit testing*
+and is usually done by the person who developed it.
+*Test cases* are used for unit testing,
+which consists of a set of inputs to the program and expected
+results. A test case is designed for a specific objective. For
+example, objectives may include *coverage* *Test coverage*
+and *boundary conditions*.*Boundary conditions*.
+In the first case, test cases are designed to cover as
+many statements as possible. Focusing on LetterGrade(), an input
+value of 90 covers only statements in lines 8 and 9; an input
+value of 0 covers statements in lines 9, 10, 12, 14, and 17. Note
+that coverage corresponds to the statements that the control flows
+through. Test cases focusing on boundary conditions test the
+program behavior for situations involving extremely large or small
+values, negative values which may generate various types of
+exceptions (discussed in Section \@ref(ExcepHandling)).
+
+The program will crash if we enter an input that has non-digit
+characters in it (e.g., 1A) since Int32.Parse() on line 29 will
+generate a FormatException error during the runtime.
+Likewise, too large and too small values --- those that are
+outside the range of the *int* data type --- will also
+result in OverflowException error generation.
+These types of errors are related to the input data. In practice,
+data validation checks to prevent such errors are done by the
+invoker of the method, especially in GUI (Graphical User
+Interface) applications. Regardless of data validation checks,
+raising an exception to indicate an error condition is a good
+practice.
+
+The LetterGrade() method returns 'A'  for scores $>=$ 90. We can
+make this more constrained by changing our boolean expression from
+$(\mbox{myScore} >= 90)$ to $(\mbox{myScore} >= 90 \,\, \&\& \,\,
+\mbox{myScore} <= 100)$. Programming Project \@ref(IfElseStmt1Exer1) 
+explores this extension to
+the IfElseStmt1.cs program.
 
 ### switch
+Another form of *selection* control structure is the
+*switch* statement, whose syntax is:
 
-## Iteration
+*switch* (switchExpr) 
+
+\  \ *case* constExpr$_1$: 
+
+\  \ stmtBlock$_1$ 
+
+\  \ *break*; 
+
+\  \ *case* constExpr$_2$: 
+
+\  \ stmtBlock$_2$ 
+
+\  \ *break*; 
+
+\  \ $\vdots$ 
+
+\  \ *case* constExpr$_n$: 
+
+\  \ stmtBlock$_n$ 
+
+\  \ *break*; 
+
+\  \ [ *default*:  
+
+\  \ stmtBlock$_{n+1}$ 
+
+\  \ *break*;] 
+
+Notice the keywords *switch*, *case*, *break*, and
+*default*. The switchExpr evaluation should result in one of
+the following types: *sbyte*, *byte*,
+*short*, *int*, *uint*, *long*,
+*string*, or an *enum* based on the above types, or
+any other types which are implicitly convertible to the above
+types. If the evaluation of the switchExpr results in
+constExpr$_1$, stmtBlock$_1$ is executed and the control moves to
+the statement following the *case* statement; if switchExpr
+evaluates to constExpr$_2$, stmtBlock$_2$ is evaluated and the
+control moves to the statement following the *case*
+statement, and so on. Note that only one of the stmtBlocks is
+executed. The *break* keyword followed by the semicolon is
+called the *break* statement, whose purpose is to transfer
+the control to the statement following the *switch*
+statement. constExpr$_1$, constExpr$_2$, $\cdots$, constExpr$_n$
+are called *case labels*. The *default* block (the
+last three lines) is optional and stmtBlock$_{n+1}$ gets executed
+only of switchExpr value doesn't match any of the case labels. A
+diagrammatic representation of the switch logic is shown in
+Figure \@ref(fig:SwitchExample).
+
+Let us say that we want to count the number of occurrences of
+various letters of the alphabet in an essay. One way to solve this
+problem is to declare counters for keeping track of the number of
+occurrences of each letter, initialize the counters to 0, process
+the letters in the essay one at a time by incrementing the
+appropriate counters. The following code fragment illustrates the
+solution using the *switch* statement:
+
+```{r SwitchExample, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="switch control structure"}
+knitr::include_graphics("./Images/ControlStructs/Illus/SwitchExample.png")
+```
+
+*case* (letter){
+
+\ \ *case* 'a': 
+
+\ \ numLCAs++; 
+
+\ \ *break*; 
+
+\ \ *case* 'A': 
+
+\ \ numUCAs++; 
+
+\ \ *break*; 
+
+\ \ *case* 'b': 
+
+\ \ numLCBs++; 
+
+\ \ *break*; 
+
+\ \ *case* 'B': 
+
+\ \ numUCBs++; 
+
+\ \ *break*; 
+
+\ \ $\cdots$ 
+
+\ \ *case* 'z': 
+
+\ \ numLCZs++; 
+
+\ \ *break*; 
+
+\ \ *case* 'Z': 
+
+\ \ numUCZs++; 
+
+\ \ *break*; 
+
+\ \ *default*: 
+
+\ \ others++; 
+
+\ \ *break*; } 
+
+Note that the counters *numLCAs* and *numUCAs*
+represent the number of occurrences of lowercase and uppercase
+versions of the letter `A,' and the counter *others*
+represents letters that are neither lowercase nor uppercase
+letters of the alphabet.
+
+The *switch* statement in action is exemplified in
+SwitchStmt1.cs program (Listing \@ref(SwitchStmt1)). Lines 4 --
+9 define an *enum* named CustType, which indicates
+different customer types of an organization. The class has two
+methods: DiscountRate() and Main(). The first method has a
+parameter, aCustType, of the *enum* type CustType. The
+*switch* statement (lines 14 -- 25) has five *case*
+labels. The first four correspond to the elements of the enum
+CustType, and the last one is the default *case* label.
+
+```{r SwitchStmt1Out, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="SwitchStmt1.cs program run results"}
+knitr::include_graphics("./Images/ControlStructs/Illus/SwitchStmt1Out.png")
+```
+
+Let us assume that the method parameter $aCustType$ received the
+value CustType.Platinum during an invocation. The C\# runtime
+compares this value with the case label values in the order of
+their physical placement. As soon as a matching case label is
+found, the control is transferred to that case label. In this
+instance, the control is moved to case label on line 16. The next
+line prints the discount rate corresponding to Platinum type
+customers and control moves to line 18. The *break*
+statement causes the control to move to the statement following
+the *switch* statement. This essentially terminates the
+method invocation.
+
+The Main() method is quite simple. Line 29 declares and
+initializes cType (of type CustType). Line 30 invokes
+DiscountRate() with cType as the argument. In the following
+statements, cType is assigned the remaining elements of the
+CustType and DiscountRate() is called. The results of running the
+SwitchStmt1.cs program are shown in
+Figure \@ref(fig:SwitchStmt1Out).
+
+If the same statement block is needed to be executed for each
+case, several case labels can be folded into one as:
+
+*case* constExpr$_1$: 
+
+\  \ *case* constExpr$_2$: 
+
+\  \ *case* constExpr$_3$: 
+
+\  \  stmtBlock 
+
+\  \ *break*; 
+
+In other words, stmtBlock is executed when the switchExpr
+evaluates to any one of the values: constExpr$_1$, constExpr$_2$,
+constExpr$_3$. If the distinction between the uppercase and
+lowercase letters is not required in the alphabet occurrences
+example discussed earlier in this section, *case* labels
+can be combined as shown in the following code fragment:
+
+*case* (letter) 
+
+\ \ { 
+
+\ \ textit{case} 'a': 
+
+\ \ textit{case} 'A': 
+
+\ \ numAs++; 
+
+\ \ textit{break}; 
+
+\ \ textit{case} 'b': 
+
+\ \ textit{case} 'B': 
+
+\ \ numBs++; 
+
+\ \ *break*; 
+
+\ \ $\cdots$ 
+
+\ \ *case* 'z': 
+
+\ \ *case* 'Z': 
+
+\ \ numZs++; 
+
+\ \ *break*; 
+
+\ \ *default*: 
+
+\ \ others++; 
+
+\ \ *break*; 
+
+\ \ } 
+
+The counter *numAs* represents the number of occurrences of
+the letter `A' (both lowercase and uppercase versions). You might
+have already noticed that the *case* statement is
+equivalent to the general *if* statement. However, the
+*case* statement is syntactically more elegant, especially
+if the number of *else if* conditions are many in the
+general *if* statement.
+
+
+## Iteration {#Iteration}
+*Iteration* control structure enables executing a block of
+statements repeatedly as long as the condition associated with the
+control structure evaluates to *true*. There are a few
+variations of this structure --- *for*, *foreach*,
+*while*, and *do/while*. These are also
+referred to as *repetition* control structures.
 
 ### for
+The syntax for the *for* control structure (better known as
+*for* loop) is:
+
+*for* (*initializers*; *forCondition*; *forIterator*) 
+
+\ \ embStmtBlock 
+
+The *for* statement is comprised of four parts:
+*initializers*, *forCondition*,
+*forIterator*, and *embdStmtBlock* (see
+Figure \@ref(fig:IterationExample)(a)). The initializers part, if
+present, consists of either local variable
+declarations/initializations or statement expressions separated by
+commas. This part typically declares and initializes one or more
+local variables (also known as *loop control variables*). It
+is executed in the order they are written, only once, when the
+control arrives at the *for* loop. The
+*forCondition*, if present, must be a boolean expression.
+The *forIterator*, if present, consists of a list of
+statement (expressions) separated by commas.
+
+The loop cycle or iteration starts with the evaluation of
+*forCondition*. If it evaluates to *true*, the
+statements in embStmtBlock (also known as loop body) are executed,
+and the actions specified in the *forIterator* are
+performed. Typically, these actions involve incrementing or
+decrementing the loop control variable(s) by a specified value.
+This completes one cycle of the *for* loop. The next cycle
+starts again with evaluating the *forCondition*. If it
+evaluates to *false*, the loop is terminated and the
+control is transferred to the statement following the *for*
+loop. Otherwise, the statements in embStmtBlock are executed. This
+process repeats as long as the *forCondition* evaluates to
+*true*. Eventually this condition should evaluate to
+*false* signalling loop termination; otherwise, we have an
+(unintended) *infinite loop* --- the one that never ends.
+
+The following is a concrete example of a *for* loop
+construction:
+
+// simple for statement 
+
+\  \ *for* (*int* i = 0; i $<$ 10; i++) 
+
+\  \ { 
+
+\  \ Console.WriteLine("i = \{0\}", i); 
+
+\  \ } 
+
+The *initializers* part is: *int* i = 0, which
+declares and initializes the loop control variable *i*. The
+loop execution begins by initializing *i* with 0. The
+variable is visible only in *forCondition*,
+*forIterator*, and embStmtBlock. Next the
+*forCondition* ( $i < 10$) is evaluated. It evaluates to
+*true* since $ 0 < 10)$. The control enters the loop body
+and executes the statements in embStmtBlock. In our case, it is
+only one statement: Console.WriteLine("i = \{0\*", i). Therefore,
+the string "i = 0" is written to the console. Next
+*forIterator* actions (i.e., i++) are executed, which
+results in incrementing *i* by 1, resulting in *i* =
+1). The next cycle of the loop begins by evaluating the
+*forCondition*, which evaluates to *true* (since $1
+< 10$). During this cycle, the string "i = 0" is printed to the
+console. The cycle is completed by performing *forIterator*
+actions, which results in *i* = 2. The next cycle is
+initiated by evaluating the *forCondition*. Eventually the
+value of *i* will assume 10 after printing the string "i = 9." 
+The loop terminates at this time since the
+*forCondition* ($10 < 10$) evaluates to *false*.
+
+What does the following code snippet print?
+
+// for statement from high to low 
+
+\ \ *int* i = 4; $i > 0$; i-\,-) 
+
+\ \ { 
+
+\ \ Console.WriteLine(``i = \{0\}", i); 
+
+\ \ } 
+
+You should not move any further until you understand that it
+prints the following:
+
+i = 4 
+
+i = 3 
+
+i = 2 
+
+i = 1 
+
+Now consider the following code snippet involving multiple
+initializers and iterators:
+
+ // for statement with multiple
+
+initializers and iterators 
+
+\  \ *for* (*int* i = 0, j = 6; $i<$ j;i++, j-\,-) 
+
+\  \ { 
+
+\  \ Console.WriteLine("i = \{0\*  j = \{1\}", i, j);
+
+\  \ } 
+
+Trace the above and write down the output. Verify that your answer
+matches the following:
+
+i = 0 j = 6 
+
+i = 1 j = 5 
+
+i = 2 j = 4 
+
+The *for* loop construct is used when we exactly know the
+number of times the statements in embStmtBlock need to be
+executed. However, the following construction is a valid
+*for* loop:
+
+// infinite for loop 
+
+\  \*for* ( ; ; ) 
+
+\  \ { 
+
+\  \ Console.WriteLine("I go on forever"); 
+
+\  \ } 
+
+Note that *initializers*, *forCondition*, and
+*forIterator* (for that matter even embStmtBlock) are
+optional. The above loop never ends. Such loops do have use in
+cases such as command-line interpreters and message listeners. For
+beginners, infinite loops are often the result of faulty logic in
+the loop construction.
+
 
 ### foreach
+A variation of *for* loop, named  *foreach*,
+provides a simple mechanism to retrieve all elements in sequence
+in arrays and collections (discussed in
+Section \@ref(Collections) and its syntax is:
+
+*foreach* (Type *var in* ArrayCollExpr) 
+
+\ \  embStmtBlock 
+
+Each element in ArrayCollExpr (which names an array or collection)
+is placed into *var* (a variable) of type Type one at a time in
+sequence. The statements in embStmtBlock typically process the
+value in *var*.
+
+Consider the following code snippet:
+
+*int*[ ] numbers = *new int*[ ] \{10,14,15,16,21,25,30\}; 
+
+\   \ *int* even = 0, odd = 0;
+
+\   \ *foreach* (*int i in* numbers) 
+
+\   \ { 
+
+\   \ *if* (i\%2 == 0) 
+
+\   \ even++; 
+
+\   \ *else* 
+
+\   \ odd++; 
+\   \ } 
+\   \ Console.WriteLine("odd = \{0\} even = \{1\}", odd, even);
+
+The variable *i* is assigned all elements of the
+*numbers* array, one element at a time in succession. The
+expression (i\%2 == 0) evaluates to *true* if *i* is
+even, in which case *even* is incremented by 1. Otherwise,
+*odd* is incremented by one. Since the array has 3 elements
+which are odd integers and four even integers, the
+Console.WriteLine statement prints: odd = 3 even = 4.
+
+ForStmt1.cs program (Listing \@ref(ForStmt1)) illustrates how
+*for* and *foreach* constructs work. Line 9 declares
+and initializes a character array (*separator*) of length 3
+with the elements tab ($\backslash$t), newline ($\backslash$n),
+and space (' ') characters. Line 10 declares a string variable
+(*aSentence*) and initializes it with the string shown.
+Line 11 declares an array of strings (*wordArray*) and
+initializes it with the words extracted from *aSentence*.
+The Split() static method of the String class is called with
+*separator* as the argument. The elements of
+*separator* are used  as delimeters in extracting the words
+in *aSentence*. Each extracted word is stored as an element
+of *wordArray*. Therefore, *wordArray* has eight
+elements.
+
+
+Consider the *for* statement shown in lines 13 -- 22. The
+loop body is comprised of lines 12 -- 21. Let us look at the
+syntax in line 12. Within the parentheses, there are three
+expressions. Consider the the initialization expression:
+*int* *index* = 0. It declares the loop control
+variable *index* and initializes it to 0. The
+*forCondition*, *index* $<$
+*wordArray.Length()*, is evaluated next. Note that
+*index* = 0 and *wordArray.Length()* = 8 (the length
+of *wordArray*). Length is a property of the Array class.
+The expression, $0 < 8,$ evaluates to *true* and the
+control enters the loop body.
+
+Line 14 prints the first element of the array. Note the use of
+Write (and not WriteLine) which prints but doesn't advance to the
+next line. The rest of the lines in the loop body are there to
+insure that only five elements of the array are printed per line.
+The variable *wordsOnCurLine* keeps track of how many words
+have been printed on the current line. Line 15 increments
+*wordsOnCurLine* to indicate that one more array element
+has been printed on the (new) current line. Line 16 checks to see
+if five elements have been printed on the current line. If so, a
+newline character is written so that subsequent output appears on
+a new line; *wordsOnCurLine* is initialized to zero
+indicating that no elements have been printed on the current line
+(other technique for this purpose using the \% operator is
+illustrated in Listing \@ref(BSTest). Otherwise, lines 17 --
+20 are skipped in the current cycle, which is completed by
+executing the *step* expression (i.e., index++) on line 12.
+Now the value of *index* is 1.
+
+Before starting a new cycle, the *forCondition* is
+evaluated. For the second cycle, the *forCondition* $1 < 8$
+is *true* and the control enter the loop body. The second
+element of the array is printed. In the sixth cycle (i.e., when
+*index* = 5) the boolean expression associated with the
+*if* statement (line 16) evaluates to *true* and
+lines 17 -- 20 are executed. When *index* = 8 (i.e., the
+ninth cycle), the expression $8 < 8$ evaluates to *false*
+and the control is transferred to the statement following the
+*for* statement. By then, all the elements in the wordArray
+have been printed as *index* was successively incremented
+from 0 to 7.
+
+Note that the expression, *index* $<$
+*wordArray.Length()*, is critical for the termination of
+the loop. Therefore, it should be formulated with great care. Had
+we written it as *index* $<=$ *wordArray.Length()*
+instead, this would have caused the control to enter the loop body
+when *index* = 8 and access array element at location 8
+(which doesn't exist) resulting in OutOfBoundsException --- a
+runtime error condition. This type of problem is avoided by using
+the *foreach* control structure (line 23). Inside the
+parentheses of this line, *ele* is declared as a string
+variable. During each cycle of *foreach*, a new element of
+*wordArray* is assigned to *ele*, which is printed
+by the statement in the body of the loop (line 24). The cycles are
+repeated until all the elements have been assigned to
+*ele*. Since we didn't replicate the logic of lines 16 --
+20 here, all elements of the array are printed on the same line.
+The results of running the ForStmt1.cs program are shown in
+Figure \@ref(fig:ForStmt1Out).
+
+In summary, the four components of the *for* loop ---
+*initializers*, *forCondition*,
+*forIterator*, and embStmtBlock --- can all be empty.
+Furthermore, we can have multiple statements in the
+*initializers* and *forIterator* parts separated by
+comma (,). The comma delimited statements are executed in the
+order of their physical placement. However, this practice obscures
+the conceptual clarity and is discouraged. The foreach statement
+is used to iterate through arrays and collections to get the
+desired information, but should not be used to change their
+contents to avoid unpredictable side effects.
+
+```{r ForStmt1Out, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="ForStmt1.cs program run results"}
+knitr::include_graphics("./Images/ControlStructs/Illus/ForStmt1Out.png")
+```
 
 ### break and continue
+The *break* statement is used inside the *for* loop
+to prematurely terminate the loop. This causes the control to move
+to the statement following the *for* statement. Typically,
+the *break* statement is conditionally executed. Sometimes
+we like to terminate the current loop cycle at some statement in
+the loop body and initiate the next cycle; *continue*
+statement is used for this purpose. Both *break* and
+*continue* can also be used with other forms of iteration:
+*foreach*, *while*, *do/while*.
 
 ### Nested for Loops
+Loops can be nested --- one placed inside another. Such loops are
+called *nested loops*. Depth of nesting is a measure of the
+number of loops involved in the nesting. A nested loop with two
+*for* structures has a nesting depth of two. In case of
+nested loops, the *break* statement terminates the current
+enclosing loop and control is transferred to the statement
+following the embStmtBlock of the current loop.
 
-### while
+Nested loop concept, *continue*, and *break*
+statements are best illustrated in the following problem context.
+Consider the following two-dimensional array of integer numbers:
+
+69 \ 12 \ 5 \ 12 \ 16 
+
+56 \ 34 \ 23 \ 89 \ 37 
+
+12 \ 13 \ 15 \ 17 \ 14 
+
+25 \ 38 \ 35 \ 77 \ 18 
+
+75 \ 83 \ 11 \ 22 \ 6
+
+Suppose we want to print the array as shown above except that we
+want to substitute spaces for a specified array element. Let us
+refer to this element as *cntConst*. If *cntConst* =
+12, the display should look like:
+
+69 \   \  \ \ 5 \   \  \  \  \ 16 
+
+56 \ 34 \ 23 \ 89 \ 37 
+
+\  \  \ 13 \ 15 \ 17 \ 14 
+  
+25 \ 38 \ 35 \ 77 \ 18 
+
+75 \ 83 \ 11 \ 22 \ 6
+
+If the specified number is not present in the array, the printed
+array is identical to the original array. We also want the
+capability to print the array row-wise (i.e., first row followed
+by the second, second row followed by the third, and so on) until
+we encounter the first occurrence of a specified array element.
+Let us refer to this element as *brkConst*. When
+*brkConst* is encountered, it is printed and the process
+terminates. If *brkConst* is not found, the printed array
+is identical to the original array. If *brkConst* = 13,
+output should look like:
+
+69 \ 12 \ 5 \ 12 \ 16 
+
+56 \ 34 \ 23 \ 89 \ 37 
+
+12 \ 13 \  \  \  
+
+e use nested *for* loops for printing the array. The outer
+*for* loop is used to step through the array rows whereas,
+the inner *for* loop is used to traverse the columns of the
+row. Every time we access the array element at a given row and
+column, its value is tested for equality with *cntConst*.
+If so, the value is not printed; instead, two spaces are printed
+to maintain the vertical alignment of the columns. The value is
+printed as is, otherwise.
+
+For the case involving *brkConst*, the array value read is
+tested for equality with *brkConst*. If equal,
+*brkConst* is printed and exited from the inner
+*for* loop using *break* statement; outer
+*for* loop is also exited using another *break*
+statement. NestedLoops1.cs program shown in
+Listing \@ref(NestedForLoops1) implements this solution.
+
+Lines 8 -- 9 declare and initialize *cntConst* and
+*brkConst*. Line 11 declares and initializes a boolean
+variable to indicate whether *brkConst* value is read from
+the array in the inner *for* loop. A two-dimensional (2D)
+array, *twoDArray*, is declared and initialized in line 11.
+The list of values enclosed in each parentheses inside the outer
+parentheses represents elements of a row.
+
+Lines 13 -- 25 implement a solution to that part of the problem
+involving the *cntConst*. The outer *for* loop is
+lines 13 -- 25 and the inner *for* loop is lines 15 -- 23.
+Line 13 iterates through the rows whereas line 15 iterates through
+the columns within the row. Line 17 compares
+*twoDArray[rowIdx, colIdx]* to *cntConst*. If they
+are equal, line 19 prints a space (instead of the element value)
+followed by the tab character. The *continue* statement on
+line 20 indicates that the next cycle of the inner *for*
+loop be started so that line 22 is skipped. If they are not equal,
+lines 18 -- 21 are skipped and line 22 is executed (which prints
+the array element followed by the tab character). After processing
+the current row (i.e., when *colIdx* = 5), the inner
+*for* loop is exited and line 24 is executed (which writes
+a newline character). The next cycle of the outer *for*
+loop starts with *rowIdx* = 1 and the process repeats.
+
+Next consider the second part of the problem involving the
+*brkConst*. Lines 27 -- 41 correspond to the solution. They
+comprise the outer *for* loop whereas, lines 29 -- 37
+constitute the inner *for* loop. Line 31 prints
+*twoDArray[rowIdx, colIdx]* followed by a tab character.
+Line 32 checks to see if *twoDArray[rowIdx, colIdx]* =
+*brkConst*. If so, *inrLoopBreak* is set to
+*true* (line 34) indicating that we have encountered the
+*brkConst* in the inner loop. Line 35 causes the control to
+exit the inner *for* loop. Now control is transferred to
+line 38, which prints a newline character. The *if*
+statement on line 40 executes *break* to exit from the
+outer *for* loop, if the inner loop also executed the
+*break*.
+
+```{r NestedForLoops1Out, echo = FALSE, out.width = "55%", fig.align='center',fig.cap="NestedForLoops1.cs program run results"}
+knitr::include_graphics("./Images/ControlStructs/Illus/NestedForLoops1Out.png")
+```
+
+On the other hand, if the boolean expression on line 32 evaluates
+to *false*, the rest of the statements in the inner
+*for* loop are skipped and the next cycle of the inner loop
+starts. Assume that *brkConst* value is not in the first
+row of the array. When the inner loop completes all the five
+cycles, control is transferred to line 38. Line 39 evaluates to
+*false*, line 40 is skipped, and the next cycle of the
+outer loop begins. If you are experiencing difficulty in
+understanding the program, you are asked to assume the role of a
+computer by stepping through program. Often this is an effective
+method for understanding small pieces of code.
+
+Now let us test the program by creating a few test cases. They are
+created by judiciously selecting values for *conConst* and
+*brkConst*. The results of running the program with
+*conConst* = 12 and *brkConst* = 15 are shown in
+Figure \@ref(fig:NestedForLoops1Out).
+
+What are the various boundary conditions? Does the program work
+correctly when: first row, first column element is specified?;
+last row, last column element is specified?; beginning element of
+a middle row is specified?; last element of a middle row is
+specified?; an element which appears multiple times in the array
+is specified? These are some of the possibilities to creating the
+test cases. You should try out these test cases and see if the
+program works correctly. Exhaustive or brute force testing is
+often impractical. Therefore, a limited number of test cases which
+are representative of the operational scenarios of the program
+should be designed to provide a high degree of assurance that the
+program works correctly.
+
+
+### while {#WhileLoop}
+Sometimes we want to repeatedly execute a block of statements, but
+we don't know the number of repetitions *a priori*. The
+*while* control structure meets such a need (see
+Figure \@ref(fig:IterationExample)(b)). Its syntax is:
+
+*while* (boolExpr) 
+\  \    embStmtBlock
+
+When the control arrives at the *while* statement, boolExpr
+is evaluated first. If it evaluates to *true*, statements
+in the embStmtBlock are executed. This comprises one
+*while* loop cycle. The cycle is repeated until the
+boolExpr evaluates to *false*, at which time the
+embStmtBlock is skipped and the control is transferred to the
+statement following the *while* statement (i.e., the
+embStmtBlock). It is possible that embStmtBlock may not get
+executed even once. Like in the case of *for* control
+structure, *while* statements can be nested. The behavior
+of *break* and *continue* statements in
+*while* loops is identical to *for* loops.
+embStmtBlock is also referred to as the *while loop body*.
+Since the boolExpr is evaluated before executing the loop body, it
+is called a *pre-test* loop.
+
+Consider the IfElseStmt1.cs program shown in program
+Listing \@ref(IfElseStmt1). Lines 27 -- 32 comprise the
+*while* loop (or statement) whereas, lines 29 -- 31
+constitute the *while* loop body. The loop cycle consists
+of evaluating the loop condition, and if it evaluates to
+*true*, executing the statements in the loop body. Loop
+condition is the boolean expression enclosed by the outermost
+parentheses in line 27.
+
+
+In response to the prompt on line 26, the user types in a score or
+may just press the *enter* key. Console.ReadLine() portion
+of the boolean expression reads this console input and assigns it
+to the variable *tmpStr*. This assignment statement, by
+design, also returns a value, which is same that assigned to
+*tmpStr*. The returned value is compared with a null string
+(" ""). Therefore, the loop condition (i.e., the boolean
+expression) evaluates whether  or not the user has typed in a
+non-null string. Recall that Console.ReadLine() returns as a
+string everything that is typed on the current line in the console
+except the newline character. If the user has just pressed the
+*enter* key, Console.ReadLine() returns a *null*
+string. The loop condition evaluates to *false*, control is
+transferred to the statement following the *while*
+statement.
+
+
+On the other hand, if the user has typed in an integer number, the
+loop condition evaluates to *true* and the control enters
+the loop body. Line 29 parses the console input as an integer
+value and assigns it to the variable *score*. Line 30
+prints the value of *score*, and the letter grade (by
+calling the LetterGrade() method with *score* as the
+argument). Line 31 prompts the user for another score and a new
+loop cycle starts on line 27. The results of running this program
+are shown in Figure \@ref(fig:IfElseStmt1Out).
+
+
+The Int32.Parse() method raises FormatException if the parameter
+value provided to the method consists of anything other than a
+string of digit characters with no spaces between them.
+To guard against errors caused by such user input, we should include
+line 29 in a *try* block and provide a *catch* block
+to process the exception. This is left as an exercise to you
+(Project \@ref(IfElseStmt1Exer1).
+
 
 ### do/while
+If we want to insure that the *while* loop body gets
+executed at least once, *do*/*while* control
+structure is the right choice (see
+Figure \@ref(fig:IterationExample)(c)). Its syntax is:
+
+*do* 
+
+\  \   embStmtBlock 
+
+\  \   *while* (boolExpr);
+
+When the control arrives at the *do*/*while*
+statement, the statements in the embStmtBlock are executed
+unconditionally (first time only). The boolExpr is evaluated next.
+If it evaluates to *true*, embStmtBlock block is executed
+again. *do*/*while* cycle consists of evaluating the
+boolExpr and executing the embStmtBlock. When the boolExpr
+evaluates to *false*, the loop is terminated and the
+control is transferred to the statement following the
+embStmtBlock.
+
+
+Like in the case of *while* structure,
+*do*/*while* statements can be nested. The behavior
+of *break* and *continue* statements in
+*do*/*while* loops is identical that in
+*while* loops. embStmtBlock is also referred to as the
+*do/while body*. Since the boolExpr is evaluated after
+executing the loop body, it is called a *post-test* loop.
+
+DoWhileStmt1.cs program shown in Listing \@ref(DoWhileStmt1)
+exemplifies how *do*/ *while* loop works. The
+program repeatedly prompts the user to enter a non-negative
+integer. It keeps count of the number of integers entered, and
+maintains cumulative sum of the integers. The loop terminates when
+a negative integer is entered. The program terminates after
+printing the count of the number of integers entered, their
+cumulative sum, and the arithmetic average.
+
+Lines 12 -- 29 are the essence of the program. The loop cycle
+consists of executing the statements in the loop body (lines 14 --
+28), and evaluating the loop condition (*curNum* $>= 0$) on
+line 29 to determine whether or not to initiate the next cycle of
+the loop. The program control enters the loop unconditionally the
+first time. Line 14 prompts the user to enter a non-negative
+integer number. This value is parsed and assigned to
+*curNum* on line 17. This assignment statement is encased
+in the catch block to guard against exceptions like
+FormatException, and OverflowException. If the assignment
+statement results in raising an exception, it is processed in the
+*catch* block (lines 21 -- 25) by printing the information
+about the exception and terminating the program.
+
+Assume that the assignment statement didn't result in an
+exception. The control moves to line 27 and adds *curNum*
+to the cumulative total (*cumTotal*). The count of the
+integers read is incremented by one (line 28). Next, the loop
+condition is evaluated. As long as the integer read is a
+non-negative one, the loop continues. The loop is terminated when
+a negative integer is entered. Even during this cycle, statements
+27 and 28 are executed. This offsets the values of
+*cumTotal* and *entryCount*. Correct value of
+*entryCount* is one less than its value when the loop is
+exited. Likewise, the correct value of *cumTotal* is
+obtained by adding the absolute value of *curNum* to
+*cumTotal*. Statements 30 -- 31 correct these offsets.
+
+Line 32 tests to see if the user has entered at least one
+non-negative value. If so, *entryCount*, *cumTotal*,
+and arithmetic average are printed (lines 34 -- 35). Note the
+typecast *float* in line 35. Otherwise, the division is
+performed as an integer division. For example, in integer
+division, 25/12 = 12, not 12.5 as one expects. The results of
+running DoWhileStmt1.cs are shown in
+Figure \@ref(fig:DoWhileStmt1Out).
+
+```{r DoWhileStmt1Out, echo = FALSE, out.width = "55%", fig.align='center',fig.cap="DoWhileStmt1.cs program run results"}
+knitr::include_graphics("./Images/ControlStructs/Illus/DoWhileStmt1Out.png")
+```
 
 ### Nested while Loops
+Nested *for* loops program, NestedForLoops1.cs
+(Listing \@ref(NestedForLoops1)), implemented using nested
+*while* loops is shown in
+Listing \@ref(NestedWhileLoops1). Lines 12 -- 13 declare
+*colIdx* and *rowIdx* to keep track of column and
+row numbers of the array. Lines 15 -- 31 comprise the outer
+*while* loop, and lines 18 -- 28 constitute the inner
+*while* loop. The outer *while* loop is controlled
+by the boolean expression, *rowIdx* $< 5$. As the control
+cycles through the outer loop, *rowIdx* is assigned values
+0 though 4. And each such assignment is used to process the
+elements of the array in row *rowIdx*. Line 17 initializes
+*colIdx* to 0, which is incremented in the inner loop. The
+inner loop controls the processing of all the array elements in
+row *rowIdx*.
 
-## Choosing the Right Control Structure
+Line 20 checks to see if *twoDArray[rowIdx, colIdx]* is the
+element to be skipped from printing. If so, a tab character is
+printed, and *colIdx* is incremented; the *continue*
+statement of line 24 causes the remaining loop statements (lines
+26 -- 27) to be skipped in the current cycle. If not, the array
+element is printed, *colIdx* is incremented, and next cycle
+is initiated. After all the elements in the row *rowIdx*
+are printed, inner loop condition evaluates to *false*. Now
+control is transferred to line 29. The next cycle of the outer
+loop begins after line 30 increments *rowIdx*. Lines 34 --
+51 implement the logic to terminate printing the rest of the array
+elements once the *brkConst* value is encountered. This
+code is quite similar to the above discussion. The results of
+running this program are not shown since they are identical to the
+ones shown in Figure \@ref(fig:NestedForLoops1Out).
 
-## Debbuging Strategies
+
+## Choosing the Right Control Structure {#RightCS}
+Sequence control structure is the simplest of all. To execute a
+block of statements in certain order, place them in that order in
+the program. However, selection and iteration offer choices and a
+chosen choice may affect performance (i.e., the execution time of
+the program).
+
+Of the two selection control structure *if*/*else if*
+and *switch*, the former is more general. In other words, we
+can always rewrite *switch* statement as an
+*if*/*else if* statement, and not vice versa. However,
+*switch* statement is more elegant in terms of code
+comprehension. Complex boolean expressions can be associated with
+the *if* control structure such as (score $>=10 \,\,
+\&\&\,\,$ score $<=30$) are cumbersome to express using the
+*switch*. The latter is preferred over *if/else if* in
+cases where the *switch* expression evaluates a small set of
+values, as is the case with enumerations.
+
+With iteration control structure, we have even more choices:
+*for*, *foreach*, *while*, and *do/while*. The
+first one is used when we precisely know the number of iterations.
+It is more general than *foreach* in that it provides access
+to the element value and its index. Though *foreach* doesn't
+provide access to the element index, it doesn't require declaring
+and initializing a loop counter, incrementing the counter, and
+formulating the loop termination condition. It also eliminates the
+dangers associated with accidentally accessing elements outside
+the index range, thus resulting in IndexOutOfRangeException.
+
+The other two (*while* and *do/while*) iteration
+constructs are used when we don't know in advance the number of
+loop iterations. Typically they are used in situations involving
+processing an unknown number of data elements (e.g., reading data
+from files, processing console input). If at least one iteration
+is needed, *do/while* is used. Though any *for* loop can
+be implemented as a *while* loop, doing so takes away the
+conceptual clarity manifested in the former. The most important
+aspect of iteration control is insuring that the loop terminates.
+
+
+
+## Debbuging Strategies {#DebugStrategies}
+The various steps in the program development include understanding
+the problem, designing the solution, expressing the solution as a
+C\# program, compiling and running the program. Successful
+compilation of your program doesn't guarantee that it will perform
+its intended function correctly. Primarily, syntax- and
+type-related errors are caught during the compilation step. Syntax
+errors are a direct result of not constructing the program
+statements according to the rules of the grammar. Examples include
+mistyped keywords, using a variable without declaring it, missing
+or unbalanced braces \{ and \}, missing semicolon or semicolon at
+the wrong location. Type related errors, for example, type
+incompatibility in assignment statements: the data type of the
+variable on the left hand side is incongruent with the data type
+of the literal or an expression on the right hand side.
+
+
+Several things can go wrong when the program is run: doesn't
+produce correct results, crashes on certain inputs, program
+doesn't terminate, among others. Considerable amount of a
+programmer's time is spent on discovering the cause of these
+errors (or defects) and correcting them --- debugging.
+
+
+There are a few techniques available for debugging. But before we
+discuss them, we suggest the following, especially for the
+beginners. First, you should convince yourself that the solution
+you have designed for the problem is indeed a correct solution.
+For example, consider the *sorting problem* --- arranging a
+set of values into ascending or descending order. Take some time
+to come up with a solution to the sorting problem. Jot it down on
+a piece of paper. Go through the steps and convince yourself that
+the solution works. The solution steps should be detailed enough
+to a degree so that your friend can blindly execute these steps to
+sort a given set of values. The next step is encode the solution
+as a C\# program. Write down the program on a piece of paper with
+proper indentation. Assume the role of a computer and step through
+each statement. Keep track of how the values of variables change
+as the execution progresses. If this desk checking of your program
+convinces that your solution is correct, only then you are ready
+for the next step.
+
+Now you are ready to type your program into a text editor. Pay
+attention to indentation, and matching parenthesis pairs. This is
+where a *syntax-aware* editor such as the one featured in
+Visual Studio.NET comes very hand. Such editors automatically
+highlight the keywords and provide proper indentation. When you
+compile the program, compile-time errors are reported. These error
+messages are often cross-referenced with line numbers in your C\#
+program (see Section \@ref(DotNetIDE). The error message may
+seem cryptic at the beginning; however, they provide clues as to
+what is causing the error. Also, one syntax error in a statement
+may give raise to several spurious syntax errors in the following
+statements. Removing such an error often results in disappearance
+of other errors. Removing compile-time errors is an iterative
+process: compiling, examining the errors, and fixing them. You
+become agile at this activity with practice and experience.
+
+Assuming that the program compiled successfully, we are now into
+the next stage: running the program and testing it. As pointed out
+earlier, several types of errors can occur during runtime. If the
+program runs and doesn't produce correct results, the defect may
+be your solution itself. Or, it could be due to incorrect
+understanding of how a language feature works (e.g., pre-increment
+vs. post-increment: colIdx++, ++colIdx). If the program crashes on
+certain input, maybe it is due to certain exception raised but are
+not handled. If the loop termination conditions are not set up
+correctly results in program looping indefinitely; thus, the
+program doesn't terminate. Note that even under this condition,
+the program may be eventually terminated by the operating system
+on resource reasons.
+
+There are several strategies for debugging. They range from simple
+Console.WriteLine() statements to using a debugger for stepping
+through the program execution one statement at a time, examining
+the values of variables, expressions, and call stack, and
+modifying variable values. This can be done for each statement or
+for a pre-defined set of statements marked with
+*breakpoints*. You set breakpoints to indicate to the
+debugger that program execution be temporarily suspended when
+execution reaches breakpoints. Now you can examine the values of
+variables, formulate and evaluate a subset of valid C\#
+expressions, modify variables values, among others.
+
+
+To debug a program, the C\# compiler and the .NET runtime
+environment must be configured to enable a debugger to attach to
+the application. Configuration is also needed to produce both
+*symbols* and *line maps* for the program and its
+corresponding Microsoft Intermediate Language (MSIL), which is
+discussed in Section \@ref(ExecProcess). Successful compilation
+is a prerequisite for debugging.
+
+C\# programs are easily debugged using Visual Studio .NET, which
+handles many of the configuration details. Alternatively, we can
+use the following: classes in the Systems.Diagnostics namespace;
+Cordbg.exe --- a run-time command-line debugger; and DbgCLR.exe
+--- a GUI-based Microsoft common language runtime debugger.
+System.Diagnostics includes the Trace and Debug classes for
+tracing execution flow. DbgCLR.exe is located in the
+Microsoft.NET/FrameworkSDK/GuiDebug folder.
+
+Once a program is debugged, it can be *profiled* to improve
+its performance. Profiling evaluates and describes the lines of
+source code that is most frequently executed as well as how much
+time it takes to execute them ^[Technically speaking, the
+description is on the corresponding MSIL code.].
+System.Diagnostics namespace includes the Process, EventLog, and
+PerformanceCounter classes for profiling C\# programs.
+
+Debugging concepts are best illustrated using the DebugDemoApp.cs
+program shown in Listing \@ref(DebugDemoApp). DebugDemo class
+(lines 4 -- 30) has two methods: Factorial (lines 6 -- 15) and
+Main (lines 16 -- 29). The Factorial(), given a natural number $n$
+as input, computes its factorial value using the following
+mathematical formula:
+
+
+\begin{equation*}
+\mbox{ factorial}(n) = \left \{ \begin{array}{ll}
+        1 & \mbox{ if } n =0 \\
+        1 \times 2 \times 3 \times \cdots (n-2) \times (n-1) \times n & \mbox{ if }  n \geq 1
+        \end{array}
+    \right.
+\end{equation*}
+
+The *for* loop of lines 10 -- 13 implements this formula
+and line 14 returns the computed value to the caller. Note that
+Factorial() doesn't check to insure that the input parameter value
+is greater than or equal to zero. Instead, it states this
+requirement --- referred to as a *pre-condition* --- as a
+comment in line 6. The caller of this method (in our case the
+Main()) needs to insure that the value it passes while invoking
+Factorial() conforms to pre-condition(s). Alternatively,
+Factorial() itself can check for this conformance. Given that it
+possible in practice that Main() and Factorial() are developed by
+two different programmers, both programmers may ignore checking
+for pre-conditions thinking that the other would do the checking.
+To avoid this nasty situation, we recommend that the developer of
+a method clearly document relevant pre-conditions and the
+responsibility for insuring adherence to these conditions rests
+with the caller of the method.
+
+The Main() reads an integer value from the console (line 20),
+declares and creates $obj$ (an instance of DebugDemo class) in
+line 21, insures that the pre-condition for calling Factorial() is
+met (line 22), Factorial() is called with the integer read from
+the console as input parameter (line 24), and factorial value
+returned from Factorial() is printed (line 25). If
+pre-condition(s) are not met, Factorial() is not called and a
+message is printed (line 28). It is important that you manually
+trace through the program one step/statement at a time for
+understanding the ensuing discussion.
+
+
+A select list of cordbg.exe commands are shown in
+Table \@ref(tab:CordbgCommands1). The intent is to provide basic
+information to get started without overwhelming you. Most of the
+debugger commands are abbreviated, for example, b for break. You
+need to type only sufficient characters in the command name to
+avoid ambiguity. Consider the *break* command syntax:
+*break* $<$*lineNum*$>$. The text shown in [ ] is
+optional. The break command requires only one argument (i.e.,
+*lineNum*) indicating the source code line number at which
+you would like to break (or pause) the program execution so that
+you can examine the values of variables, among other things. To be
+precise, a break point can be set at a line number in the current
+source file, a line number in a fully qualified source file, or in
+a method qualified by a class and optional offset. Our description
+of the commands and their syntax is deliberately simplified to
+promote conceptual understanding of the debugger. Command
+arguments are delimited by guillemots ($<$ and $>$). Next consider
+the syntax of the delete command: del[ete]
+$<$*bkpntId*$>$, $<$*bkpntId*$>$. It specifies
+that the command takes zero or more comma separated arguments.
+
+```{r LANDetail, echo = FALSE, out.width = "65%", fig.align='center',fig.cap="Debugging DebugDemoApp.cs program {Debugging DebugDemoApp.cs program -- part 1 of 2}"}
+knitr::include_graphics("./Images/ControlStructs/Illus/DebugDemoAppOut1.png")
+```
+
+Compile the application using the debug switch as: csc /debug
+DebugDemoApp.cs. This causes the compiler to generate the
+necessary information that the debugger needs in addition to
+generating the executable DebugDemoApp.exe. Next, type
+*cordbg* ^[If the PATH variable is not set on your
+system, you need to type the fully qualified command name:
+C:$\backslash$Program Files$\backslash$Microsoft Visual Studio
+.NET
+2003$\backslash$SDK$\backslash$v1.1$\backslash$Bin$\backslash$cordbg.]
+at the command prompt to start a debugging session as shown in
+Part 1 of Figure \@ref(fig:DebugDemoAppOut1). The following command
+is entered from within a cordbg.exe session (at the (cordbg)
+prompt) to debug the executable DebugDemoApp.exe: run
+DebugDemoApp.exe. The figure also shows setting a break point at
+source code line number 25, continuing the program execution using
+the *go* command, examining the values of local variables
+using the *print* command. Note that the values of the
+variables are shown in hexadecimal numbering system (denoted by
+the prefix 0x): number = 0x00000004 and result = 0x00000014. The
+value 14 in hexadecimal system is equal to 24 in the decimal
+system. Verify that the factorial of 4 is 24.
+
+
+```{r CordbgCommands1, echo = FALSE, warning = FALSE, results = 'asis'}
+
+options(knitr.table.format = "html") 
+
+library(knitr)
+library(kableExtra)
+
+# column 1 vector
+Debugger_Command <- c("b[reak] [<lineNum>] stop [<lineNum>]", "del[ete] [<bkpntId>[, <bkpntId>]]
+rem[ove] [<bkpntId>[, <bkpntId>]]","p[rint] [<varName>]","set <var> <val>","ex[it]
+quit","h[elp] [<cmdName>[,
+<cmdName>]]
+? <cmdName>[, <cmdName>]]","k[ill]","sh[ow] [<count>]","con[t] [<count>]
+g[o] [<count>]")
+
+# column 2 vector
+Description <- c("Sets or displays breakpoints. If you do not specify a line number,
+the tool displays a list of current breakpoints; otherwise, it sets a
+breakpoint at the specified line number. White space and comment
+lines are also numbered. stop is an alias of break command.", "Deletes breakpoints. If you do not specify bkpntIds, the tool
+deletes all current breakpoints. If you specify one or more comma
+separated bkpntIds, the tool deletes the specified breakpoints. remove
+is an alias of delete command.", "Displays names of one or more local variables along with their
+values. If you do not specify an argument, the tool displays all
+local variables (i.e., those that are defined in the current method)
+and their values. If you specify a variable name, the tool displays
+the name and value of that variable only.","Sets the value of the specified variable to the specified value. The
+value can be a literal or another variable. This command allows the
+user to assign desired values to variables and examine the program
+behavior.","Stops the current process and exits the debugger. quit is an alias of
+exit command.","Displays usage syntax and descriptions for the specified commands.
+If you do not specify any cmdName, the tool displays a
+list of debugger commands. ? is an alias of help command.","Stops the current process. The debugger remains active to process
+further commands.","Displays source code lines. If you do not specify count, the tool
+displays five source code lines before and after the current source
+code line. If you specify count, the tool displays the specified number
+of lines before and after the current line. The last count specified
+becomes the default for the current session.","Continues the program. If you do not specify count, the program
+continues once. If you do specify count, the program continues the
+specified number of times. This command is useful for continuing
+a program when a class load event, exception, or breakpoint stops
+the debugger. go is an alias of cont command.")
+
+# create data frame
+debugger <- data.frame(Debugger_Command,Description, stringsAsFactors = FALSE)
+
+library(knitr)
+
+# table label named tab:tabCrossRef is automatically created
+
+# kable(debugger, booktabs = TRUE, caption = "Multi-perspective view of a class")
+
+# kable(multiplePerspectives, caption = "Multi-perspective view of a class") %>%
+#   kable_styling()
+
+ kable(debugger, caption = "Select list of command-line debugger commands {Select list of command-line debugger commands -- part 1 of 2}") %>%
+   kable_styling(bootstrap_options = c("striped", "hover"))
+
+```
+
+
+```{r CordbgCommands2, echo = FALSE, warning = FALSE, results = 'asis'}
+
+options(knitr.table.format = "html") 
+
+library(knitr)
+library(kableExtra)
+
+# column 1 vector
+Debugger_Commands <- c("n[ext] [<count>]
+so[<count>]","ns[ingle] [<count>]","s[tep] [<count>]
+si[<count>]
+i[n] [<count>]","ss[ingle] [<count>]","o[ut] [<count>]","r[un] [exe [args]]")
+
+
+# column 2 vector
+Descriptions <- c("Steps the program to the next source line, stepping over method calls (i.e., source
+code lines in the method are included). If you do not specify count, the tool steps
+one source line. If you specify count, the tool steps the specified number of lines.
+so is an alias of next command.","Steps the program one or more instructions (or statements), skipping over method
+calls (i.e., instructions in the method are excluded). If you do not specify count,
+the tool steps one instruction. If you specify count, the tool steps the specified
+number of instructions.","Steps the program to the next source line, stepping into method calls. If you do
+not specify count, the program steps to the next line. If you specify an argument,
+the program steps the specified number of lines. si and in are aliases of step
+command.","Steps the program one or more instructions (or statements), stepping into method
+calls. If you do not specify count, the tool steps into only one instruction. If you
+specify count, the tool performs the specified number of instructions.","Steps the program out of the current method. If you do not specify count, the tool
+performs a step out once for the current method. If you specify count, the tool
+performs a step out the specified number of times.","Kills the current process (if there is one) and starts a new one. If you do not
+specify an exe argument, this command runs the program that was previously
+executed with the run command. If you specify an exe argument, the tool runs
+the specified program using the optionally supplied arguments.")
+
+# create data frame
+debuggers <- data.frame(Debugger_Commands,Descriptions, stringsAsFactors = FALSE)
+
+library(knitr)
+
+# table label named tab:tabCrossRef is automatically created
+
+# kable(debuggers, booktabs = TRUE, caption = "Multi-perspective view of a class")
+
+# kable(multiplePerspectives, caption = "Multi-perspective view of a class") %>%
+#   kable_styling()
+
+ kable(debuggers, caption = "Select list of command-line debugger commands]{Select
+list of command-line debugger commands -- part 2 of 2}") %>%
+   kable_styling(bootstrap_options = c("striped", "hover"))
+
+```
+
+
+You terminate the debugging session by executing the *quit*
+command. Now start all over again and set break point at line
+number 12 and then execute go command (Part 2 of
+Figure \@ref(fig:DebugDemoAppOut1)). Enter 4 as response to the
+prompt "Enter an integer: " and examine the values of Factorial()
+local variables by executing print command. Note that the values
+are: method parameter n = 4, loop control i = 1, and fact = 1.
+Next skip three lines (using *s 3*) and print the local
+variables again. This time i has been incremented by 1 and fact =
+2. Though not shown in the figure, execute the command *s3*
+again and notice the local variable values (i = 3 and fact =
+6). Type the same command one more time and verify that the value
+of i = 4 and fact = 24. Continue the program by using the
+*go* command. Now the loop continuation test fails and the
+control is returned to line 25 of Main (). The program terminates
+after printing factorial value of 4.
+
+
+```{r DebugDemoAppOut2, echo = FALSE, out.width = "55%", fig.align='center',fig.cap="Debugging DebugDemoApp.cs program {Debugging DebugDemoApp.cs program -- part 2 of 2 }"}
+knitr::include_graphics("./Images/ControlStructs/Illus/DebugDemoAppOut2.png")
+```
+
+By using the appropriate debugger commands, you can observe the
+run-time behavior of the program at micro- or macro-level. You
+should be convinced by now that the debugger is a powerful tool
+for stepping through the program, pausing, and examining variable
+values as a means to discovering and fixing logical errors. In
+Section \@ref(IDEDebugger), you will be introduced a graphical
+user interface (GUI) debugger which comes with Visual Studio.NET
+development suite.
+
 
 ## Chapter Summary
+This chapter provided a preliminary introduction to arrays,
+strings, and enumerations. An array is a data structure which
+enables storing several homogeneous elements in consecutive memory
+locations and referring to these elements by indexing.
+Conceptually, a string is an array of characters. All the strings
+derive from System.String class and the latter has several
+powerful and flexible methods for performing various operations on
+strings including string comparison, substring extraction,
+concatenation, and changing case.
+
+Enumeration provides a mechanism to refer to a list of literal
+constants using symbolic names, yet maintaining a numeric
+representation for their storage and manipulation to achieve
+storage and processing efficiency and improve program readability.
+
+Structures are light-weight classes with certain limitations
+including no inheritance, no overriding of the default
+constructor, and no initialization of the fields outside of the
+constructors.
+
+We studied three fundamental control structures --- sequence,
+selection, and iteration --- for controlling the program execution
+flow. Selection has two forms: *if*/*else if* and
+*switch*. Iteration has four variations: *for*,
+*foreach*, *while*, and *do*/*while*.
+
+
+*Debugging* is the process of identifying sources of errors
+or defects in the program and rectifying them. A variety of tools
+are available with widely ranging features for this task. A
+program is *profiled* to improve its performance. It points
+out the program statements that run most frequently and also those
+that take longer to run. The .NET Frameworks Class Library
+provides classes for both debugging (*Trace* and
+*Debug* classes) and profiling (*ProcessLog*,
+*EventLog*, and *PerformanceCounter* classes).
+
+cordbg.exe is a powerful command line-oriented debugger for
+discovering and fixing logical errors in your C\# programs.
 
 ## Exercises
 
+1. Determine if each of the following statements is true or false:
+
+     - The if statement selects a statement or a block of statements based on the value of an arithmetic
+       expression.
+     - A statement in a program is said to be reachable if there is no possible way of executing that
+       statement.
+     - A warning is given if the compiler determines that a statement in a program is unreachable.
+     - An empty statement, indicated by a semicolon (;), is a do nothing statement.
+     - It is not an error to have two or more case labels in the same switch statement specify the same
+       constant value.
+     - There can be at most one default label in a switch statement.
+     - The while statement conditionally executes an embedded statement one or more times.
+     - In a while statement, the boolean expression is evaluated before executing the embedded statement.
+     - The do statement conditionally executes an embedded statement one or more times.
+     - An array stores a list of homogeneous values.
+     - The break statement starts a new iteration of the nearest enclosing while, do, for, or foreach
+       statement.
+
+1. In Table \@ref(tab:StmtExer), match each item on the left
+   with an item on the right:
+   
+```{r StmtExer, echo = FALSE, warning = FALSE, results = 'asis'}
+
+options(knitr.table.format = "html") 
+
+library(knitr)
+library(kableExtra)
+
+# column 1 vector
+Column1 <- c("While statement","for statement","break statement","goto statement","foreach statement","do statement","continue statement","return statement","throw statement","try statement")
+
+
+# column 2 vector
+Column2 <- c("Statement that exits the nearest enclosing switch, while, do,
+for, or foreach statement","Transfers control to a statement marked by a label","The loop body is repeated for each element of an enumeration","Statement that starts a new iteration of the nearest enclosing
+while, do, for, or foreach statement","An iteration statement that is repeated one or more times","A loop construct used when we exactly know the number of
+times the loop body need to be executed","Throws an exception","An iteration statement that is repeated zero or more times","A mechanism for catching exceptions","Transfers control to the caller")
+
+# create data frame
+column3 <- data.frame(Column1,Column2, stringsAsFactors = FALSE)
+
+library(knitr)
+
+
+ kable(column3, caption = "Exercise to test different types of C# statements") %>%
+   kable_styling(bootstrap_options = c("striped", "hover"))
+
+```  
+
+1. Rewrite the following if statement using a switch statement. Use the definition of DayType enumeration
+   from E 1.9.
+   
+   DayType day = DayType.Wednesday;
+
+    if (day == DayType.Sunday)
+   
+    {
+   
+    Console.WriteLine(“It is Sunday already!!");
+   
+    }
+   
+    else if (day == DayType.Monday)
+   
+    { 
+   
+    Console.WriteLine(“Not another week of this!!");
+   
+    }
+   
+    else if (day == DayType.Tuesday)
+   
+    {
+   
+    Console.WriteLine(“No hope in sight yet!!");
+   
+    }
+   
+    else if (day == DayType.Wednesday)
+   
+    {
+   
+    Console.WriteLine(“What a hectic day?");
+   
+    }
+   
+    else if (day == DayType.Thursday) {
+   
+    Console.WriteLine(“When will this end?");
+   
+    }
+   
+    else if (day == DayType.Friday)
+   
+    {
+   
+    Console.WriteLine(“TGIF!!");
+   
+    }
+   
+    else
+   
+    {
+   
+    Console.WriteLine(“Night is still young. Party Time!!");
+   
+    }
+   
+1. Rewrite the following switch statement using an if statement:
+   int i = 3;
+
+    switch (i)
+    
+    {
+    
+    case 1:
+    
+    case 2:
+    
+    case 3:
+    
+    Console.WriteLine(“{0} multiplied by 2 is {1}", i, i * 2);
+    
+    break;
+    
+    case 4:
+    
+    case 5:
+    
+    case 6:
+    
+    Console.WriteLine(“{0} multiplied by 4 is {1}", i, i * 4);
+    
+    break;
+    
+    case 7:
+    
+    case 8:
+    
+    Console.WriteLine(“{0} multiplied by 6 is {1}", i, i * 6);
+    
+    break;
+    
+    default:
+    
+    Console.WriteLine(“Default case: value of i is {0}", i);
+    
+    break;
+    
+    }
+    
+1. Determine the number of times the Console.WriteLine() statement is executed in each of the following code         fragments:
+
+    a. for (int i = 0; i < 10; i++)
+    
+    {
+    
+    Console.WriteLine(i);
+    
+    }
+    
+    b. for (int i = 0; i < 25; i = i + 3)
+    
+    {
+    
+    Console.WriteLine(i);
+    
+    }
+    
+    c. for (int i = 15; i > 1; i􀀀􀀀)
+    
+    {
+    
+    Console.WriteLine(i);
+    
+    }
+    
+    d. for (int i = 0; i < 10; i++)
+    
+    {
+    
+    for (int j = 1; j < 5; j++)
+    
+    {
+    
+    Console.WriteLine(i+j);
+    
+     }
+    
+    }
+    
+    e. for (int i = 0; i < 10; i++)
+    
+    {
+    
+    for (int j = 10; j > 0; j = j - 2)
+    
+    {
+    
+    Console.WriteLine(i+j);
+    
+     }
+    
+    }
+    
+1. Determine the output generated by each of the code fragments in E 1.5.
+
+1. Rewrite each of the following code fragments using the while statement:
+
+    a. for (int i = 0; i < 10; i++)
+    
+    {
+    
+    Console.WriteLine(i);
+    
+    }
+    
+    b. for (int i = 0; i < 25; i = i + 3)
+    
+    {
+    
+    Console.WriteLine(i);
+    
+    }
+    
+    c. for (int i = 15; i > 1; i--􀀀􀀀)
+    
+    {
+    
+    Console.WriteLine(i);
+    
+    }
+    
+    d. for (int i = 0; i < 10; i++)
+    
+    {
+    
+    for (int j = 1; j < 5; j++)
+    
+    {
+    
+    Console.WriteLine(i+j);
+    
+     }
+    
+    }
+    
+    e. for (int i = 0; i < 10; i++)
+    
+    {
+    
+    for (int j = 10; j > 0; j = j - 2)
+    
+    {
+    
+    Console.WriteLine(i+j);
+    
+     }
+    
+    }
+  
+1.  Rewrite each of the code fragments shown in E 1.5 using the do while statement. 
+
+1. This exercise makes use of the System.Enum class and some of its static methods. You may want to
+   spend sometime exploring the System.Enum class before proceeding to work on this exercise. Determine
+   the output generated by each of the code fragments below. Assume the following definition of an
+   enumeration called DayType.
+
+    public enum DayType
+      
+       {
+      
+      Sunday = 1,
+      
+      Monday = 2,
+      
+      Tuesday = 3,
+      
+      Wednesday = 4,
+      
+      Thursday = 5,
+      
+      Friday = 6,
+      
+      Saturday = 7
+      
+      }
+      
+      a. int x = (int) DayType.Monday;
+         
+         int y = (int) DayType.Thursday;
+         
+         int z = x + y + (int) DayType.Sunday;
+         
+         Console.WriteLine(“x = {0} y = {1} z = {2}", x, y, z);
+         
+         Console.WriteLine(Enum.GetUnderlyingType(typeof (DayType)));
+         
+         Console.WriteLine(Enum.GetName(typeof (DayType), 3));
+         
+         Console.WriteLine(Enum.IsDefined(typeof (DayType), “Friday"));
+         
+         Console.WriteLine(Enum.IsDefined(typeof (DayType), “FRIDAY"));
+      
+      b. for (int i = 1; i < 8; i++)
+         
+         {
+         
+         Console.WriteLine(Enum.GetName(typeof (DayType), i));
+         
+         }
+      
+      c. for (int i = 1; i < 8; i = i + 2)
+         
+         {
+         
+         Console.WriteLine(Enum.GetName(typeof (DayType), i));
+         
+         }
+      
+      d. for (int i = 7; i > 0; i􀀀􀀀)
+         
+         {
+         
+         Console.WriteLine(Enum.GetName(typeof (DayType), i));
+        
+         }
+      e. foreach (string day in Enum.GetNames(typeof (DayType)))
+         
+         {
+         
+         Console.WriteLine(day);
+         
+         }
+      
+      f. foreach (int val in Enum.GetValues(typeof (DayType)))
+      
+         {
+         
+         Console.WriteLine(val);
+         
+         }
+         
+1. This exercise makes use of the System.Array class and some of its methods. You may want to spend
+   sometime exploring the System.Array class before proceeding to work on this exercise. Determine the
+   output generated by each of the following code fragments assuming the array definition shown below:
+   
+   int[ ] scores = {85, 78, 93, 66, 45, 75, 91, 82, 73, 68};
+
+    a. Console.WriteLine(“Number of dimensions of scores array = {0}", scores.Rank);
+       
+       Console.WriteLine(“Lower bound of scores array = {0}", scores.GetLowerBound(0));
+       
+       Console.WriteLine(“Upper bound of scores array = {0}", scores.GetUpperBound(0));
+       
+       Console.WriteLine(“Number elements in scores array = {0}", scores.Length);
+    
+    b. for (int i = 0; i < scores.Length; i++)
+       
+       {
+       
+       Console.WriteLine(scores[i]);
+       
+       }
+    
+    c. int j = 0;
+       
+       while (j < scores.Length)
+       
+       {
+       
+       Console.WriteLine(scores[j]);
+       
+       j = j + 2;
+       
+       }
+    
+    d. int k = scores.Length - 1;
+       
+       do
+       
+       {
+       
+       Console.WriteLine(scores[k]);
+       
+       k = k - 2;
+       
+       } while (k >= 0);
+    
+    e. for (int m = 0; m < scores.Length; m = m + 3)
+       
+       {
+       
+       for (int n = scores.Length - 1; n >= 0; n = n - 4)
+       
+       {
+       
+       Console.WriteLine(scores[m] * scores[n]);
+       
+        }
+      
+       }    
+    
+    f. double s = 0;
+       
+       foreach (int score in scores)
+       
+       {
+       
+       s += score;
+       
+       }
+       
+       Console.WriteLine(s/scores.Length);
+
+1. Determine the output generated by each of the following code fragments:
+   
+   
+
+    a. for (int i = 0; i < 15; i++)
+       
+       {
+      
+       if (i % 2 == 0)
+      
+       {
+      
+       continue;
+  
+       Console.WriteLine(i);
+       
+       }
+       b. for (int i = 0; i < 10; i++)
+          
+          {
+          
+          if (i % 2 != 0)
+          
+          {
+          
+          continue;
+          
+          }
+          
+          for (int j = 0; j < 10; j++)
+          
+          {
+          
+          if (j == i)
+          
+          {
+          
+          break;
+          
+          }
+          
+          Console.WriteLine(“i = {0} j = {1}", i, j);
+            }
+          
+          }
+         
+       c. int j = 0;
+          
+          while (j < scores.Length)
+          
+          {
+          
+          Console.WriteLine(scores[j]);
+          
+          j = j + 2;
+          
+          }
+       
+       d. int i = 0;
+          
+          while (i <= 50)
+          
+          {
+          
+          i++;
+          
+          if (i % 5 != 0)
+          
+          {
+          
+          continue;
+          
+          }
+          
+          Console.WriteLine(“i = {0} i^2 = {1}", i, Math.Pow(i, 2));
+          
+          }
+       e. int count = 0;
+          
+          for (int i = 1000; i <= 2000; i += 3)
+          
+          {
+          
+          if (DateTime.IsLeapYear(i))
+          
+          {
+          
+          count++;
+          
+          Console.WriteLine(“Year {0} is a leap year.", i);
+          
+          }
+          
+          if (count == 5)
+          
+          {
+          
+          break;
+            
+            }
+          
+          }
+       f. int i = 0;
+           
+          do
+          
+          {
+          
+          i++;
+          
+          if (i % 5 != 0)
+          
+          {
+          
+          continue;
+          
+          }
+          
+          int j = 0;
+          
+          do
+          
+          {
+          
+          j++;
+          
+          if (j == i)
+          
+          {
+          
+          break;
+          
+          }
+          
+          if (i % j == 0)
+          
+          {
+          
+          Console.WriteLine(“i = {0} j = {1} i^j = {2}", i, j, Math.Pow(i,j));
+          
+             }
+          
+            } while (j < 10);
+          
+          } while (i < 15);
+      
 ## Programming Projects
 
+1. Add additional WriteLine statements to Listing 1.1 to print the rank and number of elements of the
+   arrays used in the program. Verify your results by running the program.
+   
+1. Modify the LetterGrade() method in Listing 1.3 so that it returns ‘A’ for 90 <= score <= 100, ‘B’ for
+   80 <= score <= 89, ‘C’ for 70 <= score <= 79, ‘D’ for 60 <= score <= 69, ‘F’ for 0 <= score <=
+   59, and ‘X’ for anything else. Test your program for coverage and boundary conditions.
+
+1. Modify Listing 1.3 to encase statement 30 in a try block to raise FormatException exception. Provide a
+   catch block to process this exception. Test the program.
+   
+1. Rewrite Listing 1.6 using foreach construct.
+
+1. Rewrite Listing 1.7 to eliminate lines 31 and 32. One way to do this is by conditionally executing lines
+   28–29.
+   
+1. Write a program that reads the yearly income of an employee and computes the tax using the tax table
+   shown below. Display both income and computed tax. 
+   
+    Income   \  \   Tax Rate 
+ 
+  $\leq$ \$10,000.00   \  \     10\% 
+ 
+  $\leq$ \$25,000.00   \  \     13\% 
+ 
+  $\leq$ \$50,000.00   \  \     15\%
+ 
+  $\leq$ \$75,000.00   \  \     18\%
+ 
+  $>$ \$75,000.00      \  \     20\% 
+  
+1. Write a program that inputs the number of hours worked per week and computes the weekly pay. The
+   hourly rate is $6.50 for the first 40 hours. The hourly rate is $10.00 for hours over 40. Display both
+   hours worked and weekly pay.
+   
+1. Write a program that determines the largest and smallest values from a set of integer numbers entered
+   by the user. Use -1 as a sentinel value to indicate the end of input data. Print out the largest and smallest
+   values.
+   
+1. Write a program that reads a set of integer numbers entered by the user and computes their sum, product,
+   and average. Use -1 as a sentinel value to indicate the end of input data. Display the sum, product, and
+   average.
+   
+1. Write a program that reads a set of integer numbers entered by the user and determines the number of
+   negative and nonnegative numbers. Use -1 as a sentinel value to indicate the end of input data. Print out
+   the number of negative and nonnegative numbers found in the input data.
+   
+1. Write a program that converts from degrees Fahrenheit to degrees Celsius or degrees Celsius to degrees
+   Fahrenheit. Use the following formulas:
+   
+   Celsius = 5:0 * (Fahrenheit - 32.0)=9:0
+   
+   Fahrenheit =  ((9:0 * Celsius)/5:0) = 32:0
+   
+  The following sample output shows the desired user interaction. The user should be able to perform
+  multiple temperature conversions per program execution.
+  Enter your option (C or c for C-to-F, F or f for F-to-C, E or e to end): C 
+  Enter degrees Celsius temperature: 30.0
+  30.0 degrees Celsius is equal to 86.0 degrees Fahrenheit.
+  Enter your option (C or c for C-to-F, F or f for F-to-C, E or e to end): F
+  Enter degrees Fahrenheit temperature: 95.0
+  95.0 degrees Fahrenheit is equal to 35.0 degrees Celsius.
+  
+1.Write a program that prints out all prime numbers between 1 and 100. An integer greater than one is a
+  prime if it’s only positive divisors are itself and one (otherwise it is composite).
+  
+1.Write a program that generates the following table of values for numbers 1 through 10.
+
+$N$ \ $N^2$ \ $N^3$ 
+1 \  \ 1 \  \ 1 
+2 \  \ 4 \  \ 8 
+3 \  \ 9 \  \ 27 
+4 \  \ 16 \ \ 64 
+5 \  \ 25 \ \ 125 
+6 \  \ 36 \ \ 216 
+7 \  \ 49 \ \ 343 
+8 \  \ 64 \ \ 512 
+9 \  \ 81 \ \ 729 
+10 \ \ 100 \ \ 1000 
+
+1. Write a program that generates the following table of values for integers 1 through 10.
+
+$N$ \ $N * 10$ \ $N * 100$ 
+1 \ \ 10 \ \ 100 
+2 \ \ 20 \ \ 200 
+3 \ \ 30 \ \ 300 
+4 \ \ 40 \ \ 400 
+5 \ \ 50 \ \ 500 
+6 \ \ 60 \ \ 600 
+7 \ \ 70 \ \ 700 
+8 \ \ 80 \ \ 800 
+9 \ \ 90 \ \ 900 
+10 \ \ 100 \ \ 1000 
+
+1. Let $f(n)$ denote a function which computes the
+   *factorial* of an integer. Then, $f(n)$ is defined as:
+   
+   \begin{equation*}
+   f(n) = \left \{ \begin{array}{ll}
+        1 & \mbox{ if } n =0 \\
+        n \times (n-1) \times (n-2) \times \cdots 3 \times 2 \times 1 & \mbox{ if }  n \geq 1
+        \end{array}
+    \right.
+   \end{equation*}
+   
+   Write a program that generates a table of factorials for integers 1 through 10.
+   
+
+1. Consider the sequence: 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, $\cdots$ . Careful
+   examination reveals that a number in the sequence is obtained by adding the previous two numbers,
+   except for the first two numbers. This is known as Fibonacci sequence and is defined as:
+   
+   \begin{equation*}
+    fib(n) = \left \{ \begin{array}{ll}
+        1, & \mbox{ if } n =1, 2 \\
+        fib (n-1) + fib (n-2), &  \mbox{ if } n > 2
+        \end{array}
+    \right.
+   \end{equation*}
+   
+   Write a program that reads an integer number n and generates the first n numbers in the Fibonacci
+   sequence.
+
+1. Write a program that reads test scores of a class and determines the number of A’s, B’s, C’s, D’s, and
+   F’s. Use a negative number as a sentinel value to indicate end of input data. For example, 100 45 66 74
+   95 -1 indicate five scores and -1 (sentinel) indicates end of input. Use the following criteria to assign a
+   letter-grade to each score read:
+   
+   $\geq$ 90.00 \ \ A 
+   
+   $\geq$ 80.00 \ \ B 
+   
+   $\geq$ 70.00 \ \ C 
+   
+   $\geq$ 60.00 \ \ D 
+   
+   $<$ 60.00 \  \ F 
+   
+1. Write a program that reads three integers representing the three sides of a triangle and determines the
+   type of the triangle. An equilateral triangle is one with all sides equal. An isosceles triangle is one with
+   two equal sides. If none of the sides are equal, the triangle is a scalene triangle. Your program should
+   repeat until the user enters one or more numbers that are zero or less.
+   
+1. Write a program that reads an integer number representing a year and determines if the year is a leap
+   year. A leap year is a year during which an extra day is added in February. Leap year occurs in all years
+   divisible by 400 or evenly divisible by 4 and not evenly divisible by 100. For example, 1996 is a leap
+   year since it is divisible by 4 and not evenly divisible by 100. The year 2000 is a leap year since it is
+   divisible by 400. Your program should repeat until the user enters a negative number.
+   
+1. Write a program that reads three integers representing the month, day, and year of a date and determines
+   the day number for the date. For example, March 10, 2000 is day 70 and April 5, 1950 is day 95. Your
+   program should repeat until the user enters one or more numbers that are zero or less.
+   
+1.Pythagorean triplets are integer solutions to the
+  Pythagorean theorem, $a^2 + b^2 = c^2$. For a *right*
+  *triangle*, the side $c$ is the hypotenuse --- the side opposite 
+  the right angle. The $a$ side is the shorter of the two sides
+  adjacent to the right angle. There are some simple rules for
+  determining a subset of Pythagorean triplets:
+   
+   
+
+    - Every odd number is the a side of a Pythagorean triplet.
+    - The $b$ side of a Pythagorean triplet is simply $(a^2 - 1) /2$.
+    - The $c$ side is $b + 1$.
+    
+    There are Pythagorean triplets in which the a side is an even number. An infinite series of Pythagorean
+    solutions can be generated with the following rule:
+    
+    
+    - Every even number is the a side of a Pythagorean triplet.
+    - The $b$ side of a Pythagorean triplet is simply $(a/2)^2 -1$.
+    - The $c$ side is $b + 2$.
+      
+    Write a program that generates Pythagorean triplets for all integers between 3 and 50, inclusive.
+  
+        
+    
