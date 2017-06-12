@@ -3,20 +3,509 @@ title: "Classes"
 output: html_document
 ---
 
-# Classes
+# Classes {#Classes1}
+In Chapter \@ref(CSharpBasics) you have learned basic
+programming with classes using C\#. This chapter builds upon this
+background and explains: various members (or constituents) of a
+class; their programming aspects; and related topics. Therefore,
+objectives for this chapter are to:
+
+    - Introduce various components of a class --- fields,
+      properties, methods, indexers, events, delegates, and attributes.
+    - Illustrate the process of declaring classes, and
+      instantiating class instances.
+    - Explain various field types and field modifiers, and
+      illustrate programming with fields.
+    - Illustrate the distinction between value and reference
+      types.
+    - Discuss method types, declaring and implementing methods,
+      constructors, destructors, and properties.
+    - Illustrate techniques for exchanging data between the
+      methods --- *parameter passing*
+    - Explain the concept of *method overloading* and
+      demonstrate its use.
+    - Illustrate implementing aggregation and composition
+      relationships between the classes.
+    - Introduce *structures* as light-weight classes.
+    - Explain *boxing* and *unboxing* --- mechanisms
+      to convert a value type into a reference type (boxing), and a
+      reference type into a value type (unboxing).
+      
+  
+
+## Concept Map
+
+1. Class Member
+   
+     - Fields
+     - Properties
+     - Methods
+     - Indexers
+     - Events
+     - Delegates
+     - Attributes
+
+1. Class Access Modifiers (public,internal)
+
+1. Object Class
+
+1. Singleton Class
+
+1. Class Diagram
+
+1. Types
+
+     - Value Type vs. Reference Type
+     - Heap Memory
+     - Stack Memory
+     - Object Reference
+     - Object Equality
+       - Value Based
+       - Reference Based
+     - Run time Stack
+     - Activation Record
+
+1. Fields
+   
+     - Instance vs Static
+     - Access Modifiers (internal,new,private,protected,public,readonly,static,volatile)
+
+1. Properties
+   
+      - Read and Write Operators
+      - Accesors Method
+      
+         - get
+         - set
+    
+      - Access Modifiers (private,public,protected)
+    
+1. Method
+
+    - Static/Class vs. Instance Method
+    - Return Type
+    - Signature
+    - Header
+    - return Statement
+    - this keyword
+    - Access modifiers (abstract,extern,internal,new,override,private,protected,public,sealed,static,virtual)
+    - Parameter:Formal vs Actual
+    - Parameter Modifiers
+    - Parameter Passing
+      - By value
+      - By reference
+      - By out
+      - By params
+    - Method Overloading  
+      - Overloaded method
+    - Constructor
+      - Default Constructor
+      - Custom or Programmer-defined Constructor
+      - Types: Instance,Static,and Private
+    - Destructor
+      - Memory leaks
+      - Automatic memory Management
+      - garbage Collector
+
+1. Class Relationship
+
+    - Container Class
+    - Contained Class
+    - Delegation
+    - Aggregation
+      - Independent Existence for Contained Class
+    - Composition
+      - No Independent Existence for Contained Class
 
 
-## Concept Map 
+```{r ClassAnatomy, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="Components of a C# Class"}
+knitr::include_graphics("./Images/Classes1/Illus/ClassAnatomy.png")
+```
 
 ## Class Components 
+Recall that an object is an *abstraction* of a real-world
+entity, or a concept. A set of objects with identical
+*structural* and *functional* characteristics are
+grouped under a class. In other words, a class prescribes a
+template, and instances of it represent instantiations of the
+template by assigning values to the attributes that comprise the
+class structure. A typical software application will have several
+classes. A *class diagram* depicts classes and static
+relationships between them. A class may fulfill its
+responsibilities by invoking its own methods, invoking the methods
+of other classes, or a combination of both. The act of a
+class/object invoking the method of another class is referred to
+as *sending a message*. In other words, messages are the
+communication mechanism for objects to invoke each other's methods
+in cooperatively solving a problem. Organizing a solution to a
+problem around classes contributes to containing the complexity of
+the problem through suitable *domain abstractions*. Now let
+us delve into specifics of classes in the context of C\#
+programming language.
+
+
+As shown in Figure \@ref(fig:ClassAnatomy), a C\# class, in
+general, is comprised of fields, methods, properties, indexers,
+events, delegates, and attributes. We refer to these components as
+*class constituents* or *class members*.
+*Fields* provide a mechanism for representing the state of
+an object. *Methods* are the actual code that help realize class
+behavior. Method execution may result in changing the state of an
+object.*Method Properties* are special methods which provide controlled
+access *controlled access* to the fields using a simple and
+natural syntax.Indexers, events, delegates, and attributes are discussed in
+Chapter \@ref(AdvCSharpConstructs).
 
 ## Class Declaration and Instantiation
+The primary purpose of EmployeeApp.cs program shown in
+Listing \@ref(EmplCls) is to illustrate the process of
+declaring and creating classes, and the use of *this*
+keyword. To quickly understand a program at a high level, a class
+diagram like the one shown in
+Figure \@ref(fig:EmployeeAppClsDiagram) is more helpful than going
+through the corresponding code (EmployeeApp.cs). Class diagrams
+(rather than code listings) are used in communicating with other
+developers especially when the system is large and several
+developers are involved. Other developers are not so much
+interested in looking at your code, rather they are interested
+only in how to communicate with your classes. Class diagrams show
+such information at the right abstraction level. As you progress
+through this course, you should become familiar with developing
+class diagrams. Tools for developing class diagrams include
+Rational Rose, TogetherSoft Suite, and Microsoft Visio. Visual
+Studio.NET also features plug-in capability so that third party
+object modeling and design tools can work within the Studio
+environment.
 
-## Fields Declaration and Field Modifiers 
+```{r EmployeeAppClsDiagram, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="EmployeeApp.cs class diagram"}
+knitr::include_graphics("./Images/Classes1/Illus/EmployeeAppClsDiagram.png")
+```
+
+In UML notation, a class is represented by a rectangle, which is
+divided horizontally into three compartments. The top compartment
+lists class name, the middle one shows fields, and the bottom one
+lists all methods including constructors, and properties. The tag
+$\ll$*implementation class*$\gg$ placed above the class name
+is an UML *stereotype*. It simply says that the class is an
+implementation class --- has enough detail for direct
+implementation and is often tied to a programming language (in our
+case, it is C\#). Notice the access modifier (e.g., +, -, \#)
+prefixes of fields, properties, and methods. A plus (+) indicates
+*public* access, minus (-) denotes *private* access,
+and the pound symbol (\#) represents *protected* access.
+Class members with *public* access modifier are visible to
+all classes, and can be directly accessed by them; with
+*private* access modifier, the members are visible only
+within the class and only members of the class can directly access
+them; and *protected* modifier enables direct access to the
+class members, members of its derived classes, and members of
+derived classes of derived classes, and so on.
+
+
+There are two classes in this program: Employee (lines 4 -- 35),
+and EmployeeTest (lines 36 -- 47). As the class diagram shows,
+there is a dependency relationship from EmployeeTest to Employee.
+EmployeeTest exists essentially to test the functionality of
+Employee class. Employee class declares two fields of type
+*string*: *name* and *dept* (line 6). Note
+the *private* access modifier on this line. It says that
+both the fields are private to the class --- not visible outside
+the class. Therefore, there is no (direct) access to these fields
+from outside the class. The class also declares another private
+field, *salary*, which is of type *float* (line 7).
+If you don't specify an access modifier for a field,
+*private* is implicitly assigned.
+
+The class has six methods. The Employee() method shown in lines 9
+-- 14 is called a *constructor*.Thisis a special method 
+used to create instances of the class. Its
+access qualifier is typically *public* so that other
+classes can create instances of this class. The method implicitly
+returns a value which is of the class type itself. Therefore,
+there is no need to specify a return value type in the method
+header. Also, its name is same as that of the class. Creating an
+instance is a two-step process. First, the *new* operator
+is called which allocates storage on the heap. Second, the
+constructor is called for initializing the state of the instance.
+Since a class can have multiple constructors, which version is
+called depends on the number, type, and order of arguments in the
+constructor invocation.
+
+The constructor has three parameters: *aName*,
+*aDept*, and *salary*. The first two are of type
+*string* and the last one is of *float* type. The
+constructor assigns the values of these parameters to the fields
+of an instance of the class. Note the use of the keyword
+*this* on line 13. It refers to the object instance on
+which this method (i.e., the constructor) is invoked. Assume that
+we have named the first two method parameters as *name* and
+*dept* (instead of *aName* and *aDept*). Then
+the assignment statements on lines 11 and 12 should be written as:
+name = name; dept = dept, which would have been very confusing.
+The use of *this* keyword is very useful in removing this
+ambiguity. In line 13, *this*.salary refers to the salary
+field of the class instance which is being created, and the term
+*salary* to the right of the assignment operator (i.e., =)
+refers to the constructor parameter.
+
+
+If the fields with *private* access qualifier need to be
+made available (i.e., exposed) to other classes, there are two
+choices: properties and accessor methods. Properties are discussed
+in Section \@ref(Classes1Properties). Accessor methods are of
+two types: *get* and *set*. A get method retrieves
+the value of a field, whereas a set method modifies the value of a
+field. Usually get and set method names are prefixed with "Get"
+and "Set," respectively as in lines 15 and 23. Set methods don't
+return values and this is indicated by the keyword *void*
+in their method header (line 23). The return value of a get method
+is same as that of the type of the field whose value it returns.
+
+The get accessor method for the field *name*, GetName(), is
+shown in lines 15 -- 18. It simply returns the value of
+*name* field of the instance on which it is invoked. No set
+accessor method is provided as the value of *name* field is
+never intended to be changed after creating an instance. The get
+and set accessor methods of the *dept* field are shown in
+lines 19 -- 22 and 23 -- 26. The SetDept() method has one
+parameter and the invoker of this method should provide a value
+for it. The assignment statement of line 25 simply assigns the
+parameter value to the instance's *dept* field. Notice the
+use of *this* keyword to refer to the class instance on
+which SetDept() method is invoked. Also, observe the return value
+types of these methods as specified in their method headers. Lines
+27 -- 30 and 31 -- 34 show get and set methods for the
+*salary* field. Like constructor methods, get and set
+methods typically have *public* access modifier.
+
+
+
+The EmployeeTest class has only one method: Main(). When you run a
+C\# program, execution begins at the first executable statement of
+Main(). In every C\# program, at least one class should have the
+Main() method. If multiple classes have Main() methods, one of
+them should be explicitly designated so that the run time system
+knows where to begin the execution. The access modifier of Main()
+is *public*, returns nothing, and has another modifier
+*static*. Therefore, Main() is a static method meaning that
+you don't need to create instances of EmployeeTest class to invoke
+the Main(). In other words, static methods are at the class level
+and are invoked on the class itself rather than on the instances
+of the class. Line 40 creates an instance of Employee class,
+$emp$. Notice the use of the *new* keyword on this line as
+well as invocation of the constructor with three values: "John M
+Kerry," "Personnel," and 50000.00F. These three values, often
+referred to as *method invocation arguments*, correspond to
+the parameters of the constructor method. That is, the constructor
+is invoked with "John M Kerry" as the value for *aName*
+parameter; "Personnel" as the value for *aDept* parameter;
+and the value 50000.00F for the *salary* parameter. There
+is a one-to-one correspondence between the method invocation
+argument values and the parameter names. The suffix F in 50000.00F
+denotes that 50000.00 is a literal of *float* (F) type.
+
+
+```{r EmployeeAppOut, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="EmployeeApp.cs program run results"}
+knitr::include_graphics("./Images/Classes1/Illus/EmployeeAppOut.png")
+```
+
+The results from running EmployeeApp.cs are shown in
+Figure \@ref(fig:EmployeeAppOut). Lines 41 -- 43 invoke the get
+accessor methods --- GetName(), GetDept(), and GetSalary() --- on
+the $emp$ instance. Line 44 invokes the set accessor method,
+SetSalary(), to change $emp$ instance salary to 55000.00. This
+change is confirmed by the output of line 45. Notice the syntax
+\{1:C\} on this line to print the return value of emp.GetSalary()
+in currency format. In passing, note that the .NET types ---
+class, struct, enum, interface, and delegate --- can be assigned
+one of the two access modifiers: *public*, or
+*internal*. The default modifier for classes is
+*internal*, which insures that the class's visibility is
+restricted to types in its assembly. On the other hand, the
+*public* modifier makes the class visible in other
+assemblies as well.
+
+## Fields Declaration and Field Modifiers
+
+As indicated earlier, *fields* are a mechanism for
+representing the state of an object. There are two general
+categories of fields: static and instance. Each instance of a
+class (i.e., an object) will have its own values for
+*instance fields*. In other words, the scope of the instance
+fields is limited to the object. *Static fields*, on the
+other hand, are at the class level. Static fields are indicated by
+using the modifier *static*. There is only one copy of the
+*static field*, which is shared among all the class
+instances.In fact, a static field is created when the class is first loaded. You can
+access static fields without instantiating the class. For example,
+the expression Math.PI, accesses the PI static field of the Math
+class. The lifetime of a static field begins when the class is
+loaded and ends when the class is destroyed. One common use of a
+static field is to keep track of the number of instances of a
+class. Another use is to store statistics about class instances.
+For example, in a banking application, average monthly account
+balance for customer account objects can be represented by a
+static field. Such fields are typically computed.
+
+
+```{r FieldEBNF, echo = FALSE, warning = FALSE, results = 'asis'}
+
+options(knitr.table.format = "html") 
+
+library(knitr)
+library(kableExtra)
+
+# create column 1 vector
+Column1 <- c("field :=", "fldModifiers :=", "fldModifier :=","varDcls :=","varDcl :=","varInitializer :=")
+
+# create column 2 vector
+Column2 <- c("{fldAttributes} {fldModifiers} fldType varDcls","fldModifier | fldModifiers fldModifier","internal | new | private | protected | public | readonly | static | volatile","varDcl | varDcls, varDcl","identifier | identifier = varInitializer","expression | arrayInitializer")
+
+# create data frame
+FieldEBNF <- data.frame(Column1,Column2, stringsAsFactors = FALSE)
+
+library(knitr)
+
+kable(FieldEBNF, caption = "Partial EBNF for declaring fields") %>%
+   kable_styling(bootstrap_options = c("striped", "hover"))
+
+```
 
 ### Declaring a Field 
+A field declaration consists of specifying its name, type,
+modifiers, and optionally an initial value.
+Partial EBNF for field declaration is
+shown in Table \@ref(tab:FieldEBNF). As indicated in the first row
+of the table, a field declaration consists of zero or more
+attributes, followed by zero or more field modifiers, a mandatory
+field type name, and one or more variable declarations. Attributes
+are discussed in Section \@ref(AttProg) and you should ignore
+field attributes part for now.
+
+Field modifiers include *internal*, *new*,
+*private*, *protected*, *public*,
+*readonly*, *static*, and *volatile*. The
+modifiers *private*, *public*, *protected*,
+and *internal* are called *access modifiers*. If you
+don't specify an access modifier, *private* is assumed by
+default. It is a compile time error to specify more than one
+access modifier. However, the combination *protected*
+*internal* is allowed. When a field has more than one modifier,
+only certain valid combinations are allowed (this restriction is
+not shown in the EBNF). The mandatory
+field type is the name of a valid built-in or user-defined value
+or reference type (not shown in the table). Variable declarations
+part consists of one or more variable declarations delimited by a
+comma (row 4). A variable declaration is just an identifier name,
+or an identifier name followed by the equal (=) symbol and a
+variable initializer (row 5). The latter is an expression  or a
+array initializer. Array initializers are discussed in
+Sections \@ref(OneDArrays) and \@ref(MultDimArrays).
+
+This may look overwhelming and there is no need to get concerned.
+Some concrete examples of field declarations are shown in lines 6
+-- 13 of FieldsApp.cs program (Listing \@ref(FldDclMod). The
+point we want to make here is that it is necessary to precisely
+describe the syntax of a program construct so that a compiler has
+the requisite knowledge to check for the syntactic correctness of
+the program. Moreover, it is easier for you to write syntactically
+correct programs once you understand the EBNF rules which specify
+their form precisely. Those who lack this type of approach to
+learning a programming language find it difficult to learn new
+languages. For them, every language is vastly different from the
+others.
 
 ### Field Modifiers 
+As indicated above, commonly used field (access) modifiers include
+public, private, protected, and internal. A field with *public* access modifier imposes no
+restrictions on who can access and modify its value. Public fields
+weaken class encapsulation. On the other hand, the
+*private* access modifier restricts the visibility of the
+field to the class in which it is defined.In other words, only class members have direct
+access (both read and write) to the field. Private access modifier
+contributes to class encapsulation. If more general access (i.e.,
+access to other types) is desired for a private field, explicit
+*get* and *set* accessor methods are provided. They
+facilitate enforcing *business rules*, which govern the
+assignment and modification of field values.
+
+
+If a field has *protected* access modifier, it is
+accessible to the members of the class. Let us call this class
+$A.$ The field is also accessible to the members of the derived
+class(es) $D$ of $A.$ The field visibility also extends to the
+class(es) derived from $D$, and so on recursively.A field's visibility is restricted to a
+compilation unit such as an *assembly* (see
+Section \@ref(Assembly)) by using the *internal* access
+modifier. A field can also have
+additional modifiers: static, constant, and readonly. Static
+fields are indicated by including the *static* modifier in
+their declaration (line 13, Listing \@ref(FldDclMod)). The
+*const* keyword is used to indicate that the field is a
+constant --- constant field. The value of a constant field is set at the
+compile time and remains constant for the duration of the program.
+The value must be written as a literal, or as an expression which
+can be evaluated at compile time (lines 8 -- 10). Constant fields
+are static by default.
+
+
+Consider the scenario where you want a field to behave like a
+constant but its value is not known at compile time. Once the
+field is initialized during the run time, its value cannot be
+changed thereafter. Such fields are called readonly fields and the
+modifier *readonly* is used as part of their specification.
+The initialization of a readonly field is done in the constructor or *variable
+initializer*.
+
+
+Let us revisit FieldsApp.cs program (Listing \@ref(FldDclMod),
+which demonstrates programming with fields with different
+modifiers. The corresponding class diagram is shown in
+Figure \@ref(fig:FieldsAppClsDiagram). It has two classes:
+FieldsCls and FieldsClsTest. FieldsCls defines several fields:
+$p$, a public field of type *int* (line 6); $q$, a public
+field of type *float* (line 7); $r$, a public constant
+field of type *int* initialized to 5 (line 8); $s$, a
+public constant field of type *int* initialized with the
+expression $r + 10$ (line 9); $PI$, a public constant field of
+type *double* initialized to 3.14159 (line 10); $x$ and
+$y$, two public readonly fields of type *int*, and $y$ is
+initialized to 5 (line 11); $id$, a private field of type
+*int* (line 12); and finally *count*, a public
+static field of type *int*. If the value of $r$ is not
+defined prior to line 9, compiler will not be able to evaluate the
+expression $r+10$ and thus flag an error at line 9. Note that the
+static fields and static methods are shown underlined in the class
+diagram. FieldsCls class has three methods: FieldsCls(), a
+constructor; get and set accessor methods for the $id$ field. Note
+the initialization of the readonly field $x$ in the constructor
+method (line 17).
+
+Next consider the class FieldsClsTest. Line 33 prints out the
+values of $r,s,$ and $PI.$ Recall that these three fields are
+constants and are static by default. Therefore, they can be
+accessed by using the class name (e.g., FieldsCls.r). Likewise,
+*count* (which is a public, static field) can be accessed
+and manipulated directly by using the class name as shown in lines
+35 -- 36. Accessing and manipulating instance fields (i.e., those
+that are not marked static) can only be done through a class
+instance. Line 38 creates an instance of FieldsCls named $mc.$
+Using $mc,$ fields $p$ and $q$ are initialized with values 100 and
+10.75F (lines 41 -- 42). The results of running FieldsApp.cs are
+shown in Figure \@ref(fig:FieldsAppOut). The output of line 43
+confirms the values of $p,$ $q,$ $x,$ and $y$. Observe that the
+new value of $x$ is 10 (set in the constructor). Instance fields
+which are private can be accessed and manipulated only by invoking
+the associated accessor methods on an instance as shown in line
+45. Line 46 prints out the new value of the $id$ field.
+
+```{r FieldsAppClsDiagram, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="FieldsApp.cs class diagram"}
+knitr::include_graphics("./Images/Classes1/Illus/FieldsAppClsDiagram.png")
+```
+
+```{r FieldsAppOut, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="FieldsApp.cs program run results"}
+knitr::include_graphics("./Images/Classes1/Illus/FieldsAppOut.png")
+```
 
 ## Value and Reference Types 
 

@@ -2,48 +2,1695 @@
 title: "The .NET Framework"
 output: html_document
 ---
-# The .NET Framework
+# The .NET Framework {#DotNet}
+Microsoft's .NET Framework is a new model for building integrated,
+service-oriented applications in the highly distributed
+environment of the Internet. A primary goal of the .NET Framework
+is to facilitate building applications that gather information
+from, and interact with, a wide variety of data sources and
+applications in a way that transcends programming languages and
+platform dependencies. However, it currently supports only Windows
+family of operating systems with possibility of supporting
+non-Microsoft operating systems in the future. The framework is
+also the solution to Microsoft's strategy for delivering software
+as a service. Objectives for this chapter are to:
+
+    - Describe the goals of the .NET Framework.
+    - Discuss the building blocks of the .NET Framework.
+    - Explain the anatomy of a .NET assembly.
+    - Describe the steps in the .NET managed execution process.
+    - Explain the notion of .NET namespaces and introduce important namespeces.
+    - Introduce various tools and utilities that are part of the Visual Studio.NET and .NET SDK.
+    - Illustrate developing programs using the Visual Studio.NET Integrated Development Environment (IDE).
+    - Illustrate debugging programs using the Visual Studio.NET debugger.
+    
+
 
 ## Concept Map
+1. Programming Model
 
-## Goals of the .NET Framework
+1. Application Programming Interface
 
-## Building Blocks of the .NET Framework
+1. Markup Languages
+
+    - HyperText Markup Language (HTML)
+    - eXtensible Markup language (XML)
+
+
+1. .NET Framework  
+
+    - Common Language Runtime (CLR)
+         
+          - Common Type System (CTS)
+       
+             - Value Types
+             - Reference Types
+          
+          - Metadata System
+            
+              - Reflection
+              - Intermediate Language Disassembler (ILDASM)
+              - Custom Attributes
+          
+          - Execution System
+          
+              - Managed vs. Unmanaged Code
+              - Cross-Language Integration
+              
+          - Framework Class Library (FCL)
+          
+              - Base Class Library
+              - Data and XMl Classes
+              - Windows Forms
+              - Web Forms
+              - Common Language Specification (CLS)
+                 
+                 -  CLS-Compliance
+                 
+1. Assembly
+
+       - Assembly Components
+          
+         - Manifest
+         - Type Metadata
+         - MSIL Code
+         - Resources
+          
+       - Single-File vs. Multi-File Assembly
+          
+       - Static vs. Dynamic Assembly
+          
+       - Private vs. Shared Assembly
+          
+        - Global Assembly Cache (GAC)
+             
+1. Managed Execution Process
+
+1. .NET Namespaces
+
+1. .NET Utilities
+
+       - Intermediate Language Disassembler (ILDASM)
+       - Windows Class Viewer
+       - Class browser Web Application
+       - Visual Studio.NET Object Browser
+          
+1. Visual Studio.NET IDE
+
+       - Design Mode
+       - Compile Mode
+            
+        - Debug Mode
+        - Release Mode
+          
+       - Syntax-Aware Text Editor
+       - Solution Explorer
+       - Class View
+       - Auto Hide
+       - Method Wizard
+       - GUI Debugger
+          
+        - Breakpoints
+        - Step Into
+        - Step Over
+        - Step Into
+        - Watch Windows
+        - Watch Expressions
+        - Call Stack
+          
+## Goals of the .NET Framework {#DotNetGoals}
+The .NET Framework was designed to meet four primary goals:
+unifying programming models; supporting extensible,
+component-based development; integrating with Web standards and
+practices; and making applications development simpler and easier.
+
+Prior to the advent of the .NET, there existed multiple
+programming models in the Microsoft realm. Selection of a
+programming model was often closely tied to a programming language
+and class libraries. However, various programming models are
+required in developing practical applications (e.g., one model for
+Web page generation, another for database access and manipulation,
+yet another for graphics). These programming models also provided
+inconsistent functionality for problems that are common to the
+models. They also impose steep learning curve for programmers
+--- skills in one model don't necessarily translate into skills
+required for using other models. The .NET Framework was designed
+to unify these disparate programming models.
+
+The Framework is designed as a set of distinct, functional units
+that enable a high degree of customization and extensibility.
+Almost all the classes in the library can be extended using
+inheritance. Furthermore, classes developed in one .NET language
+can be used as base classes in another .NET language and extended
+via inheritance. Web standards and practices --- HyperText Markup
+Language (HTML), eXtensible Markup Language (XML), and Simple
+Object Access protocol (SOAP) --- are well integrated into the
+Framework to facilitate distributed application development in the
+Web environment.
+
+Application development is made easier by the high level of
+abstraction manifested in the Framework library's Application
+Programming Interface (API). The API exposes usage-oriented
+functionality from the developers perspective rather than in terms
+of the details involved in the implementation of the library
+classes. This enables you to simply utilize relevant classes in
+your application without knowing how the classes have been
+implemented.
+
+## Building Blocks of the .NET Framework {#DotNetBlocks}
+Figure \@ref(fig:Framework) shows the .NET Framework --- an
+infrastructure for the overall .NET Platform. It consists of the
+Common Language Runtime (CLR) and the Framework Class Library
+(FCL). CLR is comprised of three components: Common Type System
+(CTS), Metadata System, and Execution System. FCL comprises of a
+base class library (features classes for interfacing with the
+operating system, networking, graphics, etc.), classes for
+accessing and manipulating various types of data sources, and
+classes for developing conventional client/server, Web, and Web
+Services applications.
 
 ### Common Language Runtime (CLR)
+CLR is the foundation of the .NET Framework. The CTS supports many
+of the types and operations found in modern programming languages
+such as C++ and Java. The Metadata System persists metadata along
+with type information at compile time. This metadata is available
+for interrogation by the Execution System and other tools.
+Execution System performs code execution and manages execution
+runtime environment. Following subsections provides additional
+details on CLR components.
+
+```{r Framework, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="Building Blocks of the .NET Framework"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/Framework.png")
+```
+#### Common Type System (CTS)
+CTS is a formal specification that defines how types are declared,
+used, and managed during the runtime. In the .NET world, the term
+*type* is generic and refers to classes, structures,
+interfaces, enumerations, and delegates. Fields, events, methods,
+properties, and nested types make up members of a type.
+
+
+CTS supports two generic categories of types: *value* and
+*reference* (see Figure \@ref(fig:ValRefTypes). Value types
+directly contain their data. Variables that are value types have
+their own copies of data. Hence, operations on one value type
+variable do not affect the values of other variables. Instances of
+value types are allocated on the stack or inline in a structure.
+Value types can be built-in, or user-defined structures and
+enumerations. Value types derive from System.ValueType class and
+are shown in Table \@ref(tab:DataTypes). Column 3 of
+Table \@ref(fig:ValRefTypes) shows the range of values that can be
+stored in the value types.
+
+```{r DataTypes, echo = FALSE, warning = FALSE, results = 'asis'}
+
+options(knitr.table.format = "html") 
+
+
+library(knitr)
+library(kableExtra)
+
+# create column 1 vector
+System_Type <- c("System.Byte", "System.SByte", "System.Int16","System.Int32","System.Int64","System.UInt16","System.UInt32","System.UInt64","System.Single","System.Double","System.Boolean","System.Char","System.Decimal")
+
+# create column 2 vector
+Description <- c("An 8-bit unsigned integer","An 8-bit signed integer (not CLS complaint)","A 16-bit signed integer","A 32-bit signed integer","A 64-bit signed integer","A 16-bit unsigned integer (not CLS complaint)","A 32-bit unsigned integer (not CLS complaint)","A 64-bit unsigned integer (not CLS complaint)","A single-precision (32-bit) floating-point number","A double-precision (64-bit) floating-point number","A Boolean value (true or false)","A Unicode (16-bit) character","A 96-bit decimal value")
+# create data frame
+Datatype <- data.frame(System_Type,Description, stringsAsFactors = FALSE)
+
+library(knitr)
+
+kable(Datatype, caption = "The .NET value types") %>%
+   kable_styling(bootstrap_options = c("striped", "hover"))
+
+```
+
+#### Metadata System
+Metadata is data about types and assemblies. It describes types,
+members, and references to other components in the code. Metadata
+makes types and assemblies self-describing. CLR checks this
+metadata to insure correct runtime execution of code --- to locate
+referenced classes, create object instances in memory, resolve
+method invocations, generate native code, enforce security, and
+determine run-time context boundaries.
+
+
+
+Metadata is automatically generated by the compiler and persisted.
+For most programmers, focus should be on using and manipulating
+the metadata. Inspecting a type's metadata at runtime is called
+*reflection*. FCL provides several classes to support
+reflection. Alternatively, you can use Intermediate Language
+Disassembler (ILDASM) tool for examining metadata. ILDASM is
+discussed in Section \@ref(DotNetUtilities). Facilities also
+exist for creating your own metadata using *custom attributes*,
+which are discussed in Section \@ref(AttProg).
+
+#### Execution System
+The Execution System (or runtime system) can be viewed as an agent
+that manages code at execution time, providing core services such
+as memory and thread management, and remoting. It also enforces
+strict type safety and other forms of code accuracy to insure
+application security and robustness.
+
+Code that is developed with language compilers and tools that
+target the CLR is known as *managed code*, whereas the code
+that does not target the CLR is known as *unmanaged code*.
+Managed code benefits from features such as: cross-language
+integration --- code developed using different languages can be
+seamlessly intermixed; cross-language exception handling ---
+exceptions raised in code developed using a .NET language can be
+detected and handled by code developed in other .NET languages;
+enhanced security; versioning and deployment support --- multiple
+versions of a piece of code can co-exist and run without
+interference; a simplified model for component interaction;
+debugging and profiling services.
+
+
+The runtime handles object layout in memory and manages references
+to objects, releasing them when they are no longer in use ---
+memory management. Objects whose lifetimes are managed in this
+manner by the runtime are called *managed data*. This
+automatic memory management resolves the two most common
+application errors: *memory leaks* and *invalid
+memory references*.
 
 ### Framework Class Library (FCL)
+The .NET Framework provides an extensive library consisting of
+fully implemented classes, interfaces, and value types which is
+available to all .NET-aware (or CLS-compliant) programming
+languages. The library is referred to as the Framework Class
+Library (FCL). As shown in Figure \@ref(fig:Framework), FCL
+includes: base class library --- core base classes (graphics,
+threading, security, debugging, networking, code
+internationalization); classes for database access and
+manipulation, creating and processing XML documents; classes for
+building Web-based, Windows-based, and Web Services applications,
+among others. To facilitate interoperability between languages,
+FCL library types are CLS-compliant.
 
 ### Common Language Specification (CLS)
+The Common Language Specification defines a minimal and basic set
+of language features that developers can rely on being available
+in a wide variety of languages. In essence, the CLS defines a
+baseline to which all .NET-aware languages are expected to
+conform. The CLS rules define a subset of the CTS rules. CLS plays
+an important role in ensuring language interoperability. If the
+API exposed by a software component is CLS-compliant, the
+component is guaranteed to be accessible from any programming
+language that supports CLS. Note that the CLS rules apply only to
+the exposed API of a component, and not to the code used to build
+its inner workings.
 
-## Assemblies: The Building Blocks of the .NET Framework
+A programming language whose compiler targets CLR is known as a
+*.NET-aware* programming language. Such compilers generate
+Microsoft Intermediate Language (MSIL) and associated metadata.
 
+## Assemblies: The Building Blocks of the .NET Framework {#Assembly}
+Assemblies are the building blocks of applications built using the
+.NET Framework. An assembly is a logical unit of functionality
+from deployment view point. It is a versioned, self-describing
+binary unit. An assembly is either a library file (with .dll file
+extension) or stand alone executable (with .exe file extension).
+It encompasses: name, originator, and version information;
+configuration and culture information; a list of types (classes,
+interfaces, structures, enumerations, and delegates) and their
+locations in the assembly; and resources (e.g., bitmaps). Version
+numbers are used to differentiate between versions of an assembly.
+Version number consists of: major version, minor version, build
+number, and revision number.
+
+As shown in Figure \@ref(fig:Assembly), an assembly (in general)
+consists of four elements: assembly manifest, type metadata, MSIL,
+and a set of resources. An assembly manifest describes the
+assembly's contents --- metadata about an assembly. It establishes
+the namespace for resolving requests for types. It also determines
+which types are accessible only from within the assembly, and
+which types are exported (i.e., available for use by other
+assemblies). The manifest may also specify which security
+permissions are required to run, which additional permissions are
+optionally requested, and which permissions the assembly refuses.
+
+Type metadata describes information about a type. For example,
+metadata about a class includes its fields, properties, methods,
+delegates, indexers as well as detailed information such as method
+access modifiers, number and type of parameters, and return types.
+Type metadata is essential for discovering type information at
+runtime and dynamic method invocation. It is used by compilers,
+debugging tools, CLR, and other tools. MSIL is
+computer-independent representation of programs written in
+.NET-aware languages. MSIL is subsequently converted into
+computer-specific instructions using a Just-In-Time (JIT)
+compiler. Resources include bitmaps, and audio and video clips
+that are used in the program.
+
+An assembly performs the following functions:
+
+    - It contains the Microsoft Intermediate Language (MSIL) code
+      that the CLR executes. Assemblies are stored as Portable
+      Executable (PE) files. PE is a format for storing executable
+      files.
+      
+    - It forms a *type boundary*. The identity of each type
+      residing in the assembly includes the name of the assembly.
+      Therefore, a type called *ClassA* residing in the scope of
+      one assembly is not the same as a type called *ClassA*
+      residing in the scope of another assembly.
+    
+    - It forms a *security boundary* as it is the unit at
+      which permissions are requested and granted.
+       
+    - It forms a *reference scope boundary*. Recall that
+      assembly manifest contains assembly metadata: describes the types
+      and resources residing in the assembly, the types and resources
+      visible outside the assembly, and the other assemblies on which it
+      depends.
+      
+    - It forms a *version boundary*. An assembly is a
+      smallest versionable unit. All types and resources contained in an
+      assembly are versioned as a unit. The assembly's manifest also
+      includes version information for the assemblies it depends on.
+      
+    - It forms a *deployment unit*. When an application
+      starts, it retrieves only the assemblies that are needed. Other
+      assemblies of the application are loaded as and when needed. This
+      helps in starting an application small, thin, and fast.
+      
+    - It enables *side-by-side execution* --- is the
+      ability to run multiple versions of the same assembly
+      simultaneously without interference from each other. Since
+      assemblies are versioned and self-describing, they allow for
+      side-by-side execution.
+      
+```{r Assembly, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="Contents of a typical .NET assembly"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/Assembly.png")
+```
+    
 ### Single- and Multi-file Assemblies
+There are two types of assemblies depending on how the assemblies
+are produced. We can group all the elements into a single physical
+file resulting in a *single-file assembly*, which is also
+referred to as *single-module assembly*. Alternatively, the
+elements of an assembly can be contained in several files
+resulting in a *multi-file assembly*, which is also known
+as *multi-module assembly*. The files of a multi-file
+assembly can be modules of compiled code (.netmodule), resources
+(such as .bmp or .jpg files), or other files required by the
+application. Multi-file assemblies are created when you want to
+combine modules written in different languages and to optimize
+downloading an application by putting seldom used types in a
+module that is downloaded on a as-needed basis. Multi-file
+assemblies are built using the csc.exe (i.e., C\# compiler) or the
+assembly linker tool (al.exe). For additional details on
+generating multi-module assemblies, you should consult the online
+documentation.
 
 ### Static and Dynamic Assemblies
+An assembly can be *static* or *dynamic*. Static
+assemblies are stored on disk as PE files. Static assemblies
+include built-in .NET FCL types, resources, and other assemblies
+created using development tools such as Visual Studio.NET. In
+contrast, dynamic assemblies are created at runtime and later run
+directly from memory. You can save dynamic assemblies to disk
+after they have executed. Dynamic assemblies are created using
+classes in the Reflection.Emit namespace.
 
 ### Private and Shared Assesmblies
+An assembly can be private or shared. A *private assembly*
+is used only by the application with which it has been deployed.
+Private assemblies are required to be located in the application
+directory (i.e., the main directory of the owning application) or
+a subdirectory thereof. *Shared assemblies* are used by
+several applications/clients on a single machine and are installed
+into a machine-wide Global Assembly Cache (GAC). Assemblies that
+are shipped with the .NET Framework are shared and are found in
+GAC. The GAC itself is located under
+$\backslash$Windows$\backslash$assembly directory (for WindowsXP).
+Shared assemblies are installed into GAC using
+*gacutil.exe* tool. For example, the following command adds
+a shared assembly named MethodsBasics.dll to GAC: 
 
-## Managed Execution Process
+gacutil.exe -i MethodBasics.dll.
 
-## Application Domains
+You can also view and manipulate the contents of GAC using the
+Windows Explorer. To view GAC contents, navigate to:
+$\backslash$Windows$\backslash$assembly directory. To add an
+assembly to GAC using Windows Explorer, just drag and drop the
+assembly file into this directory. To delete an assembly, select
+the name, right-click, and choose *Delete* option from the
+resulting pop-up menu.
 
-## Namespace and the FLC class
+An assembly always has a simple name, but an assembly deployed in
+GAC must have a *strong name* so that different versions of
+an assembly can be running at the same time for different client
+applications. Strong names guarantee name uniqueness and
+facilitate what is called *side-by-side execution* ---
+different versions of the same application can run in parallel
+without affecting their respective execution environments.
 
-## Framework Utilities
+
+A strong name consists of the assembly's identity: its simple text
+name, version number, and culture information (if provided), a
+public key and a digital signature. Shared assemblies are signed
+with a strong name. To build a shared or strong-named assembly,
+you must first generate a public-private key pair using the .Net
+Framework utility called Strong Name (sn.exe) tool. For example,
+to generate a key pair and store it in file MyKey.snk, you need to
+issue the following command:
+
+sn.exe -k MyKey.snk
+
+Once the public-private key pair is generated, an assembly can be
+signed with the generated key file using the attribute
+AssemblyKeyFileAttribute in any one of the source files. The
+following statement specifies that the assembly must be signed
+using the key file MyFile.snk: 
+
+[assembly: AssemblyKeyFileAttribute ("MyKey.snk")]
+
+When this attributes specified, the compiler takes care of signing
+the assembly with the specified key pair. You can also sign an
+assembly using the Assembly Linker tool (al.exe) with -keyfile
+switch. For additional details, you should consult the online
+documentation.
+
+
+## Managed Execution Process {#ExecProcess}
+The managed execution process in .NET describes the steps required
+to take advantage of the CLR. As shown in
+Figure \@ref(fig:ManagedExecProcess), it includes the following
+steps:
+
+1. *Choosing a compiler*. To take advantage of the CLR,
+   your source code must be written in a language with a compiler
+   that targets the .NET runtime. Currently, these languages include
+   C\#, Visual Basic .NET, Managed Visual C++, and JScript.
+
+1. *Compiling source code into MSIL*. A .NET language
+   compiler translates the source code into Microsoft Intermediate
+   Language (MSIL). MSIL is a CPU-independent set of instructions
+   that can be converted into machine-specific native code. MSIL
+   corresponding to the \textit{Factorial} method in
+   Listing \@ref(tab:DebugDemoApp) is shown in Figure \@ref(fig:MSIL).
+   Along with MSIL, the compiler also produces assembly manifest and
+   other metadata (see Figure \@ref(fig:ILDASM). The MSIL and
+   metadata are stored in a portable executable (PE) file whose
+   format is based on Microsoft PE and Common Object File Format
+   (COFF). The presence of metadata along with MSIL is what makes the
+   code self-describing.
+
+1. *Compiling MSIL into native code*. The MSIL must be
+   converted into native code of the machine where the code is to be
+   executed. A JIT (Just-In-Time) compiler is used to convert MSIL
+   into CPU-specific code. The JIT compiler converts MSIL as and when
+   needed and stores the resulting native code for subsequent use. As
+   a part of this conversion, the MSIL and metadata go through a
+   verification process. This process examines the MSIL and metadata
+   to find out whether the code is type safe and is known to access
+   only the memory locations it is allowed to access.
+
+1. *Executing native code*. The native code is managed and
+   executed by the CLR runtime. During execution, the managed code
+   benefits from CLR services such as automatic memory management,
+   security, interoperability with unmanaged code, and support for
+   cross-language debugging, deployment, and versioning.
+
+```{r ManagedExecProcess, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="Managed Execution Process in .NET"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/ManagedExecProcess.png")
+```
+
+
+## Application Domains {#AppDoms}
+Typically several applications concurrently run on a computer.
+Resources such as memory and processor time are shared among these
+applications in a way that applications run without interfering
+with each other in an obtrusive manner. To effect this isolation
+of concurrently executing applications from each other, operating
+systems and language runtime environments typically provide some
+mechanism. *Application domains* is such a mechanism for
+.NET applications.
+
+
+A *process* is an application or program in execution. In
+includes the executable code and the resources needed to execute
+the code. Traditionally, a separate process is created for each
+application. A process is not allowed to execute instructions
+outside the process boundary. Processes entail resource and other
+overheads. Operating systems are responsible for ensuring process
+isolation.
+
+
+In .NET, you can run several application domains in a single
+process with the same level of isolation that would exist in
+separate processes, but without incurring the additional overhead.
+The benefits of the isolation provided by application domains
+include:
+
+    - Defects in one application cannot affect other applications.
+    - Individual applications can be stopped without stopping the entire process.
+    - Code running in one application cannot directly access code or resources from another application.
+    - Permissions granted to code can be controlled by the application domain in which the code is running.
+
+
+```{r MSIL, echo = FALSE, out.width = "65%", fig.align='center',fig.cap="Microsoft Intermediate Language sample"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/MSIL.png")
+```
+
+
+You must first load an assembly into an application domain before
+the application can be run. Running a typical application causes
+several other assemblies to be loaded into an application domain
+behind the scenes. An assembly is said to be
+*domain-neutral* when its code can be shared by all domains
+in the process. The runtime system decides whether to load
+assemblies as domain-neutral when it loads the runtime into a
+process.
+
+
+## Namespace and the FLC class {#DotNetNameSpaces}
+In .NET, the concept of namespaces is used to organize code and to
+define a scope for types (classes, structures, enumerations,
+delegates, and interfaces). When relevant types are grouped into a
+namespace, you avoid possible name clashes when two types with the
+same name are used in a program. With the use of namespaces, two
+types with the same name can be used in a program provided they
+are in different namespaces and the types are qualified with the
+appropriate namespace. The namespace name is part of the
+*fully qualified name* of the type and takes the form:
+*namespaceName.typeName*.
+
+All namespaces in .NET that are shipped by Microsoft begin with
+one of the two names: System or Microsoft. An overview of some of
+the namespaces included in .NET is listed below:
+
+1. System: Contains fundamental core classes that deal with commonly used value and
+   reference types, mathematical manipulation, garbage collection, events and event handlers,
+   interfaces, attributes, and exception handling.
+
+1. System.Collections: Contains classes and interfaces to work with collections of objects,
+   such as queues, stacks, lists, bit arrays, hashtables, and dictionaries.
+
+1. System.Data: Contains classes that define ADO.NET architecture which enables efficient
+   management of data from multiple data sources.
+   
+1. System.Data.Common: Contains classes common to all .NET data providers. A .NET
+   data provider defines a collection of classes used to access a data source.
+   
+1. System.Data.OleDb: Defines classes for OLE DB .NET data provider.
+
+1. Microsoft.Data.Odbc: Defines classes for ODBC .NET data provider.
+
+1. System.Data.SqlClient: Defines classes for SQL Server .NET data provider.
+
+1. System.Data.OracleClient: Defines classes for Oralce .NET data provider.
+
+1. System.Diagnostics: Contains classes to interact with system processes, event logs,
+   tracing, debugging, and performance counters. 
+   
+1. System.Drawing: Contains classes that provide graphics functionality.
+
+1. System.Globalization: Contains classes that define culture-related information such as
+   language, currency, date, calendars, etc.
+
+1. System.IO: Contains types for input/output (I/O) manipulation of streams and files.
+
+1. System.Messaging: Contains classes to work with message queues.
+
+1. System.Net: Provides classes for network programming.
+
+1. System.Reflection: Contains classes that support runtime type discovery.
+
+1. System.Runtime.Remoting: Provides types that allow developers to create and configure
+   distributed applications.
+   
+1. System.Security: Contains classes that deal with security, permissions, cryptography,etc.
+
+1. System.Threading: Provides classes and interfaces needed for multithreaded programming.
+
+1. System.Web: Contains classes and interfaces that enable browser/server communication,
+   cookie manipulation, output cache control, etc.
+
+1. System.Web.Services: Consists of classes used to build and use web services.
+
+1. System.Windows.Forms: Contains classes for creating Windows-based form applications.
+
+1. System.Xml: Contains classes that can be used to create and manipulate XML documents.
+
+
+
+```{r ILDASM, echo = FALSE, out.width = "65%", fig.align='center',fig.cap="Intermediate Language Disassembler"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/ILDASM.png")
+```
+
+
+## Framework Utilities {#DotNetUtilities}
+The .NET Framework and Visual Studio.NET provide many useful tools or utilities which
+can be used to view the contents of an assembly (DLL or EXE), dump assembly contents to
+a file, and browse definitions of namespaces and classes. This section briefly describes some
+of these tools.
+
 
 ### IL Disassembler Utility
+The Intermediate Language Disassembler utility (ILDasm.exe) is
+used to view the contents of an assembly (DLL or EXE). You can
+display assembly manifest, IL instructions, and type metadata.
+Figure \@ref(fig:ILDASM) shows the contents of an assembly named
+DebugDemoApp.exe (corresponding to
+Listing \@ref(DebugDemoApp).
+
+Once an assembly is opened with ILDasm.exe tool, you can view the
+assembly's manifest by double-clicking the MANIFEST node in the
+panel. This launches a separate window displaying the assembly
+manifest. You can display the IL (Figure \@ref(fig:MSIL) for
+methods and fields of types contained in the assembly by
+double-clicking the appropriate node in the tree
+(Figure \@ref(fig:ILDASM). You can dump the IL for an assembly by
+selecting *File* $\vert$ *Dump* menu item and
+providing a file name for the *.il file ^[The notation
+\textsl{File* $\vert$ \textsl{Dump* refers to first clicking on
+File menu item on the menu bar and clicking on Dump submenu item
+in the resulting dropdown.]. You can also dump hierarchical
+organization of types in an assembly by selecting *File*
+$\vert$ *Dump TreeView* menu item and providing a file name
+for the *.txt file. You can view the type metadata by pressing
+CTRL+M (i.e., simultaneously pressing control and M keys on the
+keyboard).
+
+```{r WINCV, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="IWindows Class Viewer Tool"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/WINCV.png")
+```
 
 ### Window Class Viewer Utility
+The Windows Class Viewer (WinCV.exe) tool is used to browse the
+definitions of types provided in the FCL. Figure \@ref(fig:WINCV)
+shows a sample screenshot of WinCV.exe. Enter the name of the type
+you wish to explore in the top textbox and its definition is
+displayed in the right-hand side pane. You can also copy the
+displayed contents to the clipboard for later use.
 
 ### ClassBrowser Web Application
 
+The ClassBrowser is a sample web application that comes with the
+.NET Software Development Kit (SDK) that can be used to explore
+.NET namespaces. Once the .NET SDK samples are installed, you can
+find this application in the directory C:\verb+\+Program
+Files\verb+\+Microsoft Visual Studio .NET
+2003\verb+\+SDK\verb+\+v1.1\verb+\+QuickStart\verb+\+aspplus\verb+\+samples\verb+\+classbrowser.
+You launch the application by navigating to \\
+http://localhost/QuickStart/aspplus/samples/classbrowser/cs/classbrowser.aspx.
+You need to have Microsoft Internet Information Server (IIS)
+installed on your computer to run this application.
+Figure \@ref(fig:ClassBrowser) shows a sample screenshot of this
+application. Click on a namespace in the left pane to see the
+various classes in that namespace displayed in the right pane. By
+clicking on a class name, you can see detailed class information
+--- properties, fields, and methods.
+
 ### Visual Studio .NET Object Browser
+Visual Studio.NET also provides an object browser. This browser
+allows you to explore namespaces and types within them. You can
+access this utility from the \textsl{View} $\vert$ *Other Windows*
+$\vert$ *Object Browser* menu item.
+Figure \@ref(fig:ObjectBrowser) shows screenshot of the Object
+Browser when invoked when a project is open in the IDE. Invoking
+the Object Browser from IDE without a open project doesn't display
+anything.
 
-## Developing Programs Using Visual Studio.Net
+```{r ClassBrowser, echo = FALSE, out.width = "65%", fig.align='center',fig.cap="ClassBrowser Web Application"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/ClassBrowser.png")
+```
 
-## Visual Studio .NET GUI Debugger
+## Developing Programs Using Visual Studio.Net {#DotNetIDE}
+In this section, we show you how to use the Visual Studio.NET's
+Integrated Development Environment (IDE) for developing programs.
+It currently supports four primary .NET-aware programming
+languages: C\#, Visual Basic.NET, Managed C++, and JScript.NET.
+Start Visual Studio.NET by executing the following menu selection
+sequence: *Start* $\vert$ *All Programs* $\vert$
+*Microsoft Visual Studio.NET* $\vert$ *Visual
+Studio.NET*. If you have a desktop shortcut to this program, you
+can start the IDE by double-clicking the shortcut icon. You should
+now see the IDE start window similar to the one shown in
+Figure \@ref(fig:IDE1).
+
+What is shown at startup depends on the options you have selected
+in the IDE for *At Startup* dropdown as shown in
+Figure \@ref(fig:IDE2). You can access this window by selecting
+*Tools* $\vert$ *Options*$\cdots$ menu. As shown in
+the figure, you have four choices for *At Startup*
+dropdown: Show Start Page, Load last loaded solution, Show Open
+Project dialog box, Show New Project dialog box, and Show empty
+environment. The startup window shown in Figure \@ref(fig:IDE1)
+corresponds to the *Show Start Page* option. The
+*Projects* tab of this window lists projects that you have
+worked on and dates they were last modified. *Find Samples*
+tab allows you to search for sample projects that are packaged
+with .NET SDK. These sample projects are useful quick starts
+--- you can pattern your projects based on a relevant
+sample project. Clicking the buttons labeled *Open Project*
+and *New Project* bring up dialog boxes for opening an
+existing project and creating a new project.
+
+```{r ObjectBrowser, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="Visual Studio.NET Object Browser"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/ObjectBrowser.png")
+```
+
+
+
+```{r IDE1, echo = FALSE, out.width = "65%", fig.align='center',fig.cap="Visual Studio.NET startup window"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/IDE1.png")
+```
+
+```{r IDE2, echo = FALSE, out.width = "65%", fig.align='center',fig.cap="Visual Studio.NET startup window options"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/IDE2.png")
+```
+
+
+Let us create a new project by clicking on the *New
+Project* button, which brings up the window shown in
+Figure \@ref(fig:IDE3). In the top left pane labeled
+*Project Types:*, click on *Visual C\# Projects*
+folder and in the top right pane labeled *Templates:*,
+click on *Console Application* icon (you may have to scroll
+down to see this icon). In the textbox labeled *Name:*,
+type StudentApp (this is the name of the project you are
+creating). You also type in a location (i.e., directory path) for
+storing this project in the textbox labeled *Location:*; in
+our case it is:
+
+*C:$\backslash$FundCS1$\backslash$DotNetFramework$\backslash$ProjSol*.
+
+Alternatively, you can specify the directory path by clicking on
+the *Browse*$\cdots$ button and navigating to the desired
+directory. Next click on the *OK* button to complete the
+new project creation process. Now your IDE should look like the
+window shown in Figure \@ref(fig:IDE4). The heavy ellipse in the
+top of the window is added as an annotation using a graphics
+editing program to illustrate a point later on. Therefore, you
+ wouldn't see the ellipse in your window. Code shown in the left
+ pane is created by default: a class named
+*Class1* with one method (named *Main*).
+
+The IDE is in the *design* mode as indicated by the
+presence of the word *design* in the window title
+(Figure \@ref(fig:IDE4)). Below the window title is the
+*menu bar* which lists the top-level menu items: File,
+Edit, View, Project, etc. Below the menu bar are three toolbars
+named *Standard*, *Text Editor*, and *Debug*.
+A toolbar is a collection of graphic icons linearly arranged. Each
+icon provides a specific functionality but the functionality of
+various icons on a toolbar is complementary in solving a problem.
+For example, *Standard* toolbar (the one right below the
+menu bar) features functionality which is common to all projects:
+creating a project, adding an item to an existing project, opening
+and saving files, cut, copy, paste, etc.
+
+An important point to notice on the *Standard Toolbar* is a
+dropdown, for which the value *Debug* is shown (circled in
+red) in Figure \@ref(fig:IDE4). When you compile in debug mode, in
+addition to an EXE file, a *pdb* file is also created. The
+*pdb* file contains necessary information for debugging
+your program (discussed in Section \@ref(IDEDebugger)). You can
+also compile in *Release* mode, in which case only an EXE
+file is produced. Release mode optimizes the program for efficient
+execution and is typically used when the program is ready for
+production use or deployment. Debug mode is used in the
+development stages of the program. Below the *Standard*
+toolbar is *Text Editor* toolbar, which provides
+language-specific or syntax-aware editing help in creating your
+program text --- commenting and uncommenting a block of code,
+increasing and decreasing indentation, bookmark creation and quick
+navigation using the bookmarks. Below the *Text Editor*
+toolbar is *Debug* toolbar, which is discussed in
+Section \@ref(IDEDebugger).
+
+```{r IDE3, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="Visual Studio.NET new project creation window"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/IDE3.png")
+```
+
+Visual Studio.NET IDE comes with an array of toolbars, which can
+be displayed or removed from the IDE by selecting from the
+*View* $\vert$ *Toolbars* menu. By placing the mouse
+cursor on any toolbar icon displays its function. This form of
+displaying help is referred to as *tooltip*. Display
+*Solution Explorer* by selecting *View* $\vert$
+*Solution Explorer* menu. Now your window should look
+similar to the one shown in Figure \@ref(fig:IDE5). If you don't
+see *Properties* window, display it by selecting
+*View* $\vert$ *Properties Window* menu (keyboard
+shortcut is F4). *Solution Explorer* window shows the
+structure of your solution. Typically a solution consists of
+several projects, and a project consists of several components
+(e.g., code and resource files).
+
+
+Shown in *Solution Explorer* window in
+Figure \@ref(fig:IDE5) is a solution named *StudentApp*,
+which has one project named *StudentApp* (indicated in bold
+face). The project has four components: References (other
+components on which this project is dependent), App.ico (an
+application icon, which is a resource), AssemblyInfo.cs (file in
+which assembly information is kept), and Class.cs (C\# source code
+file). To see properties of an item in the *Solution
+Explorer* window, click on it and its properties are shown in the
+*Properties* window. In summary, *Solution Explorer*
+provides a hierarchical view of a solution.
+
+```{r IDE4, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="Debug mode compilation in Visual Studio.NET"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/IDE4.png")
+```
+
+Next display *Class View* window by selecting *View*
+$\vert$ *Class View* menu. Your window should look like the
+one shown in Figure \@ref(fig:IDE6). You may have to expand the
+items (prefixed with +) to make your window look like
+Figure \@ref(fig:IDE6). *Class View* window shows your
+solution from a class perspective. What is shown in the window is
+the project name (StudentApp), a namespace (named StudentApp with
+$\{\}$ prefix, classes within this namespace
+(just Class1 in our example), and members of the class Class1.
+Class members include Bases and Interfaces (ignore this for now)
+and the Main() method.
+
+
+To conserve space in IDE, you can *auto hide* solution
+explorer, class view, index, and properties windows by pressing
+the *push pin* icon on the window. Push pin icon is the one
+to the left of $\times$ icon (located in top rightmost window
+corner). When an item is in auto hide, a miniature icon
+representing the item is shown adjacent to the right edge of the
+IDE window. In Figure \@ref(fig:IDE5), *Class View* is in
+*auto hide*. When you position the mouse cursor on Class
+View auto hide icon, Class View is displayed. When the cursor
+moves outside the boundary of Class View, the latter is
+automatically put in auto hide.
+
+Essence of our StudentApp project is the code shown in
+Listing \@ref(StudentApp). Enter this code into the code pane.
+If the code already exists in a file you can add the code as
+follows. Assume that the code is in a file named Student.cs.
+Delete the file by right clicking on Class1.cs item in the Class
+View window and select *Delete* option from the resulting
+pop-up menu. Copy Student.cs file into the project directory.
+Select *File* $\vert$ *Add Existing Item*$\cdots$
+menu and navigate \textit{File Dialog Box* to the project
+directory (if necessary) and click on Student.cs and then on the
+*Open* button. Though it is not necessary to keep the code
+file Student.cs in the project directory, it is a good practice to
+keep the all the files in the project directory or subdirectories
+of the project directory. Otherwise, it is common for many to
+delete a file since its context is not apparent and realize the
+mistake when it is too late.
+
+```{r IDE5, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="Solution Explorer and Properties windows"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/IDE5.png")
+```
+
+```{r IDE6, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="Class View window"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/IDE6.png")
+```
+
+
+```{r IDE7, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="StudentApp.cs listing in IDE"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/IDE7.png")
+```
+
+Notice the vertical line in the code pane to the left of the code.
+The line has little square shapes (or nodes) placed on it
+corresponding to the beginning line of namespaces, classes, and
+methods. These shapes have $-$ inscribed in them. Clicking on a
+node folds the corresponding method code into one line. A small
+rectangle with $\cdots$ inscribed in it is appended to the line
+and $-$ in the square is turned into $+$. Clicking on a folded
+node unfolds the node by showing the code; and $+$ in the square
+is turned into $-$. Now fold the nodes corresponding to
+TestStudent class, and GetId and GetName methods. Your IDE should
+look like the one shown in Figure \@ref(fig:IDE7). Folding and
+unfolding of code is useful to view your code at various levels
+--- namespace, class, method. At the highest level, your code is
+just one or more namespaces. Namespaces can be expanded to view
+its constituent types; types can be expanded to view their
+members. This feature is especially helpful for large programs
+consisting of several classes.
+
+If you have added the code via *File* $\vert$ *Add*
+*Existing Item*$\cdots$ menu, you may have to expand the nodes in
+the *Class View* window and double-click on a class to see
+the corresponding code in the left pane. You can also view the
+corresponding code by double-clicking the file in the Solution
+Explorer.
+
+```{r IDE8, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="Wizard for adding a class method"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/IDE8.png")
+```
+
+Code can also be added interactively using wizards. For example,
+you can add a method to *Student* class of
+Figure \@ref(fig:IDE7) by right-clicking on the class name (in the
+Class View window) and selecting *Add* menu from the
+resulting popup, and finally selecting the type of class member
+(e.g., method, property, field, indexer). *Add Method*
+wizard is shown in Figure \@ref(fig:IDE8). The wizard allows you to
+specify method access (e.g., public, private, protected), method
+name, return type, parameter lists, among others.
+
+
+Notice the two dropdowns right above the code pane. The left one
+shows various types in the code in your project or solution. In
+our example, we have two classes: Student and TestStudent. If you
+select a specific type (for example, Student class), the right
+dropdown shows all the members of this type. These dropdowns are
+very effective to quickly zoom into a specific part of the code
+without the drudgery of scrolling the code pane.
+
+Compile the source code by selecting *Build* $\vert$
+*Build Solution* menu option. The results of compilation
+(success or failure and related details) are displayed in a new
+window titled *Output* right under the code pane. You can
+close the *Output* window by clicking on $\times$ symbol on
+the top rightmost corner of the window.
+
+Now remove the semicolon at the end of line 27\footnote{How to
+display code line numbers in IDE is discussed in
+Section \@ref(IDEDebugger). (Listing \@ref(StudentApp).
+IDE immediate places a red $\sim$ at the place of the semicolon
+signalling that there is possibly a syntax problem at this
+location. Go ahead and compile the program. As expected, the
+program doesn't compile and the errors are reported in a window
+titled *Task List* right under the code pane as shown in
+Figure \@ref(fig:IDE9). Clicking on a syntax error takes you to the
+line in the code pane that is suspected of causing the error.
+Correct the error by typing the semicolon back in its original
+place. Compile the program. Execute it by selecting the menu
+option *Debug* $\vert$ *Start Without Debugging*.
+The output will be displayed in a command prompt window.
+
+```{r IDE9, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="Removing syntax errors in Visual Studio.NET IDE"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/IDE9.png")
+```
+
+On-line help is an extremely important source of information that
+you rely on to advance your knowledge of C\# and .NET. Selecting
+*Help* $\vert$ *Index*$\cdots$ displays
+*Index* window. Typing System.String in the *Look for:* 
+textbox displays help topics relevant to System.String in
+the pane under *Filtered by:* dropdown. Click on
+*System.String class* topic and you will see detailed
+description about the class as shown in Figure \@ref(fig:IDE10).
+Seeking help online is the only efficient way to get to the
+information very quickly since C\# and .NET documentation is vast.
+
+
+
+## Visual Studio .NET GUI Debugger {#IDEDebugger}
+You should read Section \@ref(DebugStrategies) (you may omit
+discussion on cordbg.exe --- a command-line debugger) before
+reading this section. Visual Studio.NET debugger is a visual tool
+for debugging C\# programs. To illustrate the features of this
+debugger, we employ the same program used for illustrating the
+command line debugger: DebugDemoApp.cs
+(Listing \@ref(DebugDemoApp)). Select *Tools* $\vert$
+*Options* menu to display the window shown in
+Figure \@ref(fig:StudioLinenumbers). In the left column pane, click
+on the folder labeled *Text Editor* to expand it.  Under
+the *Text Editor* folder, click on the subfolder labeled
+*C\#*. Select the checkbox labeled *Line numbers* in
+the lower right side of the window area. Now you should see line
+numbers for the source code as shown in
+Figure \@ref(fig:StudioBreakpoints).
+
+Recall that breakpoints correspond to program statements at which
+you would like the program execution be temporarily suspended so
+that you can examine the *state* of your program ---
+variable and expression values, call stack --- at those
+statements. To set breakpoints, simply click on the gray vertical
+bar at the left of the window corresponding to a source code
+statement. A red circle appears on the gray vertical bar
+indicating that the breakpoint has been set.
+Figure \@ref(fig:StudioBreakpoints) shows two breakpoints at line
+numbers 9 and 23. You can also set a breakpoint by: positioning
+the mouse cursor anywhere on a statement and right-clicking the
+mouse button, and selecting *Insert Breakpoint* menu from
+the resulting popup. Removing breakpoints is just as easy:
+clicking on a red circle removes the corresponding breakpoint.
+Alternatively, you can remove a breakpoint by right-clicking on a
+statement and selecting *Remove Breakpoint* menu from the
+resulting popup. Remove the breakpoint at line 9.
+
+```{r IDE10, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="Online help in Visual Studio.NET IDE"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/IDE10.png")
+```
+
+```{r StudioLinenumbers, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="Displaying source code line numbers in Visual Studio.NET"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/StudioLinenumbers.png")
+```
+
+```{r StudioBreakpoints, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="Setting breakpoints using Visual Studio.NET debugger"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/StudioBreakpoints.png")
+```
+
+Debug* $\vert$ *Start* menu selection starts the
+debugger. Alternatively, you can just press the F5 function key on
+the keyboard. F5 is a keyboard shortcut for *Debug* $\vert$
+*Start* menu selection. Yet you may find using the
+*Debug* toolbar more convenient. Use the tooltip feature to
+get to know functions of the toolbar icons. To start the debugger,
+click on $\blacktriangleright$ icon. Notice that the Visual
+Studio.NET IDE has moved into *break* mode from the
+*design* mode (as indicated by the presence of the term
+*break* in the window title). What submenus and dropdowns
+are available for a given menu item is dependent on the IDE mode:
+design, or debug.
+
+
+The screen snapshot shown in Figure \@ref(fig:DebugMenu) is the
+result of *Debug* $\vert$ *Windows* $\vert$
+*Watch* menu selection. As the figure shows, there are
+several debugger commands available in a debug session. Notice the
+keyboard shortcuts for some of these commands. For example, F10,
+F11, and Shift+F11 (i.e., simultaneously press shift and F11 keys)
+are shortcuts for *Step Over*, *Step Into*, and
+*Step Out*. Table \@ref(tab:DebugMenu) summarizes some of
+these commands. You can stop the debugger by clicking on
+$\blacksquare$ icon on the *Debug* toolbar. Alternatively,
+you can select *Debug* $\vert$ *Stop Debugger* menu
+option (keyboard shortcut Shift+F5) to terminate a debug session.
+
+```{r DebugMenu, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="Debug menu and its submenus"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/DebugMenu.png")
+```
+
+During a debug session, program runtime state information is
+available for examination via several debug windows
+(*Debug* $\vert$ *Windows* menu selection).
+Table \@ref(tab:DebugWindows) explains the purpose or what state
+information is available in some of these windows.
+
+If the breakpoints at lines 9 and 23 are not already set, set them
+now. Start the debugger by clicking on $\blacktriangleright$ icon
+on the *Debug* toolbar. A Console window prompts you for an
+integer value. Sometimes, the Console window may appear behind the
+Visual Studio.NET window. Enter 5 as input in the Console window.
+In debugging console applications, it is necessary to switch
+between the Visual Studio.NET and Console windows. The execution
+suspends at the breakpoint on line 23. Notice that line 23 is
+highlighted with yellow color and there is a right yellow arrow in
+the red circle (denoting the breakpoint). Place the mouse cursor
+over number (line 21), result (line 18), and obj (line 23)
+variables, one at a time, and observe the displayed tooltip (see
+Figure \@ref(fig:ViewingVariableValues).
+
+```{r DebugMenu, echo = FALSE, warning = FALSE, results = 'asis'}
+
+options(knitr.table.format = "html") 
+
+
+library(knitr)
+library(kableExtra)
+
+# column 1 vector
+Debugger_Command <- c("Continue", "Stop Debugging", "Detach All","Restart","Break All","Step Over","Step Into","Step Out","Quick Watch...","New BreakPoint..","Clear All Breakpoint","Disable All Breakpoint")
+
+# column 2 vector
+Command_Description <- c("Resumes execution of a suspended program.","Debugger terminates or detaches from the program you are debugging and ends
+the debugging session.","Allows you to disconnect the debugger from all the programs that it is attached
+to. Automatically terminates the debugger session.","Restarts debugger from the beginning by resetting all variables.","Stops execution of all programs running under the debugger; debugger and the
+application go into break mode; programs do not exit and you can resume execution
+at any time.","Executes next line of code. If the line contains a method call, executes the entire
+method and halts at the first line outside the method. This is useful when you
+want to treat the entire method execution as if it were a single statement.","Similar to Step Over except that if the next line contains a method call, executes
+only the call itself and halts at the first line of code inside the method.","Allows you to step out of a method immediately. It resumes execution of your
+code until the method returns, then breaks at the return point in the calling
+method.","This dialog box enables you to quickly view and change the value of a variable
+or a debugger-recognizable expression.","This dialog box enables you to set additional breakpoints during a debug session.","Removes all the breakpoints permanently.","Disables breakpoints temporarily. The menu item turns into Enable All Breakpoints.
+Disabled breakpoints are enabled using Enable All Breakpoints command.")
+
+# create data frame
+DebugMenu <- data.frame(Debugger_Command, Command_Description, stringsAsFactors = FALSE)
+
+library(knitr)
+
+kable(DebugMenu, caption = "A Select list of Visual Studio.NET debugger commands") %>%
+   kable_styling(bootstrap_options = c("striped", "hover"))
+
+```
+
+```{r DebugWindows, echo = FALSE, warning = FALSE, results = 'asis'}
+
+options(knitr.table.format = "html") 
+
+
+library(knitr)
+library(kableExtra)
+
+# column 1 vector
+Debugger_Window <- c("Breakpoint", "Watch", "Autos","Locals","This","Immediate","Call Stack")
+
+# column 2 vector
+Description <- c("Contains a toolbar and a list of breakpoints currently set in your program. The toolbar
+contains tools including New Breakpoint, Delete, Clear All Breakpoints, Disable
+All Breakpoints, Condition (i.e., condition(s) on which execution suspends at a breakpoint),
+Hit Count (i.e., number of times execution has suspended at the breakpoint),
+among others.","Allows you to evaluate variables and debugger-recognizable expressions and keep the
+results. You can also use this window to edit values of variable(s). By default, four
+watch windows are available.","Lists variable names, their values, and data types for the current and previous statements.
+Note that current statement is the one that will get executed next if execution
+continues. Variable values can be changed in this window by typing new values.","Displays names of all local variables in the current scope, their values, and data types.
+Structure and array variables have a tree control that you can use to display or hide the
+elements. Variable values can be changed in this window by typing a new value.","Enables you to examine data members (e.g., properties and fields) of object(s) associated
+with the current method.","Allows you to type and evaluate an expression immediately. Assignment of a value to
+a variable can also be performed in this window.","Displays the sequence of calls that lead to the current method call.")
+
+# create data frame
+DebugWindows <- data.frame(Debugger_Window, Description, stringsAsFactors = FALSE)
+
+library(knitr)
+
+kable(DebugWindows, caption = "A select list of Visual Studio.NET debugger windows") %>%
+   kable_styling(bootstrap_options = c("striped", "hover"))
+
+```
+
+```{r ViewingVariableValues, echo = FALSE, out.width = "65%", fig.align='center',fig.cap="Viewing variable values and watch window expressions in a debug session"}
+
+knitr::include_graphics("./Images/DotNetFramework/Illus/ViewingVariableValues.png")
+```
+
+Though we didn't explicitly initialize the *result*, it has
+been initialized to zero (the C\# compiler has automatically
+generated the necessary code for this task). Note that
+*obj* is also initialized to *null* --- a special
+value used for object initialization just as 0 is used for integer
+variables. When an object variable value is *null*, the
+object has not been instantiated and we cannot invoke any
+operations. Manipulating such objects will result in runtime error
+conditions or exceptions. Position the mouse cursor on
+*Parse* on line 20. The tooltip displays useful information
+about the method --- its signature and functional description.
+
+Now display watch window *Watch 1* by selecting
+*Debug* $\vert$ *Windows* $\vert$ *Watch*
+$\vert$ *Watch 1* menu option. Alternatively, click the
+*hand* icon dropdown on the *Debug* toolbar (the one
+to the right of *Hex* icon; it is also the last one on the
+toolbar), and select *Watch* $\vert$ *Watch 1* in
+the resulting cascading menus. As shown in
+Figure \@ref(fig:ViewingVariableValues), Watch 1 window has three
+columns: name, value, and type. Enter the expression
+*number $>$ 5* under the name column. The debugger
+immediately evaluates the expression and displays the value in the
+second column. Since the expression (5 $>$ 5) evaluates to
+*false*, the second displays this value. The third column
+indicates that the expression value is of type *bool*. You
+can have several expressions (one per row) in a watch window and
+the IDE comes with four predefined windows: Watch 1, Watch 2,
+Watch 3, and Watch 4. Watch windows are useful to instantly
+evaluate expressions at breakpoints. Close the watch window by
+clicking on $\times$ in top right corner of the window.
+
+Continue your debugging session by clicking on *Step Over*
+icon on the *Debug* toolbar. The debugger suspends
+execution at line 24. Click on *Step Over* again and the
+execution stops at line 25. Now place the mouse cursor over
+*result* in line 24 and notice that tooltip displays its
+value as 120. Notice that *Step Over* treated the call to
+Factorial() as one statement. It didn't trace the execution of
+Factorial method (lines 7--15). Click on *Step Over* and
+the execution stops at line 29, clicking it again terminates the
+program. Close the *Output* window beneath the code pane.
+
+
+Now let us look into how *Step Into* works. Start the
+debugger. Execution stops at the breakpoint (line 23). Now
+clicking on *Step Into* icon two times in succession
+suspends the program execution at line 9 --- the first executable
+statement in the Factorial method. Now you can click on either
+*Step Into* or *Step Over* and see how the
+*for loop* (discussed in Section \@ref(Iteration)) gets
+executed. Notice that the statement(s) in the
+*initializers* section get executed only once when the
+execution control first arrives at the loop. *forCondition*
+is evaluated every time before entering the loop body ---
+embStmtBlock section. Right after executing the embStmtBlock, the
+statement(s) comprising the *forIterator* part are
+executed. Open Watch 1 window and type in the expression $i <= n$
+in the name column. Observe how the values of *i*,
+*fact*, and $i <= n$ change as the execution progresses
+through the loop iteration. You can view the values of *i*
+and *fact* by three different methods: placing the mouse
+cursor over them; via the *Autos* window; entering them as
+two separate expression in Watch 1 window as shown in
+Figure \@ref(fig:MultipleExpressions). Also notice in this figure
+that an error is reported for the value the expression
+*number $>$ 5* in Watch 1 window. This is because the
+variable *number* is defined in Main() and is not visible
+(or out of scope) in Parse().
+
+Line 10 has three executable statements, one for each of
+*initializers*, *forCondition*, and
+*forIterator*. For such lines you can set a breakpoint at a
+specific statement by placing the mouse cursor on it,
+right-clicking, and selecting *Set Breakpoint* from the
+resulting popup menu.
+
+
+You should experiments with various debugger commands to get a
+deeper understanding of their working. Knowing the debugger well
+saves you a lot of time and agony. It is often considered as a
+best friend of programmers.
+
+```{r MultipleExpressions, echo = FALSE, out.width = "75%", fig.align='center',fig.cap="Viewing variable values and watch window expressions in a debug session"}
+knitr::include_graphics("./Images/DotNetFramework/Illus/MultipleExpressions.png")
+```
+
+
+
 
 ## Chapter Summary
+The .NET Framework is an object-oriented environment for building
+applications in the distributed environment of the Internet. Its
+goals include unifying various programming models; supporting
+extensible, component-based development; integrating with Web
+standards and practices, and making application development
+simpler and easier.
+
+At the highest level, Common Language Runtime (CLR) and Framework
+Class Library (FCL) comprise the Framework. CLR includes Common
+Type System (CTS), Metadata System, and Execution System. CTS is a
+formal specification that defines how types are declared, used,
+and managed during program execution time. Metadata is data about
+types and assemblies, which makes the latter self-describing.
+*Reflection* refers to examining the metadata at runtime.
+Metadata system generates and manages this data. Execution System
+manages code execution by providing services such as memory and
+thread management, and remoting.
+
+Code that is developed by language compilers and tools that target
+CLR is called *managed code*; the code that doesn't target
+CLR is known as *unmanaged code*. Objects whose lifetimes
+are managed by the Execution System comprise *managed
+data*. Primary benefits of managed data is the elimination of two
+most common application errors: *memory leaks* and
+*invalid memory references*.
+
+
+FCL includes base class library (core classes for threading,
+security, graphics, network communication); classes for database
+and XML data access and manipulation; and classes for developing
+conventional client/server, Web-based, and Web Services
+applications.
+
+
+Common Language Specification (CLS) defines a minimal, basic set
+of language features that programmers can rely on being available
+in a wide variety of lanuages. Languages that conform to the
+baseline defined by CLS are referred to as *.NET-aware*
+languages. CLS conformance is critical for language
+interoperability --- ability to compose an application using
+several pieces of code, each of which is developed in a different
+language.
+
+Assemblies are the building blocks of .NET applications. An
+*assembly* is a logical unit of functionality from
+deployment perspective. It is a versioned, self-describing binary
+(DLL or EXE). An assembly, in general, consists of four elements:
+manifest, type metadata, Microsoft Intermediate Language (MSIL),
+and resources. Assembly manifest describes contents of an assembly
+--- namespaces for resolving requests for types, types that are
+accessible only from within an assembly, types that are exported,
+and security permissions for running the assembly. Type metadata
+describes information about types. MSIL is computer-independent
+representation of programs written in .NET-aware languages. MSIL
+is subsequently converted into computer-specific instructions
+using a Just-In-Time (JIT) compiler.
+
+An assembly is single-file or multi-file depending on how it is
+produced. In *single-file assemblies*, all elements of an
+assembly are contained in a single physical file. Elements of an
+assembly are contained in multiple physical files in the case of a
+*multi-file assembly*. An assembly can be static or
+dynamic. *Static assemblies* are stored on disk in Portable
+Execution (PE) file format. In contrast, *dynamic
+assemblies* are run directly from memory after their generation.
+You can save them after their execution. An assembly can be
+private or shared. A *private assembly* is used only by the
+application with which it has been deployed. In contrast,
+*shared assemblies* are used by several applications. They
+are installed in a machine-wide Global Assembly Cache (GAC) and
+are required to have strong names. A *strong name*
+guarantees name uniqueness and facilitates *side-by-side*
+execution.
+
+Managed execution process describes the steps required to take
+advantage of CLR. They include choosing a .NET-aware language
+compiler, developing code, compiling the code into MSIL, compiling
+MSIL into native code, and executing the native code.
+
+Namespace is a concept that is used to organize code and define a
+scope for types. Using namespaces avoids type name conflicts in
+your program. All namespaces in .NET that are shipped by Microsoft
+begin with either System or Microsoft.
+
+The .NET Framework provides several tools and utilities to help
+programmers. They include Intermediate Language (IL) Disassembler,
+Windows Class Viewer, ClassBrowser Web application, and Visual
+Studio.NET Object Browser. You use IL Disassembler to examine the
+contents of an assembly. Windows Class Viewer is used to browse
+definitions of types in FCL. ClassBrowser Web application is an
+alternative to Windows Class Viewer to browse .NET namespaces and
+types in them. Visual Studio.NET Object Browser is yet another
+alternative for exploring namespaces and their types.
+
+
+Visual Studio.NET is an Integrated Development Environment (IDE)
+for developing .NET applications. It features a syntax-aware text
+editor which helps you to eliminate most of the syntax errors as
+you type your program. Wizards are also available to help you
+develop code. IDE provides several toolbars including Standard,
+Text Editor, Debug, and Debug Location. You can look at your code
+from different perspectives using Solution Explorer, Server
+Explorer, Class View, Resource View, and Properties.
+
+The IDE also features a GUI debugger. Features such as
+breakpoints, Step Into, Step Over, Step Out, Watch and other
+windows in a graphical environment makes debugging easier and more
+productive.
 
 ## Exercises
+
+1. Determine if each of the following statements is true or false:
+
+     - MSIL is a set of machine-specific instructions.
+     - Managed code benefits from features such as cross-language integration, cross-language exception
+       handling, enhanced security, etc.
+     - In .NET, the term type refers to only classes and structures.
+     - Reference types are allocated on the heap.
+     - Value types derive from System.ValueType class.
+     - Operations on one value type variable can affect another value type variable.
+     - Types provided in Framework Class Library are CLS-complaint.
+     - An assembly is a self-describing DLL or EXE unit.  
+     - A private assembly must have a strong name.
+     - Static assemblies are created using the Reflection.Emit API classes.
+
+1. In Table \@ref(tab:DotNetMatch), match each item on the left
+   with an item on the right.
+   
+```{r DotNetMatch, echo = FALSE, warning = FALSE, results = 'asis'}
+
+options(knitr.table.format = "html") 
+
+
+library(knitr)
+library(kableExtra)
+
+# create column 1 vector
+Column_1 <- c("Common Language Runtime
+(CLR)", "Managed code", "Common Type System (CTS)","Managed data","Value type","Common Language Specification
+(CLS)","Reference type",".NET-aware programming
+language","Assembly","MSIL")
+
+# create column 2 vector
+Column_2 <- c("A versioned, self-describing binary unit","Types that directly contain their data","Code that targets the CLR","Manages the execution of code and provides services
+to make development easier","Types that store a reference to value’s memory address","Specification that defines how types are declared,
+used, and managed during the runtime","Helps in language interoperability","Code that CLR execut","Data whose lifetime is managed by the CLR","Programming language whose compiler targets
+CLR")
+
+# create data frame
+Col <- data.frame(Column_1, Column_2, stringsAsFactors = FALSE)
+
+library(knitr)
+
+kable(Col, caption = "Multi-perspective view of a class") %>%
+   kable_styling(bootstrap_options = c("striped", "hover"))
+
+```
+
+
+
+1. List the contents of a .NET assembly
+
+1. List the contents of an assembly’s manifest.
+
+1. List two most common application errors resolved by the automatic memory management mechanism
+   provided in .NET.
+   
+1. Explain how a shared assembly differs from a private assembly.
+
+1. What is the Global Assembly Cache (GAC)?
+
+1. Find out where the Global Assembly Cache (GAC) directory is located on your machine
+
+1. What is the Global Assembly Cache Tool (gacutil.exe)?
+
+1. Find out where the Global Assembly Cache Tool is located on your machine.
+
+1. Using the online documentation on gacutil.exe, determine the meaning of each of the following commands.
+   Documentation on gacutil.exe can be obtained using Visual Studio.Net IDE or by typing gacutil
+   /? or gacutil /h at command prompt.
+     
+    - gacutil /l
+    - gacutil /i StudentApp.dll
+    - gacutil /if StudentApp.dll
+    - gacutil /u StudentApp.dll 
+    
+1. What is the use of the Strong Name Tool (sn.exe)?
+
+
+1. Give the appropriate sn command to create/generate a public/private key pair and store it in a file named
+   key.snk. Check out the online documentation on sn tool using Visual Studio.Net IDE or by typing sn -?
+   or sn -h at command prompt.
+1. What is a dynamic assembly? Managed types from what .NET namespace are used to create dynamic
+   assemblies? Can dynamic assemblies be persisted to a disk?
+
+1. The Intermediate Language Disassembler utility (Ildasm.exe) is used to view the contents of an assembly
+   (.exe or .dll) in a human-readable format. Find out where this tool is located on your computer.
+
+1. Using the Ildasm.exe tool, open the assembly (.exe file from the application’s binndebug directory)
+   generated for the StudentApp project in Section 5.9 and dump its MSIL to a file named StudentApp.il.
+
+1. The System.Int32 class defines two constant fields. List these constant fields along with their values.
+   Use online documentation.
+
+1. The System.Single and System.Double types define six constant fields. List these constant fields. Use
+   online documentation or WinCV.exe tool. Recall that in C#, the float type is an alias for System.Single
+   and the type double is an alias for System.Double.
+
+1. Give the keyboard shortcuts for these debugging commands: Step Over, Step In, and Step Out.
+
+1. The debug build of a program generates *.pdb file along with exe/dll file. What is the *.pdb file for and
+   what are its contents?
+
+1. Can you debug a program without the corresponding pdb file?
+
+1. What is a breakpoint? How is it useful during program debugging?
+
+1. Visual Studio.NET debugger allows you to set four types of breakpoints. Find information on this
+   subject using online documentation.
+
+1. Is there a difference between testing and debugging of a program?
+
+1. How is a release build different from a debug build of a program? Use online documentation.
+
+1. 1. Using online documentation or WinCV.exe tool, enter information on the members of System.Single
+   class in Table \@ref(tab:SystemSingleTab). The type of a member is F for field, P for property, and M for method.
+   
+```{r SystemSingleTab, echo = FALSE, warning = FALSE, results = 'asis'}
+
+options(knitr.table.format = "html") 
+
+
+library(knitr)
+library(kableExtra)
+
+# create column 1 vector
+Member_Name <- c("Max Value","NegativeInfinity","CompareTo","IsInfinity","Parse")
+
+# create column 2 vector
+Type <- c("","","","","")
+
+# create column 3 vector
+Static <- c("","","","","")
+
+# create column 4 vector
+Virtual <- c("","","","","")
+
+# create column 5 vector
+Abstract <- c("","","","","")
+
+# create column 6 vector
+Return_type <- c("","","","","")
+
+# create data frame
+Col <- data.frame(Member_Name, Type, Static, Virtual, Abstract, Return_type, stringsAsFactors = FALSE)
+
+library(knitr)
+
+kable(Col, caption = "Exploring System.Single class using WinCV.exe too") %>%
+   kable_styling(bootstrap_options = c("striped", "hover"))
+
+```
+
+
+1. Using online documentation or WinCV.exe tool, enter information on the members of System.Char
+   class in Table \@ref(tab:SystemCharTab) The type of a member is F for field, P for property, and M for method.
+   
+```{r SystemCharTab, echo = FALSE, warning = FALSE, results = 'asis'}
+
+options(knitr.table.format = "html") 
+
+
+library(knitr)
+library(kableExtra)
+
+# create column 1 vector
+Member_Name <- c("Min Value","Equals","GetNumericValue","IsWhiteSpace","ToLower")
+
+# create column 2 vector
+Type <- c("","","","","")
+
+# create column 3 vector
+Static <- c("","","","","")
+
+# create column 4 vector
+Virtual <- c("","","","","")
+
+# create column 5 vector
+Abstract <- c("","","","","")
+
+# create column 6 vector
+Return_type <- c("","","","","")
+
+# create data frame
+Col <- data.frame(Member_Name, Type, Static, Virtual, Abstract, Return_type, stringsAsFactors = FALSE)
+
+library(knitr)
+
+kable(Col, caption = "Exploring System.Char class using WinCV.exe too") %>%
+   kable_styling(bootstrap_options = c("striped", "hover"))
+
+```
+
+
+1. Using online documentation or WinCV.exe tool, enter information on the members of System.Math
+   class in Table \@ref(tab:SystemMathTab) The type of a member is F for field, P for property, and M for method.
+   
+```{r SystemMathTab, echo = FALSE, warning = FALSE, results = 'asis'}
+
+options(knitr.table.format = "html") 
+
+
+library(knitr)
+library(kableExtra)
+
+# create column 1 vector
+Member_Name <- c("PI","Ceiling","GetHashCode","Log 10","ToString")
+
+# create column 2 vector
+Type <- c("","","","","")
+
+# create column 3 vector
+Static <- c("","","","","")
+
+# create column 4 vector
+Virtual <- c("","","","","")
+
+# create column 5 vector
+Abstract <- c("","","","","")
+
+# create column 6 vector
+Return_type <- c("","","","","")
+
+# create data frame
+Col <- data.frame(Member_Name, Type, Static, Virtual, Abstract, Return_type, stringsAsFactors = FALSE)
+
+library(knitr)
+
+kable(Col, caption = "Exploring System.Math class using WinCV.exe too") %>%
+   kable_styling(bootstrap_options = c("striped", "hover"))
+
+```
+
+1. Using online documentation or WinCV.exe tool, enter information on the members of System.String
+   class in Table \@ref(tab:SystemStringTab) The type of a member is F for field, P for property, and M for          method.
+   
+
+```{r SystemStringTab, echo = FALSE, warning = FALSE, results = 'asis'}
+
+options(knitr.table.format = "html") 
+
+
+library(knitr)
+library(kableExtra)
+
+# create column 1 vector
+Member_Name <- c("Empty","Length","Compare","EndsWith","Insert","LastIndexOfArray","ToCharArray","Clone")
+
+# create column 2 vector
+Type <- c("","","","","","","","")
+
+# create column 3 vector
+Static <- c("","","","","","","","")
+
+# create column 4 vector
+Virtual <- c("","","","","","","","")
+
+# create column 5 vector
+Abstract <- c("","","","","","","","")
+
+# create column 6 vector
+Return_type <- c("","","","","","","","")
+
+# create data frame
+Col <- data.frame(Member_Name, Type, Static, Virtual, Abstract, Return_type, stringsAsFactors = FALSE)
+
+library(knitr)
+
+kable(Col, caption = "Exploring System.String class using WinCV.exe too") %>%
+   kable_styling(bootstrap_options = c("striped", "hover"))
+
+```
+
+1. Using online documentation or WinCV.exe tool, enter information on the members of System.Console
+   class in Table\@ref(tab:SystemConsoleTab) The type of a member is F for field, P for property, and M for method.
+   
+
+```{r SystemConsoleTab, echo = FALSE, warning = FALSE, results = 'asis'}
+
+options(knitr.table.format = "html") 
+
+
+library(knitr)
+library(kableExtra)
+
+# create column 1 vector
+Member_Name <- c("Error","SetIn","Out","ReadLine","WriteLine")
+
+# create column 2 vector
+Type <- c("","","","","")
+
+# create column 3 vector
+Static <- c("","","","","")
+
+# create column 4 vector
+Virtual <- c("","","","","")
+
+# create column 5 vector
+Abstract <- c("","","","","")
+
+# create column 6 vector
+Return_type <- c("","","","","")
+
+# create data frame
+Col <- data.frame(Member_Name, Type, Static, Virtual, Abstract, Return_type, stringsAsFactors = FALSE)
+
+library(knitr)
+
+kable(Col, caption = "Exploring System.Console class using WinCV.exe too") %>%
+   kable_styling(bootstrap_options = c("striped", "hover"))
+
+```
+
+
+
+
+
